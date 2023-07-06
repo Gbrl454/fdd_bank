@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sbancario
+    username: root
+    password: root
+server:
+  error:
+    include-stacktrace: never
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:senhaPadrao}
