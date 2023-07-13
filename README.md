@@ -2,94 +2,96 @@
 
 <br/>
 
-sistema bancario
-deve possuir as entidades
-- banco
-  -- numero do banco (id)
-  -- nome do banco
+### Sistema bancario deve possuir as entidades:
+- Banco:
+  - Número do Banco (id)
+  - Nome do Banco
+  
+<p></p>
 
-- usuário
-  -- numero do usuário (id)
-  -- nome do usuário
-  -- email
-  -- usuario
-  -- senha
+- Usuário:
+  - Número do Usuário (id)
+  - Nome do Usuário
+  - Email
+  - Usuário
+  - Senha
 
-- agencia
-  -- numero da agencia (id)
-  -- numero do banco
-  -- nome da agencia
+<p></p>
 
-- conta
-  -- numero da conta (id)
-  -- numero da agencia
-  -- numero do usuário
-  -- saldo da conta
-  -- podem existir 3 tipos de conta
-  --conta normal
-  - não possui nada em especial
-  -- conta especial
-  - possui cartão de credito (sim / não)
-  - saldo do cartão de credito
-  -- conta premium
-  - possui cartão de credito (sim / não)
-  - saldo do cartão de credito
-  - possui LIS (sim / não)
-  - saldo do LIS
+- Agência:
+  - Número da Agência (id)
+  - Número do Banco
+  - Nome da Agência
 
-o exercicio vai estar dividido em algumas etapas
+<p></p>
 
-etapa 1
-O usuario vai informar seus dados, os dados do banco, agencia, conta, tipo de conta e adicionais da conta e ter suas informações salvas
-- passo 1 - cadastro de banco
-- passo 2 - cadastro de agencia
-- passo 3 - cadastro de usuario
-- passo 4 - cadastro de conta
-- passo 5 - no cadastro de usuario emails devem estar formatados como email para passar. Caso contrario impedir o avanço
-- passo 6 - no cadastro de conta, o usuario deve informar qual tipo de conta ele quer e, com base no tipo de conta
-ser solicitado as informações pertinentes.
+- Conta:
+  - Número da Conta (id)
+  - Número da Agência
+  - Número do Usuário
+  - Saldo da Conta
+  - Podem existir 3 tipos de Contas:
+    - Normal:
+      - Possui nada em especial
+    - Especial:
+      - Pode possuir cartão de crédito
+      - Saldo do cartão de crédito
+    - Premium:
+      - Pode possuir cartão de crédito
+      - Saldo do cartão de crédito
+      - Pode possuir LIS
+      - Saldo do LIS
 
-etapa 2
-com usuários previamente cadastrados deve ser possivel transacionar valores entre contas
-- passo 1 - cadastrar informações de diversas contas (min 3)
-- passo 2 - criar função que realize transferencia de saldo entre contas ao especificar o numero do usuario de origem, destino e
-valor
+<p></p>
 
-etapa 3
-um usuário pode fazer login informando seu usuario e senha e realizar pagamentos para outras contas previamente cadastradas
-- passo 1 - cadastrar informações de diversas contas (min 3)
-- passo 2 - criar forma de login utilizando usuario e senha previamente cadastrados
-- passo 3 - criar forma de login utilizando usuario ou email e senha previamente cadastrados
+### O exercicio vai estar dividido em algumas etapas
 
-etapa 4
-criar log de transações realizadas
-- passo 1 - criar nova entidade log
-- numero do banco de origem
-- numero da agencia de origem
-- numero da conta de origem
-- numero do banco de destino
-- numero da agencia de destino
-- numero da conta de destino
-- valor
-- horario da transação
-- passo 2 - sempre que houver uma transação devem ser criados logs para identificar as transações ocorridas
+- Etapa 1 -> O usuario vai informar seus dados, os dados do banco, agencia, conta, tipo de conta e adicionais da conta e ter suas informações salvas
+  - Passo 1 -> Cadastro de Banco
+  - Passo 2 -> Cadastro de Agência
+  - Passo 3 -> Cadastro de Usuário
+  - Passo 4 -> Cadastro de Conta
+  - Passo 5 -> No cadastro de Usuário Emails devem estar formatados como email para passar. Caso contrario impedir o avanço
+  - Passo 6 -> No cadastro de conta, o Usuário deve informar qual tipo de conta ele quer e, com base no tipo de conta
+  ser solicitado as informações pertinentes.
 
 
-etapa 5
-organizando seu código
-- passo 1 - todas as listas utilizadas no projeto devem seguir o padrão fifo (first in, first out)
-- passo 2 - todas as informações referentes a dinheiro ou saldo devem estar salvas em centavos e exibidas em real
-- passo 3 - estudar modelo mvc (model, view, controller).
-https://www.lewagon.com/pt-BR/blog/o-que-e-padrao-mvc
-
-	- passo 4 - utilizar camada model para criar todos os modelos de classes utilizadas no projeto
-		  - utilizar camada controller para gerenciar todas as operações logicas do projeto
-		  - utilizar camada view para gerenciar o que e como aparecem todas as infos na tela do usuario
+- Etapa 2 -> com usuários previamente cadastrados deve ser possivel transacionar valores entre contas
+  - Passo 1 -> Cadastrar informações de diversas contas (min 3)
+  - Passo 2 -> Criar função que realize transferencia de saldo entre contas ao especificar o número do usuario de origem, destino e valor
 
 
-etapa 6
-plus ultra - seu projeto agora vai estar sendo usado em outro país todos os textos devem ser disponibilizados em inglês
-o usuário escolhe em qual lingua vai utilizar
+- Etapa 3 -> Um usuário pode fazer login informando seu usuario e senha e realizar pagamentos para outras contas previamente cadastradas
+  - Passo 1 -> Cadastrar informações de diversas contas (min 3)
+  - Passo 2 -> Criar forma de login utilizando usuario e senha previamente cadastrados
+  - Passo 3 -> Criar forma de login utilizando usuario ou email e senha previamente cadastrados
 
+
+- Etapa 4 -> Criar log de transações realizadas
+  - Passo 1 -> Criar entidade log possuindo:
+    - Número do Banco de origem
+    - Número da Agência de origem
+    - Número da Conta de origem
+    - Número do Banco de destino
+    - Número da Agência de destino
+    - Número da Conta de destino
+    - Valor
+    - Horario da transação
+  - Passo 2 -> Sempre que houver uma transação devem ser criados logs para identificar as transações ocorridas
+
+
+- Etapa 5 -> Organizando seu código
+  - Passo 1 -> Todas as listas utilizadas no projeto devem seguir o padrão fifo (first in, first out)
+  - Passo 2 -> Todas as informações referentes a dinheiro ou saldo devem estar salvas em centavos e exibidas em real
+  - Passo 3 -> Estudar modelo MVC (model, view, controller).
+  https://www.lewagon.com/pt-BR/blog/o-que-e-padrao-mvc
+  - Passo 4:
+    - Utilizar camada model para criar todos os modelos de classes utilizadas no projeto
+    - Utilizar camada controller para gerenciar todas as operações logicas do projeto
+    - Utilizar camada view para gerenciar o que e como aparecem todas as infos na tela do usuario
+
+
+- Etapa 6
+  - Plus Ultra -> Seu projeto agora vai estar sendo usado em outro país todos os textos devem ser disponibilizados em inglês, o usuário escolhe em qual lingua vai utilizar
 
 By: Daneil Andrade Ripardo
