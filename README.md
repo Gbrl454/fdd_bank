@@ -13,7 +13,7 @@
   - Número do Usuário (id)
   - Nome do Usuário
   - Email
-  - Usuário
+  - Login
   - Senha
 
 <p></p>
