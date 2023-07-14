@@ -1,7 +1,6 @@
 package dtec.bank.api.domain.agencia;
 
 import dtec.bank.api.domain.banco.Banco;
-import dtec.bank.api.domain.banco.DadosCadastroBanco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,6 +22,5 @@ public class Agencia {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "banco_id")
-    private Banco idBanco;
-
+    private Banco banco;
 }
