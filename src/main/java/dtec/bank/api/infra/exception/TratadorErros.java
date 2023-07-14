@@ -23,8 +23,13 @@ public class TratadorErros {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity tratarUnique(DataIntegrityViolationException e) {
+    public ResponseEntity tratarUnique (DataIntegrityViolationException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity tratarErroRegrasDeNogocio (ValidacaoException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     private record DadosErroValidacao(String campo, String mensagem) {
