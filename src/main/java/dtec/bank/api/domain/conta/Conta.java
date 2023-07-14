@@ -3,8 +3,6 @@ package dtec.bank.api.domain.conta;
 import dtec.bank.api.domain.agencia.Agencia;
 import dtec.bank.api.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
