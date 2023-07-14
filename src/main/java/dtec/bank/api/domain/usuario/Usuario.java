@@ -23,4 +23,11 @@ public class Usuario {
     @Column(unique = true)
     private String login;
     private String senha;
+
+    public Usuario (DadosCadastroUsuario dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.login = dados.login();
+        this.senha = dados.senha();
+    }
 }
