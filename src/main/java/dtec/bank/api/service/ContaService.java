@@ -35,43 +35,90 @@ public class ContaService {
 
         var usuario = usuarioRepository.getReferenceById(dados.idUsuario());
 
-        var conta = new Conta();
+        boolean cartao_de_credito = false;
+        Double saldo_cartao_de_credito = 0.0;
+        boolean lis = false;
+        Double saldo_lis = 0.0;
 
         switch (dados.tipo()) {
             case NORMAL -> {
-                if (dados.cartao_de_credito() != null && dados.cartao_de_credito()) {
+                if ((dados.cartao_de_credito() != null && dados.cartao_de_credito()) || (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0)) {
                     throw new ValidacaoException("Contas do Tipo NORMAL não podem possuir Cartão de Crédito!");
                 }
 
-                if (dados.lis() != null && dados.lis()) {
+                if ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0)) {
                     throw new ValidacaoException("Contas do Tipo NORMAL não podem possuir Cheque Especial (LIS)!");
                 }
-
-                // conta = new Conta(null, agencia, usuario, dados.saldo(), dados.tipo(), false, new BigDecimal(0), false, new BigDecimal(0));
             }
             case ESPECIAL -> {
-                if (dados.cartao_de_credito() != null && dados.cartao_de_credito() && dados.saldo_cartao_de_credito() == null) {
-                    throw new ValidacaoException("Contas do Tipo ESPECIAL devem informar o Saldo do Cartão de Crédito!");
+                if (dados.cartao_de_credito() != null) {
+                    cartao_de_credito = dados.cartao_de_credito();
+
+                    if (cartao_de_credito) {
+                        if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                            saldo_cartao_de_credito = dados.saldo_cartao_de_credito();
+                        } else {
+                            throw new ValidacaoException("Saldo do Cartão de Crédito deve ser informado quando a Conta possui Cartão de Crédito!");
+                        }
+                    } else {
+                        if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                            throw new ValidacaoException("Saldo do Cartão de Crédito somente deve ser informado quando a Conta possui Cartão de Crédito!");
+                        }
+                    }
+                } else {
+                    if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                        throw new ValidacaoException("Saldo do Cartão de Crédito somente deve ser informado quando a Conta possui Cartão de Crédito!");
+                    }
                 }
 
-                if (dados.lis() != null && dados.lis()) {
+                if ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0)) {
                     throw new ValidacaoException("Contas do Tipo ESPECIAL não podem possuir Cheque Especial (LIS)!");
                 }
-
-                // conta = new Conta(null, agencia, usuario, dados.saldo(), dados.tipo(), dados.cartao_de_credito(), dados.saldo_cartao_de_credito(), false, new BigDecimal(0));
             }
             case PREMIUM -> {
-                if (dados.cartao_de_credito() && dados.saldo_cartao_de_credito() == null) {
-                    throw new ValidacaoException("Contas do Tipo PREMIUM devem informar o Saldo do Cartão de Crédito!");
+                if (dados.cartao_de_credito() != null) {
+                    cartao_de_credito = dados.cartao_de_credito();
+
+                    if (cartao_de_credito) {
+                        if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                            saldo_cartao_de_credito = dados.saldo_cartao_de_credito();
+                        } else {
+                            throw new ValidacaoException("Saldo do Cartão de Crédito deve ser informado quando a Conta possui Cartão de Crédito!");
+                        }
+                    } else {
+                        if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                            throw new ValidacaoException("Saldo do Cartão de Crédito somente deve ser informado quando a Conta possui Cartão de Crédito!");
+                        }
+                    }
+                } else {
+                    if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                        throw new ValidacaoException("Saldo do Cartão de Crédito somente deve ser informado quando a Conta possui Cartão de Crédito!");
+                    }
                 }
 
-                if (dados.lis() && dados.saldo_lis() == null) {
-                    throw new ValidacaoException("Contas do Tipo PREMIUM devem informar o Saldo do Cheque Especial (LIS)!");
-                }
+                if (dados.lis() != null) {
+                    lis = dados.lis();
 
-                // conta = new Conta(null, agencia, usuario, dados.saldo(), dados.tipo(), dados.cartao_de_credito(), dados.saldo_cartao_de_credito(), dados.lis(), dados.saldo_lis());
+                    if (lis) {
+                        if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
+                            saldo_lis = dados.saldo_lis();
+                        } else {
+                            throw new ValidacaoException("Saldo do Cheque Especial (LIS) deve ser informado quando a Conta possui Cheque Especial (LIS)!");
+                        }
+                    } else {
+                        if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
+                            throw new ValidacaoException("Saldo do Cheque Especial (LIS) somente deve ser informado quando a Conta possui Cheque Especial (LIS)!");
+                        }
+                    }
+                } else {
+                    if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
+                        throw new ValidacaoException("Saldo do Cheque Especial (LIS) somente deve ser informado quando a Conta possui Cheque Especial (LIS)!");
+                    }
+                }
             }
         }
+
+        var conta = new Conta(null, agencia, usuario, dados.saldo(), dados.tipo(), cartao_de_credito, saldo_cartao_de_credito, lis, saldo_lis);
 
         contaRepository.save(conta);
         return new DadosDetalhamentoConta(conta);

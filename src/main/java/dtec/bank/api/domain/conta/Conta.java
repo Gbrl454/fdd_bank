@@ -8,8 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Table(name = "contas")
 @Entity(name = "Conta")
 @Getter
@@ -28,13 +26,13 @@ public class Conta {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-    private BigDecimal saldo;
+    private Double saldo;
 
     @Enumerated(EnumType.STRING)
     private TipoConta tipo;
 
     private Boolean cartao_de_credito;
-    private BigDecimal saldo_cartao_de_credito;
+    private Double saldo_cartao_de_credito;
     private Boolean lis;
-    private BigDecimal saldo_lis;
+    private Double saldo_lis;
 }
