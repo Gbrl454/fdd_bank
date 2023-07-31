@@ -7,6 +7,7 @@ import dtec.bank.api.entity.dto.DadosCadastroConta;
 import dtec.bank.api.entity.dto.DadosDetalhamentoConta;
 import dtec.bank.api.repository.UsuarioRepository;
 import dtec.bank.api.exception.ValidacaoException;
+import dtec.bank.api.utils.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +25,13 @@ public class ContaService {
 
     public DadosDetalhamentoConta cadastrar (DadosCadastroConta dados) {
         if (!agenciaRepository.existsById(dados.idAgencia())) {
-            throw new ValidacaoException("ID de Agência informado inexistente!");
+            throw new ValidacaoException(ErrorMessage.idAgenciaNotExist);
         }
 
         var agencia = agenciaRepository.getReferenceById(dados.idAgencia());
 
         if (!usuarioRepository.existsById(dados.idUsuario())) {
-            throw new ValidacaoException("ID de Usuário informado inexistente!");
+            throw new ValidacaoException(ErrorMessage.idUsuarioNotExist);
         }
 
         var usuario = usuarioRepository.getReferenceById(dados.idUsuario());
@@ -43,11 +44,11 @@ public class ContaService {
         switch (dados.tipo()) {
             case NORMAL -> {
                 if ((dados.cartao_de_credito() != null && dados.cartao_de_credito()) || (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0)) {
-                    throw new ValidacaoException("Contas do Tipo NORMAL não podem possuir Cartão de Crédito!");
+                    throw new ValidacaoException(ErrorMessage.accountNormalCantHaveCreditCard);
                 }
 
                 if ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0)) {
-                    throw new ValidacaoException("Contas do Tipo NORMAL não podem possuir Cheque Especial (LIS)!");
+                    throw new ValidacaoException(ErrorMessage.accountNormalCantHaveLIS);
                 }
             }
             case ESPECIAL -> {
@@ -58,7 +59,7 @@ public class ContaService {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
                             saldo_cartao_de_credito = dados.saldo_cartao_de_credito();
                         } else {
-                            throw new ValidacaoException("Saldo do Cartão de Crédito deve ser informado quando a Conta possui Cartão de Crédito!");
+                            throw new ValidacaoException(ErrorMessage.balanceCreditCardUninformed);
                         }
                     } else {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
@@ -72,7 +73,7 @@ public class ContaService {
                 }
 
                 if ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0)) {
-                    throw new ValidacaoException("Contas do Tipo ESPECIAL não podem possuir Cheque Especial (LIS)!");
+                    throw new ValidacaoException(ErrorMessage.accountEspecialCantHaveLIS);
                 }
             }
             case PREMIUM -> {

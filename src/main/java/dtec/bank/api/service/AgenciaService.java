@@ -6,6 +6,7 @@ import dtec.bank.api.entity.dto.DadosCadastroAgencia;
 import dtec.bank.api.entity.dto.DadosDetalhamentoAgencia;
 import dtec.bank.api.repository.BancoRepository;
 import dtec.bank.api.exception.ValidacaoException;
+import dtec.bank.api.utils.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -20,18 +21,18 @@ public class AgenciaService {
 
     public DadosDetalhamentoAgencia cadastrar (DadosCadastroAgencia dados) {
         if (dados.idBanco() != null && !bancoRepository.existsById(dados.idBanco())) {
-            throw new ValidacaoException("ID do Banco informado não existe!");
+            throw new ValidacaoException(ErrorMessage.idBancoNotExist);
         }
 
         var banco = bancoRepository.getReferenceById(dados.idBanco());
         if (banco == null) {
-            throw new ValidacaoException("ID de Banco informado inválido!");
+            throw new ValidacaoException(ErrorMessage.idBancoInvalid);
         }
 
         var agencia = new Agencia(null, dados.nome(), banco);
 
         if (agenciaRepository.findByNome(agencia.getNome()) != null) {
-            throw new DataIntegrityViolationException("Já existe uma Agência com esse Nome");
+            throw new DataIntegrityViolationException(ErrorMessage.nameAgenciaNameExists.getMessage());
         }
 
         agenciaRepository.save(agencia);
