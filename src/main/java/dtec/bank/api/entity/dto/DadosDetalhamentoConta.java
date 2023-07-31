@@ -1,6 +1,7 @@
-package dtec.bank.api.domain.conta;
+package dtec.bank.api.entity.dto;
 
-import java.math.BigDecimal;
+import dtec.bank.api.entity.Conta;
+import dtec.bank.api.utils.TipoConta;
 
 public record DadosDetalhamentoConta(Long id, Long idAgencia, Long idUsuario, Double saldo, TipoConta tipo,
                                      Boolean cartao_de_credito, Double saldo_cartao_de_credito, Boolean lis,

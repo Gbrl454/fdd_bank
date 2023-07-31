@@ -1,6 +1,6 @@
 package dtec.bank.api.controller;
 
-import dtec.bank.api.domain.usuario.DadosCadastroUsuario;
+import dtec.bank.api.entity.dto.DadosCadastroUsuario;
 import dtec.bank.api.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

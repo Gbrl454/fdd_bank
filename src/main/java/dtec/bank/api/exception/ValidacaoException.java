@@ -1,4 +1,4 @@
-package dtec.bank.api.infra.exception;
+package dtec.bank.api.exception;
 
 public class ValidacaoException extends RuntimeException {
     public ValidacaoException (String mensagem) {

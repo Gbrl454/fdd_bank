@@ -1,4 +1,6 @@
-package dtec.bank.api.domain.banco;
+package dtec.bank.api.entity.dto;
+
+import dtec.bank.api.entity.Banco;
 
 public record DadosDetalhamentoBanco(Long id, String nome) {
     public DadosDetalhamentoBanco (Banco banco) {

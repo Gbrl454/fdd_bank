@@ -1,4 +1,4 @@
-package dtec.bank.api;
+package dtec.bank.api.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -1,4 +1,4 @@
-package dtec.bank.api.domain.transferencia;
+package dtec.bank.api.entity.dto;
 
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;

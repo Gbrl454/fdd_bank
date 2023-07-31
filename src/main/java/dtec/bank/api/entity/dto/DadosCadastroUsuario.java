@@ -1,4 +1,4 @@
-package dtec.bank.api.domain.usuario;
+package dtec.bank.api.entity.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

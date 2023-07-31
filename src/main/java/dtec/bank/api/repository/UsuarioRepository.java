@@ -1,5 +1,6 @@
-package dtec.bank.api.domain.usuario;
+package dtec.bank.api.repository;
 
+import dtec.bank.api.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {

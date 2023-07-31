@@ -1,4 +1,4 @@
-package dtec.bank.api.domain.banco;
+package dtec.bank.api.entity.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

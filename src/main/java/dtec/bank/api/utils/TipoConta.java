@@ -1,4 +1,4 @@
-package dtec.bank.api.domain.conta;
+package dtec.bank.api.utils;
 
 public enum TipoConta {
     NORMAL, ESPECIAL, PREMIUM

@@ -1,7 +1,6 @@
-package dtec.bank.api.domain.conta;
+package dtec.bank.api.entity;
 
-import dtec.bank.api.domain.agencia.Agencia;
-import dtec.bank.api.domain.usuario.Usuario;
+import dtec.bank.api.utils.TipoConta;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

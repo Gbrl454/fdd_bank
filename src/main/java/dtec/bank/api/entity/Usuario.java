@@ -1,5 +1,6 @@
-package dtec.bank.api.domain.usuario;
+package dtec.bank.api.entity;
 
+import dtec.bank.api.entity.dto.DadosCadastroUsuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

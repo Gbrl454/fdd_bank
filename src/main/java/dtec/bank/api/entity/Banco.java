@@ -1,26 +1,27 @@
-package dtec.bank.api.domain.agencia;
+package dtec.bank.api.entity;
 
-import dtec.bank.api.domain.banco.Banco;
+import dtec.bank.api.entity.dto.DadosCadastroBanco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "agencias")
-@Entity(name = "Agencia")
+@Table(name = "bancos")
+@Entity(name = "Banco")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Agencia {
+public class Banco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String nome;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "banco_id")
-    private Banco banco;
+    public Banco (DadosCadastroBanco dados) {
+        this.nome = dados.nome();
+    }
 }

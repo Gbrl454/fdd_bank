@@ -1,8 +1,5 @@
-package dtec.bank.api.domain.transferencia;
+package dtec.bank.api.entity;
 
-import dtec.bank.api.domain.agencia.Agencia;
-import dtec.bank.api.domain.banco.Banco;
-import dtec.bank.api.domain.conta.Conta;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

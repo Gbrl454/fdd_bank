@@ -1,12 +1,12 @@
 package dtec.bank.api.service;
 
-import dtec.bank.api.domain.agencia.AgenciaRepository;
-import dtec.bank.api.domain.conta.Conta;
-import dtec.bank.api.domain.conta.ContaRepository;
-import dtec.bank.api.domain.conta.DadosCadastroConta;
-import dtec.bank.api.domain.conta.DadosDetalhamentoConta;
-import dtec.bank.api.domain.usuario.UsuarioRepository;
-import dtec.bank.api.infra.exception.ValidacaoException;
+import dtec.bank.api.repository.AgenciaRepository;
+import dtec.bank.api.entity.Conta;
+import dtec.bank.api.repository.ContaRepository;
+import dtec.bank.api.entity.dto.DadosCadastroConta;
+import dtec.bank.api.entity.dto.DadosDetalhamentoConta;
+import dtec.bank.api.repository.UsuarioRepository;
+import dtec.bank.api.exception.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

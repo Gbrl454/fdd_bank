@@ -1,9 +1,9 @@
 package dtec.bank.api.service;
 
-import dtec.bank.api.domain.banco.Banco;
-import dtec.bank.api.domain.banco.BancoRepository;
-import dtec.bank.api.domain.banco.DadosCadastroBanco;
-import dtec.bank.api.domain.banco.DadosDetalhamentoBanco;
+import dtec.bank.api.entity.Banco;
+import dtec.bank.api.repository.BancoRepository;
+import dtec.bank.api.entity.dto.DadosCadastroBanco;
+import dtec.bank.api.entity.dto.DadosDetalhamentoBanco;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;

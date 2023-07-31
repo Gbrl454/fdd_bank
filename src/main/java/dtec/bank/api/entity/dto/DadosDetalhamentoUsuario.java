@@ -1,4 +1,6 @@
-package dtec.bank.api.domain.usuario;
+package dtec.bank.api.entity.dto;
+
+import dtec.bank.api.entity.Usuario;
 
 public record DadosDetalhamentoUsuario(Long id, String nome, String email, String login) {
     public DadosDetalhamentoUsuario (Usuario usuario) {

@@ -1,6 +1,6 @@
 package dtec.bank.api.controller;
 
-import dtec.bank.api.domain.agencia.DadosCadastroAgencia;
+import dtec.bank.api.entity.dto.DadosCadastroAgencia;
 import dtec.bank.api.service.AgenciaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

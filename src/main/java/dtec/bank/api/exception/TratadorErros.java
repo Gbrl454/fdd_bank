@@ -1,4 +1,4 @@
-package dtec.bank.api.infra.exception;
+package dtec.bank.api.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;

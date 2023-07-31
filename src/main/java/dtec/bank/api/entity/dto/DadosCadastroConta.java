@@ -1,5 +1,6 @@
-package dtec.bank.api.domain.conta;
+package dtec.bank.api.entity.dto;
 
+import dtec.bank.api.utils.TipoConta;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
