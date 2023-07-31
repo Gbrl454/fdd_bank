@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 // TODO pesquisar
 //@PrePersist
@@ -47,6 +49,11 @@ public class Transferencia {
     private Conta dConta;
 
     private Double valor;
-    private Timestamp horario_tranferencia;
+    private LocalDateTime horario_tranferencia;
     private Boolean sucesso;
+
+    @PrePersist
+    public void setHorario_tranferencia(){
+        this.horario_tranferencia = LocalDateTime.now(ZoneId.of("UTC-0"));
+    }
 }
