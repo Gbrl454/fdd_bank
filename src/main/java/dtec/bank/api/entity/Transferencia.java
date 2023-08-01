@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -25,35 +24,37 @@ public class Transferencia {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "o_banco_id")
-    private Banco oBanco;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "o_agencia_id")
-    private Agencia oAgencia;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "o_conta_id")
     private Conta oConta;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "d_banco_id")
-    private Banco dBanco;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "d_agencia_id")
-    private Agencia dAgencia;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "d_conta_id")
     private Conta dConta;
 
-    private Double valor;
+    private Long valor;
     private LocalDateTime horario_tranferencia;
     private Boolean sucesso;
+    private String motivo;
+
+    public Transferencia (Long id, Conta oConta, Conta dConta, Long valor) {
+        this.id = id;
+        this.oConta = oConta;
+        this.dConta = dConta;
+        this.valor = valor;
+        this.sucesso = true;
+    }
+
+    public Transferencia (Long id, Conta oConta, Conta dConta, Long valor, String motivo) {
+        this.id = id;
+        this.oConta = oConta;
+        this.dConta = dConta;
+        this.valor = valor;
+        this.sucesso = false;
+        this.motivo = motivo;
+    }
 
     @PrePersist
-    public void setHorario_tranferencia(){
+    public void setHorario_tranferencia () {
         this.horario_tranferencia = LocalDateTime.now(ZoneId.of("UTC-0"));
     }
 }

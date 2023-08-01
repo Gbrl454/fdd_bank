@@ -6,4 +6,8 @@ public class ValidacaoException extends RuntimeException {
     public ValidacaoException (ErrorMessage errorMessage) {
         super(errorMessage.getMessage());
     }
+
+    public ValidacaoException (String errorMessage) {
+        super(errorMessage);
+    }
 }

@@ -1,12 +1,12 @@
 package dtec.bank.api.service;
 
-import dtec.bank.api.repository.AgenciaRepository;
 import dtec.bank.api.entity.Conta;
-import dtec.bank.api.repository.ContaRepository;
 import dtec.bank.api.entity.dto.DadosCadastroConta;
 import dtec.bank.api.entity.dto.DadosDetalhamentoConta;
-import dtec.bank.api.repository.UsuarioRepository;
 import dtec.bank.api.exception.ValidacaoException;
+import dtec.bank.api.repository.AgenciaRepository;
+import dtec.bank.api.repository.ContaRepository;
+import dtec.bank.api.repository.UsuarioRepository;
 import dtec.bank.api.utils.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,7 +119,8 @@ public class ContaService {
             }
         }
 
-        var conta = new Conta(null, agencia, usuario, dados.saldo(), dados.tipo(), cartao_de_credito, saldo_cartao_de_credito, lis, saldo_lis);
+        int cents = 100;
+        var conta = new Conta(null, agencia, usuario, dados.moeda(), dados.saldo() * cents, dados.tipo(), cartao_de_credito, saldo_cartao_de_credito * cents, lis, saldo_lis * cents);
 
         contaRepository.save(conta);
         return new DadosDetalhamentoConta(conta);

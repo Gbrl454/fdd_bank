@@ -21,14 +21,36 @@ public enum ErrorMessage {
      * ID do Banco não existe no banco de dados
      */
     idBancoNotExist("ID do Banco informado não existe!"),
+//    /**
+//     * ID do Banco da Origem da Transferência não existe no banco de dados
+//     */
+//    idBancoOrigemNotExist("ID do Banco (Origem) informado não existe!"),
+//    /**
+//     * ID do Banco do Destinatário da Transferência não existe no banco de dados
+//     */
+//    idBancoDestinoNotExist("ID do Banco (Destinatário) informado não existe!"),
+//    /**
+//     * ID da Agência da Origem da Transferência não existe no banco de dados
+//     */
+//    idAgenciaOrigemNotExist("ID da Agência (Origem) informada não existe!"),
+//    /**
+//     * ID da Agência do Destinatário da Transferência não existe no banco de dados
+//     */
+//    idAgenciaDestinoNotExist("ID da Agência (Destinatário) informada não existe!"),
+
     /**
-     * ID do Banco da Origem da Transferência não existe no banco de dados
+     * ID da Conta da Origem da Transferência não existe no banco de dados
      */
-    idBancoOrigemNotExist("ID do Banco (Origem) informado não existe!"),
+    idContaOrigemNotExist("ID da Conta (Origem) informada não existe!"),
     /**
-     * ID do Banco do Destinatário da Transferência não existe no banco de dados
+     * ID da Conta do Destinatário da Transferência não existe no banco de dados
      */
-    idBancoDestinoNotExist("ID do Banco (Destinatário) informado não existe!"),
+    idContaDestinoNotExist("ID da Conta (Destinatário) informada não existe!"),
+    /**
+     * Os IDs informados para Conta (Origem) e Conta (Destinatário) são iguais
+     */
+    idContaOrigemDestinatarioEquals("O ID da Conta (Destinatário) não pode ser o mesmo da Conta (Origem)!"),
+
     /**
      * ID do Usuário não existe no banco de dados
      */
