@@ -1,6 +1,7 @@
 package dtec.bank.api.entity;
 
 import dtec.bank.api.entity.dto.DadosCadastroBanco;
+import dtec.bank.api.utils.Pais;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -21,7 +22,11 @@ public class Banco {
     @Column(unique = true)
     private String nome;
 
+    @Enumerated(EnumType.STRING)
+    private Pais pais;
+
     public Banco (DadosCadastroBanco dados) {
         this.nome = dados.nome();
+        this.pais = dados.pais();
     }
 }

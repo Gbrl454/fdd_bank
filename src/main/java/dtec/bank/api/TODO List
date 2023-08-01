@@ -1,4 +1,16 @@
-Ao criar usuário colocar a senha codificada
-Criar Token no login
-Validar Token para requisições
-Trabalhar com valores monetarios em centavos de real
+Usuário
+    Ao criar usuário colocar a senha codificada
+    Criar Token no login
+    Validar Token para requisições
+Banco
+    OK - Colocar indicador de pais no Banco
+    A partir do pais mudar idioma das mensagens
+Conta
+    Colocar indicador de moeda na Conta
+    Ao cadastrar deve salvar saldo no banco em centavos de real
+Tranferencia
+    Para o banco o horario da transferencia deve ser de acorco com o UTF-0
+    Para o detalhamento o horario da transferencia deve ser de acorco com o UTF da conta de origem
+    Motivo se não for realizada
+    Ao cadastrar converter moeda da conta de origem para centavos de real
+    Ao detalhar mostrar na moeda referente a conta de origem
