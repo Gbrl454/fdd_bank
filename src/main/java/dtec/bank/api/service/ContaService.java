@@ -37,9 +37,9 @@ public class ContaService {
         var usuario = usuarioRepository.getReferenceById(dados.idUsuario());
 
         boolean cartao_de_credito = false;
-        Double saldo_cartao_de_credito = 0.0;
+        long saldo_cartao_de_credito = 0L;
         boolean lis = false;
-        Double saldo_lis = 0.0;
+        long saldo_lis = 0L;
 
         switch (dados.tipo()) {
             case NORMAL -> {
@@ -57,7 +57,7 @@ public class ContaService {
 
                     if (cartao_de_credito) {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                            saldo_cartao_de_credito = dados.saldo_cartao_de_credito();
+                            saldo_cartao_de_credito = (long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador());
                         } else {
                             throw new ValidacaoException(ErrorMessage.balanceCreditCardUninformed);
                         }
@@ -82,7 +82,7 @@ public class ContaService {
 
                     if (cartao_de_credito) {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                            saldo_cartao_de_credito = dados.saldo_cartao_de_credito();
+                            saldo_cartao_de_credito = (long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador());
                         } else {
                             throw new ValidacaoException("Saldo do Cartão de Crédito deve ser informado quando a Conta possui Cartão de Crédito!");
                         }
@@ -102,7 +102,7 @@ public class ContaService {
 
                     if (lis) {
                         if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
-                            saldo_lis = dados.saldo_lis();
+                            saldo_lis = (long) (dados.saldo_lis() * dados.moeda().getMultiplicador());
                         } else {
                             throw new ValidacaoException("Saldo do Cheque Especial (LIS) deve ser informado quando a Conta possui Cheque Especial (LIS)!");
                         }
@@ -119,9 +119,9 @@ public class ContaService {
             }
         }
 
-        int cents = 100;
-        var conta = new Conta(null, agencia, usuario, dados.moeda(), dados.saldo() * cents, dados.tipo(), cartao_de_credito, saldo_cartao_de_credito * cents, lis, saldo_lis * cents);
+        Long saldo = (long) (dados.saldo() * dados.moeda().getMultiplicador());
 
+        var conta = new Conta(null, agencia, usuario, dados.moeda(), saldo, dados.tipo(), cartao_de_credito, saldo_cartao_de_credito, lis, saldo_lis);
         contaRepository.save(conta);
         return new DadosDetalhamentoConta(conta);
     }
