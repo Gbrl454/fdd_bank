@@ -11,10 +11,6 @@ Conta
     OK - Colocar indicador de moeda na Conta
     OK - Ao cadastrar deve salvar saldo no banco em real (1 real -> 10000)
 Transferência
-    Para o banco o horário da transferência deve ser de acordo com o UTF-0
-    Para o detalhamento o horário da transferência deve ser de acordo com o UTF da conta de origem
+    OK - Para o banco o horário da transferência deve ser de acordo com o UTF-0
     Motivo se não for realizada
-    Ao cadastrar converter moeda da conta de origem para real (1 real -> 10000)
-    Ao detalhar mostrar na moeda referente a conta de origem
-
-
+    OK - Ao cadastrar converter moeda da conta de origem para real (1 real -> 10000)

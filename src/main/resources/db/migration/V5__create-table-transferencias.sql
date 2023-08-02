@@ -6,6 +6,7 @@ create table transferencias
     valor                bigint    not null,
     horario_tranferencia timestamp not null,
     sucesso              tinyint   not null,
+    motivo               varchar(25),
 
     primary key (id),
     constraint fk_transferencias_o_contas_id foreign key (o_conta_id) references contas (id),

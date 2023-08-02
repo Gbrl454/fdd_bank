@@ -1,6 +1,5 @@
 package dtec.bank.api.controller;
 
-import dtec.bank.api.entity.Transferencia;
 import dtec.bank.api.entity.dto.DadosCadastroTransferencia;
 import dtec.bank.api.service.TransferenciaService;
 import jakarta.validation.Valid;
