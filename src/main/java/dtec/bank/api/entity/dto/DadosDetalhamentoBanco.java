@@ -1,10 +1,9 @@
 package dtec.bank.api.entity.dto;
 
 import dtec.bank.api.entity.Banco;
-import dtec.bank.api.utils.Pais;
 
-public record DadosDetalhamentoBanco(Long id, String nome, Pais pais) {
+public record DadosDetalhamentoBanco(Long id, String nome, DadosDetalhamentoPais pais) {
     public DadosDetalhamentoBanco (Banco banco) {
-        this(banco.getId(), banco.getNome(), banco.getPais());
+        this(banco.getId(), banco.getNome(), new DadosDetalhamentoPais(banco.getPais()));
     }
 }
