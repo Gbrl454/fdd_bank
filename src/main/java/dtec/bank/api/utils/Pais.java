@@ -1,8 +1,8 @@
 package dtec.bank.api.utils;
 
 public enum Pais {
-    BRA ("Brasil", "PT-BR", 3),
-    USA("Estados Unidos da America", "EN-US",-2);
+    BRA ("Brasil", "PT", 3),
+    USA("Estados Unidos da America", "EN",-2);
 
     private String nome;
     private String idioma;

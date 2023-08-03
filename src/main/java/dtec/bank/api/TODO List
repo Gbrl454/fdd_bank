@@ -1,12 +1,13 @@
 Global
     Unificar mensagens
+    A partir do idioma colocado no header mudar idioma das mensagens
+    Revisar mensagens
 Usuário
     Ao criar usuário colocar a senha codificada
     Criar Token no login
     Validar Token para requisições
 Banco
     OK - Colocar indicador de pais no Banco
-    A partir do pais mudar idioma das mensagens
 Conta
     OK - Colocar indicador de moeda na Conta
     OK - Ao cadastrar deve salvar saldo no banco em real (1 real -> 10000)
