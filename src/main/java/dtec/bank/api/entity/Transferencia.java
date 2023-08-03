@@ -36,15 +36,7 @@ public class Transferencia {
     private Boolean sucesso;
     private String motivo;
 
-    public Transferencia (Long id, Conta oConta, Conta dConta, Long valor) {
-        this.id = id;
-        this.oConta = oConta;
-        this.dConta = dConta;
-        this.valor = valor;
-        this.sucesso = true;
-    }
-
-    public Transferencia (Long id, Conta oConta, Conta dConta, Long valor, String motivo) {
+    public Transferencia(Long id, Conta oConta, Conta dConta, Long valor, String motivo) {
         this.id = id;
         this.oConta = oConta;
         this.dConta = dConta;
@@ -53,8 +45,16 @@ public class Transferencia {
         this.motivo = motivo;
     }
 
+    public Transferencia(Long id, Conta oConta, Conta dConta, Long valor) {
+        this.id = id;
+        this.oConta = oConta;
+        this.dConta = dConta;
+        this.valor = valor;
+        this.sucesso = true;
+    }
+
     @PrePersist
-    public void setHorario_tranferencia () {
+    public void setHorario_tranferencia() {
         this.horario_tranferencia = LocalDateTime.now(ZoneId.of("UTC-0"));
     }
 }

@@ -50,7 +50,6 @@ public enum ErrorMessage {
      * Os IDs informados para Conta (Origem) e Conta (Destinatário) são iguais
      */
     idContaOrigemDestinatarioEquals("O ID da Conta (Destinatário) não pode ser o mesmo da Conta (Origem)!"),
-
     /**
      * ID do Usuário não existe no banco de dados
      */
@@ -66,15 +65,19 @@ public enum ErrorMessage {
     /**
      * Conta possuiu Cartão de Crédito, mas não informou o Saldo
      */
-    balanceCreditCardUninformed("Saldo do Cartão de Crédito deve ser informado quando a Conta possui Cartão de Crédito!");
+    balanceCreditCardUninformed("Saldo do Cartão de Crédito deve ser informado quando a Conta possui Cartão de Crédito!"),
+    /**
+     * Saldo da conta junto ao Saldo LIS e Saldo do Cartão de Crédito são insuficientes para realizar a Transferência
+     */
+    saldoTransferenciaInsuficiente("Saldos insuficientes para realizar a Transferência");
 
     private final String message;
 
-    ErrorMessage (String message) {
+    ErrorMessage(String message) {
         this.message = message;
     }
 
-    public String getMessage () {
+    public String getMessage() {
         return message;
     }
 }

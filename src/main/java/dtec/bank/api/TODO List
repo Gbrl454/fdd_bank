@@ -12,5 +12,7 @@ Conta
     OK - Ao cadastrar deve salvar saldo no banco em real (1 real -> 10000)
 Transferência
     OK - Para o banco o horário da transferência deve ser de acordo com o UTF-0
-    Motivo se não for realizada
+    OK - Motivo se não for realizada
     OK - Ao cadastrar converter moeda da conta de origem para real (1 real -> 10000)
+    OK - Retirar saldo da conta de Origem
+    OK - Colocar saldo na conta de Destino
