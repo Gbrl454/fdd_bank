@@ -7,31 +7,41 @@ import dtec.bank.api.exception.ValidacaoException;
 import dtec.bank.api.repository.AgenciaRepository;
 import dtec.bank.api.repository.ContaRepository;
 import dtec.bank.api.repository.UsuarioRepository;
-import dtec.bank.api.utils.ErrorMessage;
+import dtec.bank.api.utils.BankLocateResolver;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ContaService {
+
+    @Autowired
+    BankLocateResolver locateResolver;
+    @Autowired
+    MessageSource messageSource;
+    @Autowired
+    HttpServletRequest request;
     @Autowired
     ContaRepository contaRepository;
-
     @Autowired
     AgenciaRepository agenciaRepository;
-
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    private String get(String key) {
+        return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));
+    }
 
-    public DadosDetalhamentoConta cadastrar (DadosCadastroConta dados) {
+    public DadosDetalhamentoConta cadastrar(DadosCadastroConta dados) {
         if (!agenciaRepository.existsById(dados.idAgencia())) {
-            throw new ValidacaoException(ErrorMessage.idAgenciaNotExist);
+            throw new ValidacaoException(get("agencia.id.notexist"));
         }
 
         var agencia = agenciaRepository.getReferenceById(dados.idAgencia());
 
         if (!usuarioRepository.existsById(dados.idUsuario())) {
-            throw new ValidacaoException(ErrorMessage.idUsuarioNotExist);
+            throw new ValidacaoException(get("usuario.id.notexist"));
         }
 
         var usuario = usuarioRepository.getReferenceById(dados.idUsuario());
@@ -44,11 +54,11 @@ public class ContaService {
         switch (dados.tipo()) {
             case NORMAL -> {
                 if ((dados.cartao_de_credito() != null && dados.cartao_de_credito()) || (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0)) {
-                    throw new ValidacaoException(ErrorMessage.accountNormalCantHaveCreditCard);
+                    throw new ValidacaoException(get("conta.normal.notown.creditcard"));
                 }
 
                 if ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0)) {
-                    throw new ValidacaoException(ErrorMessage.accountNormalCantHaveLIS);
+                    throw new ValidacaoException(get("conta.normal.notown.lis"));
                 }
             }
             case ESPECIAL -> {
@@ -59,21 +69,21 @@ public class ContaService {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
                             saldo_cartao_de_credito = (long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador());
                         } else {
-                            throw new ValidacaoException(ErrorMessage.balanceCreditCardUninformed);
+                            throw new ValidacaoException(get("saldo.creditcard.uninformed"));
                         }
                     } else {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                            throw new ValidacaoException("Saldo do Cartão de Crédito somente deve ser informado quando a Conta possui Cartão de Crédito!");
+                            throw new ValidacaoException(get("saldo.creditcard.informonlyhave"));
                         }
                     }
                 } else {
                     if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                        throw new ValidacaoException("Saldo do Cartão de Crédito somente deve ser informado quando a Conta possui Cartão de Crédito!");
+                        throw new ValidacaoException(get("saldo.creditcard.informonlyhave"));
                     }
                 }
 
                 if ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0)) {
-                    throw new ValidacaoException(ErrorMessage.accountEspecialCantHaveLIS);
+                    throw new ValidacaoException(get("conta.especial.notown.lis"));
                 }
             }
             case PREMIUM -> {
@@ -84,16 +94,16 @@ public class ContaService {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
                             saldo_cartao_de_credito = (long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador());
                         } else {
-                            throw new ValidacaoException("Saldo do Cartão de Crédito deve ser informado quando a Conta possui Cartão de Crédito!");
+                            throw new ValidacaoException(get("saldo.creditcard.informwhenhave"));
                         }
                     } else {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                            throw new ValidacaoException("Saldo do Cartão de Crédito somente deve ser informado quando a Conta possui Cartão de Crédito!");
+                            throw new ValidacaoException(get("saldo.creditcard.informonlyhave"));
                         }
                     }
                 } else {
                     if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                        throw new ValidacaoException("Saldo do Cartão de Crédito somente deve ser informado quando a Conta possui Cartão de Crédito!");
+                        throw new ValidacaoException(get("saldo.creditcard.informonlyhave"));
                     }
                 }
 
@@ -104,16 +114,16 @@ public class ContaService {
                         if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
                             saldo_lis = (long) (dados.saldo_lis() * dados.moeda().getMultiplicador());
                         } else {
-                            throw new ValidacaoException("Saldo do Cheque Especial (LIS) deve ser informado quando a Conta possui Cheque Especial (LIS)!");
+                            throw new ValidacaoException(get("saldo.lis.informwhenhave"));
                         }
                     } else {
                         if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
-                            throw new ValidacaoException("Saldo do Cheque Especial (LIS) somente deve ser informado quando a Conta possui Cheque Especial (LIS)!");
+                            throw new ValidacaoException(get("saldo.lis.informonlyhave"));
                         }
                     }
                 } else {
                     if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
-                        throw new ValidacaoException("Saldo do Cheque Especial (LIS) somente deve ser informado quando a Conta possui Cheque Especial (LIS)!");
+                        throw new ValidacaoException(get("saldo.lis.informonlyhave"));
                     }
                 }
             }

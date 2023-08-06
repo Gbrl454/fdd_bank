@@ -10,36 +10,45 @@ import dtec.bank.api.repository.AgenciaRepository;
 import dtec.bank.api.repository.BancoRepository;
 import dtec.bank.api.repository.ContaRepository;
 import dtec.bank.api.repository.TransferenciaRepository;
-import dtec.bank.api.utils.ErrorMessage;
+import dtec.bank.api.utils.BankLocateResolver;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TransferenciaService {
 
     @Autowired
+    BankLocateResolver locateResolver;
+    @Autowired
+    MessageSource messageSource;
+    @Autowired
+    HttpServletRequest request;
+    @Autowired
     BancoRepository bancoRepository;
-
     @Autowired
     AgenciaRepository agenciaRepository;
-
     @Autowired
     ContaRepository contaRepository;
-
     @Autowired
     TransferenciaRepository transferenciaRepository;
 
+    private String get(String key) {
+        return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));
+    }
+
     public DadosDetalhamentoTransferencia cadastrar(DadosCadastroTransferencia dados) {
         if (dados.idOConta() != null && !contaRepository.existsById(dados.idOConta())) {
-            throw new ValidacaoException(ErrorMessage.idContaOrigemNotExist);
+            throw new ValidacaoException(get("conta.origem.notexist"));
         }
 
         if (dados.idDConta() != null && !contaRepository.existsById(dados.idDConta())) {
-            throw new ValidacaoException(ErrorMessage.idContaDestinoNotExist);
+            throw new ValidacaoException(get("conta.destino.notexist"));
         }
 
         if (dados.idOConta().equals(dados.idDConta())) {
-            throw new ValidacaoException(ErrorMessage.idContaOrigemDestinatarioEquals);
+            throw new ValidacaoException(get("conta.origemdestinatarioequals"));
         }
 
         Conta oConta = contaRepository.getReferenceById(dados.idOConta());
@@ -83,6 +92,6 @@ public class TransferenciaService {
             return;
         }
 
-        throw new TransferenciaException(ErrorMessage.saldoTransferenciaInsuficiente);
+        throw new TransferenciaException(get("saldo.transferencia.insuficiente"));
     }
 }

@@ -1,7 +1,7 @@
 Global
-    Unificar mensagens
+    OK - Unificar mensagens
     A partir do idioma colocado no header mudar idioma das mensagens
-    Revisar mensagens
+    OK - Revisar mensagens
 Usuário
     Ao criar usuário colocar a senha codificada
     Criar Token no login
