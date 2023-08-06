@@ -1,11 +1,11 @@
 Global
     OK - Unificar mensagens
-    A partir do idioma colocado no header mudar idioma das mensagens
+    OK - A partir do idioma colocado no header mudar idioma das mensagens
     OK - Revisar mensagens
 Usuário
-    Ao criar usuário colocar a senha codificada
-    Criar Token no login
-    Validar Token para requisições
+    OK - Ao criar usuário colocar a senha codificada
+    OK - Criar Token no login
+    OK - Validar Token para requisições
 Banco
     OK - Colocar indicador de pais no Banco
 Conta

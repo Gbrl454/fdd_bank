@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,8 @@ public class UsuarioService {
     HttpServletRequest request;
     @Autowired
     UsuarioRepository usuarioRepository;
+    PasswordEncoder encoder;
+
 
     private String get(String key) {
         return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));
@@ -29,6 +32,9 @@ public class UsuarioService {
 
     public DadosDetalhamentoUsuario cadastrar(DadosCadastroUsuario dados) {
         var usuario = new Usuario(dados);
+
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
+
         if (usuarioRepository.findByEmail(usuario.getEmail()) != null) {
             throw new DataIntegrityViolationException(get("usuario.email.therealready"));
         }
