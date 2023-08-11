@@ -23,6 +23,7 @@ public class UsuarioService {
     HttpServletRequest request;
     @Autowired
     UsuarioRepository usuarioRepository;
+    @Autowired
     PasswordEncoder encoder;
 
 
