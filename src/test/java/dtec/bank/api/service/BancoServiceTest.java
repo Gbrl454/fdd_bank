@@ -29,11 +29,12 @@ class BancoServiceTest {
     private MessageSource messageSource;
     @Mock
     private BancoRepository bancoRepository;
+    private MockHttpServletRequest request;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        request = new MockHttpServletRequest();
     }
 
     @Test
@@ -53,10 +54,11 @@ class BancoServiceTest {
     void testCadastrarBancoNomeDuplicado() {
         DadosCadastroBanco dados = new DadosCadastroBanco("Banco", Pais.BRA);
         when(bancoRepository.findByNome(dados.nome())).thenReturn(new Banco(dados));
+        when(messageSource.getMessage("banco.nome.therealready", null, locateResolver.resolveLocale(request))).thenReturn("Já existe um Banco com esse Nome");
 
-        assertThrows(DataIntegrityViolationException.class, () -> {
-            bancoService.cadastrar(dados);
-        });
+        assertEquals(
+                assertThrows(DataIntegrityViolationException.class, () -> bancoService.cadastrar(dados)).getMessage(),
+                "Já existe um Banco com esse Nome");
     }
 
     @Test
@@ -73,8 +75,8 @@ class BancoServiceTest {
 
         when(bancoRepository.findByNome(dados2.nome())).thenReturn(new Banco(dados1));
 
-        assertThrows(DataIntegrityViolationException.class, () -> {
-            bancoService.cadastrar(dados2);
-        });
+        assertEquals(
+                assertThrows(DataIntegrityViolationException.class, () -> bancoService.cadastrar(dados2)).getMessage(),
+                "Já existe um Banco com esse Nome");
     }
 }
