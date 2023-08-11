@@ -37,9 +37,6 @@ public class AgenciaService {
         }
 
         var banco = bancoRepository.getReferenceById(dados.idBanco());
-        if (banco == null) {
-            throw new ValidacaoException(get("banco.id.invalid"));
-        }
 
         var agencia = new Agencia(null, dados.nome(), banco);
 
