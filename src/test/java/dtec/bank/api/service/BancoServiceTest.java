@@ -1,5 +1,6 @@
 package dtec.bank.api.service;
 
+import dtec.bank.api.ConfigTests;
 import dtec.bank.api.entity.Banco;
 import dtec.bank.api.entity.dto.DadosCadastroBanco;
 import dtec.bank.api.entity.dto.DadosDetalhamentoBanco;
@@ -19,7 +20,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class BancoServiceTest {
+class BancoServiceTest extends ConfigTests {
 
     @InjectMocks
     private BancoService bancoService;
@@ -40,7 +41,7 @@ class BancoServiceTest {
     @Test
     @DisplayName("Cadastrando Banco com dados válidos")
     void testCadastrarBanco() {
-        DadosCadastroBanco dados = new DadosCadastroBanco("Banco", Pais.BRA);
+        DadosCadastroBanco dados = getBanco();
         when(bancoRepository.findByNome(dados.nome())).thenReturn(null);
 
         DadosDetalhamentoBanco resultado = bancoService.cadastrar(dados);
@@ -52,31 +53,33 @@ class BancoServiceTest {
     @Test
     @DisplayName("Cadastrando Banco com mesmo Nome que um preexistente")
     void testCadastrarBancoNomeDuplicado() {
-        DadosCadastroBanco dados = new DadosCadastroBanco("Banco", Pais.BRA);
+        DadosCadastroBanco dados = getBanco();
         when(bancoRepository.findByNome(dados.nome())).thenReturn(new Banco(dados));
-        when(messageSource.getMessage("banco.nome.therealready", null, locateResolver.resolveLocale(request))).thenReturn("Já existe um Banco com esse Nome");
+        when(messageSource.getMessage("banco.nome.therealready", null, locateResolver.resolveLocale(request)))
+                .thenReturn(bancoNomeTherealready);
 
-        assertEquals(
-                assertThrows(DataIntegrityViolationException.class, () -> bancoService.cadastrar(dados)).getMessage(),
-                "Já existe um Banco com esse Nome");
+        assertEquals(bancoNomeTherealready,
+                assertThrows(DataIntegrityViolationException.class, () -> bancoService.cadastrar(dados)).getMessage()
+        );
     }
 
     @Test
     @DisplayName("Cadastrando Bancos com mesmo Nome")
-    void testCadastrarBancoComNomesIguais() {
+    void testCadastrarBancoComNomesIguais2() {
         DadosCadastroBanco dados1 = new DadosCadastroBanco("Banco", Pais.BRA);
         DadosCadastroBanco dados2 = new DadosCadastroBanco("Banco", Pais.USA);
+
         when(bancoRepository.findByNome(dados1.nome())).thenReturn(null);
 
         DadosDetalhamentoBanco resultado1 = bancoService.cadastrar(dados1);
-
         assertNotNull(resultado1);
         assertEquals(dados1.nome(), resultado1.nome());
 
         when(bancoRepository.findByNome(dados2.nome())).thenReturn(new Banco(dados1));
+        when(messageSource.getMessage("banco.nome.therealready", null, locateResolver.resolveLocale(request)))
+                .thenReturn(bancoNomeTherealready);
 
-        assertEquals(
-                assertThrows(DataIntegrityViolationException.class, () -> bancoService.cadastrar(dados2)).getMessage(),
-                "Já existe um Banco com esse Nome");
+        assertEquals(bancoNomeTherealready,
+                assertThrows(DataIntegrityViolationException.class, () -> bancoService.cadastrar(dados2)).getMessage());
     }
 }
