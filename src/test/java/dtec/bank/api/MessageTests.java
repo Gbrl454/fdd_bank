@@ -24,7 +24,7 @@ interface MessageTests {
     String bancoIdInvalid = "ID do Banco informado inválido!";
     String contaOrigemNotexist = "ID da Conta (Origem) informada não existe!";
     String contaDestinoNotexist = "ID da Conta (Destinatário) informada não existe!";
-    String contaOrigemdestinatarioequals = "O ID da Conta (Destinatário) não pode ser o mesmo da Conta (Origem)!";
+    String contaOrigemDestinoequals = "O ID da Conta (Destinatário) não pode ser o mesmo da Conta (Origem)!";
     String usuarioIdNotexist = "ID do Usuário informado não existe!";
     String usuarioEmailTherealready = "Já existe um Usuário com esse Email";
     String usuarioLoginTherealready = "Já existe um Usuário com esse Login";

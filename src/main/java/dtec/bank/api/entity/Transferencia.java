@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-// TODO pesquisar
-//@PrePersist
-//@PreUpdate
 @Table(name = "transferencias")
 @Entity(name = "Transferencia")
 @Getter

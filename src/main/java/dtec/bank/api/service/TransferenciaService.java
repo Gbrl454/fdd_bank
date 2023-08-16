@@ -48,7 +48,7 @@ public class TransferenciaService {
         }
 
         if (dados.idOConta().equals(dados.idDConta())) {
-            throw new ValidacaoException(get("conta.origemdestinatarioequals"));
+            throw new ValidacaoException(get("conta.origemdestinoequals"));
         }
 
         Conta oConta = contaRepository.getReferenceById(dados.idOConta());
