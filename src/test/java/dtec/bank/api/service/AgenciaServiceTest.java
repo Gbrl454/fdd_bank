@@ -1,12 +1,14 @@
 package dtec.bank.api.service;
 
+import dtec.bank.api.ConfigTests;
+import dtec.bank.api.entity.Agencia;
 import dtec.bank.api.entity.Banco;
-import dtec.bank.api.entity.dto.DadosCadastroBanco;
-import dtec.bank.api.entity.dto.DadosDetalhamentoBanco;
+import dtec.bank.api.entity.dto.DadosCadastroAgencia;
+import dtec.bank.api.entity.dto.DadosDetalhamentoAgencia;
+import dtec.bank.api.exception.ValidacaoException;
 import dtec.bank.api.repository.AgenciaRepository;
 import dtec.bank.api.repository.BancoRepository;
 import dtec.bank.api.utils.BankLocateResolver;
-import dtec.bank.api.utils.Pais;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,15 +16,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-public class AgenciaServiceTest {
+class AgenciaServiceTest extends ConfigTests {
 
     @InjectMocks
     private AgenciaService agenciaService;
@@ -46,21 +47,51 @@ public class AgenciaServiceTest {
     @Test
     @DisplayName("Cadastrando Agência com dados válidos")
     void testCadastrarAgencia() {
+        DadosCadastroAgencia dados = getAgencia();
+
+        when(bancoRepository.existsById(dados.idBanco())).thenReturn(true);
+        when(bancoRepository.getReferenceById(dados.idBanco())).thenReturn(new Banco());
+        when(agenciaRepository.findByNome(dados.nome())).thenReturn(null);
+
+        DadosDetalhamentoAgencia resultado = agenciaService.cadastrar(dados);
+
+        assertNotNull(resultado);
+        assertEquals(dados.nome(), resultado.nome());
+        verify(agenciaRepository, times(1)).save(any(Agencia.class));
     }
 
     @Test
     @DisplayName("Cadastrando Agência com ID de Banco inexistente")
     void testCadastrarAgenciaBancoInvalido() {
+        DadosCadastroAgencia dados = getAgencia();
+
+        when(bancoRepository.existsById(dados.idBanco())).thenReturn(false);
+        when(bancoRepository.getReferenceById(dados.idBanco())).thenReturn(null);
+        when(messageSource.getMessage("banco.id.notexist", null, locateResolver.resolveLocale(request)))
+                .thenReturn(bancoIdNotexist);
+
+        assertEquals(
+                bancoIdNotexist,
+                assertThrows(ValidacaoException.class, () -> agenciaService.cadastrar(dados)).getMessage());
+        verify(agenciaRepository, times(0)).save(any(Agencia.class));
     }
 
     @Test
-    @DisplayName("Cadastrando Agência com mesmo Nome que um preexistente")
-    void testCadastrarBancoNomeDuplicado() {}
+    @DisplayName("Cadastrando Agência com mesmo Nome que uma preexistente")
+    void testCadastrarAgenciaNomeDuplicado() {
+        DadosCadastroAgencia dados = getAgencia();
 
-    @Test
-    @DisplayName("Cadastrando Agências com mesmo Nome")
-    void testCadastrarAgenciaComNomesIguais() {}
+        when(bancoRepository.existsById(dados.idBanco())).thenReturn(true);
+        when(bancoRepository.getReferenceById(dados.idBanco())).thenReturn(new Banco());
+        when(agenciaRepository.findByNome(dados.nome())).thenReturn(new Agencia());
+        when(messageSource.getMessage("agencia.nome.therealready", null, locateResolver.resolveLocale(request)))
+                .thenReturn(agenciaNomeTherealready);
 
+        assertEquals(
+                agenciaNomeTherealready,
+                assertThrows(DataIntegrityViolationException.class, () -> agenciaService.cadastrar(dados)).getMessage());
+        verify(agenciaRepository, times(0)).save(any(Agencia.class));
+    }
 
 
 }
