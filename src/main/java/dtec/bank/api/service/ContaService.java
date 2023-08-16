@@ -34,6 +34,8 @@ public class ContaService {
     }
 
     public DadosDetalhamentoConta cadastrar(DadosCadastroConta dados) {
+        final String saldoCreditCardInformOnlyHave = get("saldo.creditcard.informonlyhave");
+
         if (!agenciaRepository.existsById(dados.idAgencia())) {
             throw new ValidacaoException(get("agencia.id.notexist"));
         }
@@ -69,16 +71,16 @@ public class ContaService {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
                             saldo_cartao_de_credito = (long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador());
                         } else {
-                            throw new ValidacaoException(get("saldo.creditcard.uninformed"));
+                            throw new ValidacaoException(get("saldo.creditcard.informwhenhave"));
                         }
                     } else {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                            throw new ValidacaoException(get("saldo.creditcard.informonlyhave"));
+                            throw new ValidacaoException(saldoCreditCardInformOnlyHave);
                         }
                     }
                 } else {
                     if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                        throw new ValidacaoException(get("saldo.creditcard.informonlyhave"));
+                        throw new ValidacaoException(saldoCreditCardInformOnlyHave);
                     }
                 }
 
@@ -98,12 +100,12 @@ public class ContaService {
                         }
                     } else {
                         if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                            throw new ValidacaoException(get("saldo.creditcard.informonlyhave"));
+                            throw new ValidacaoException(saldoCreditCardInformOnlyHave);
                         }
                     }
                 } else {
                     if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                        throw new ValidacaoException(get("saldo.creditcard.informonlyhave"));
+                        throw new ValidacaoException(saldoCreditCardInformOnlyHave);
                     }
                 }
 
