@@ -8,7 +8,6 @@ import dtec.bank.api.entity.dto.DadosCadastroConta;
 import dtec.bank.api.entity.dto.DadosDetalhamentoConta;
 import dtec.bank.api.exception.ValidacaoException;
 import dtec.bank.api.repository.AgenciaRepository;
-import dtec.bank.api.repository.BancoRepository;
 import dtec.bank.api.repository.ContaRepository;
 import dtec.bank.api.repository.UsuarioRepository;
 import dtec.bank.api.utils.BankLocateResolver;
@@ -39,8 +38,6 @@ class ContaServiceTest extends ConfigTests {
     private HttpServletRequest request;
     @Mock
     private AgenciaRepository agenciaRepository;
-    @Mock
-    private BancoRepository bancoRepository;
     @Mock
     private ContaRepository contaRepository;
     @Mock
