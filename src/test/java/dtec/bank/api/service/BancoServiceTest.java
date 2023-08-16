@@ -66,7 +66,7 @@ class BancoServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Bancos com mesmo Nome")
     void testCadastrarBancoComNomesIguais2() {
-        DadosCadastroBanco dados1 = new DadosCadastroBanco("Banco", Pais.BRA);
+        DadosCadastroBanco dados1 = getBanco();
         DadosCadastroBanco dados2 = new DadosCadastroBanco("Banco", Pais.USA);
 
         when(bancoRepository.findByNome(dados1.nome())).thenReturn(null);
