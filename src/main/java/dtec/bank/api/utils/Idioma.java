@@ -1,5 +1,5 @@
 package dtec.bank.api.utils;
 
 public enum Idioma {
-    PT, EN, ES,
+    PT, EN, ES, FR
 }

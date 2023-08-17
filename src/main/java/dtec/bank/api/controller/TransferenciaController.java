@@ -1,11 +1,9 @@
 package dtec.bank.api.controller;
 
 import dtec.bank.api.entity.dto.DadosCadastroTransferencia;
+import dtec.bank.api.entity.dto.DadosDetalhamentoTransferencia;
 import dtec.bank.api.service.TransferenciaService;
-import dtec.bank.api.utils.BankLocateResolver;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,11 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/transferencias")
 public class TransferenciaController {
-    @Autowired
-    private TransferenciaService transferenciaService;
+    private final TransferenciaService transferenciaService = new TransferenciaService();
 
     @PostMapping
-    public ResponseEntity transferir(@RequestBody @Valid DadosCadastroTransferencia dados) {
+    public ResponseEntity<DadosDetalhamentoTransferencia> transferir(@RequestBody @Valid DadosCadastroTransferencia dados) {
         var dto = transferenciaService.cadastrar(dados);
         return ResponseEntity.ok(dto);
     }

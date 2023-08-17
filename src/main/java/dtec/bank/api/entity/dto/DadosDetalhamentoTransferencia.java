@@ -14,7 +14,7 @@ public record DadosDetalhamentoTransferencia(
         DadosDetalhamentoMoeda moeda,
         LocalDateTime horarioTranferencia
 ) {
-    public DadosDetalhamentoTransferencia (Transferencia transferencia) {
+    public DadosDetalhamentoTransferencia(Transferencia transferencia) {
         this(
                 transferencia.getId(),
                 transferencia.getSucesso(),

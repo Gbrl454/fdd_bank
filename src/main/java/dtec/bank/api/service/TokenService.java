@@ -18,14 +18,13 @@ import java.time.ZoneOffset;
 
 @Service
 public class TokenService {
-
     private final String issuer = "API DtecBank";
     @Autowired
-    BankLocateResolver locateResolver;
+    private BankLocateResolver locateResolver;
     @Autowired
-    MessageSource messageSource;
+    private MessageSource messageSource;
     @Autowired
-    HttpServletRequest request;
+    private HttpServletRequest request;
     @Value("${api.security.token.secret}")
     private String secret;
 
