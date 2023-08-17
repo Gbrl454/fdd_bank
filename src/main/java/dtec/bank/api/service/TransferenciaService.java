@@ -11,6 +11,7 @@ import dtec.bank.api.repository.BancoRepository;
 import dtec.bank.api.repository.ContaRepository;
 import dtec.bank.api.repository.TransferenciaRepository;
 import dtec.bank.api.utils.BankLocateResolver;
+import dtec.bank.api.utils.TipoConta;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -76,14 +77,16 @@ public class TransferenciaService {
             return;
         }
 
-        if ((oConta.getSaldo() + oConta.getSaldo_lis()) > valor) {
+        if ((oConta.getTipo() == TipoConta.ESPECIAL || oConta.getTipo() == TipoConta.PREMIUM) &&
+                ((oConta.getSaldo() + oConta.getSaldo_lis()) > valor)) {
             valor -= oConta.getSaldo();
             oConta.zerarSaldo();
             oConta.retirarSaldo_lis(valor);
             return;
         }
 
-        if ((oConta.getSaldo() + oConta.getSaldo_lis() + oConta.getSaldo_cartao_de_credito()) > valor) {
+        if ((oConta.getTipo() == TipoConta.PREMIUM) &&
+                ((oConta.getSaldo() + oConta.getSaldo_lis() + oConta.getSaldo_cartao_de_credito()) > valor)) {
             valor -= oConta.getSaldo();
             oConta.zerarSaldo();
             valor -= oConta.getSaldo_lis();

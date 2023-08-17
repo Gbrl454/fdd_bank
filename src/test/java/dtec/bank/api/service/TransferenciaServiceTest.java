@@ -4,10 +4,14 @@ import dtec.bank.api.ConfigTests;
 import dtec.bank.api.entity.Conta;
 import dtec.bank.api.entity.Transferencia;
 import dtec.bank.api.entity.dto.DadosCadastroTransferencia;
+import dtec.bank.api.entity.dto.DadosDetalhamentoMoeda;
+import dtec.bank.api.entity.dto.DadosDetalhamentoTransferencia;
 import dtec.bank.api.exception.ValidacaoException;
 import dtec.bank.api.repository.ContaRepository;
 import dtec.bank.api.repository.TransferenciaRepository;
 import dtec.bank.api.utils.BankLocateResolver;
+import dtec.bank.api.utils.Moeda;
+import dtec.bank.api.utils.TipoConta;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,8 +22,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.context.MessageSource;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class TransferenciaServiceTest extends ConfigTests {
@@ -42,10 +45,34 @@ class TransferenciaServiceTest extends ConfigTests {
         MockHttpServletRequest request = new MockHttpServletRequest();
     }
 
-//    @Test
-//    @DisplayName("Cadastrando Transferência com dados válidos")
-//    void testCadastrarTransferencia() {
-//    }
+    @Test
+    @DisplayName("Cadastrando Transferência com dados válidos")
+    void testCadastrarTransferencia() {
+        Conta contaOrigem = new Conta(1L, null, null,
+                Moeda.USD, 5000000L, TipoConta.NORMAL, false, 0L, false, 0L);
+        Conta contaDestino = new Conta(2L, null, null,
+                Moeda.BOB, 50000L, TipoConta.NORMAL, false, 0L, false, 0L);
+        DadosCadastroTransferencia dados = new DadosCadastroTransferencia(contaOrigem.getId(), contaDestino.getId(), 100.0);
+
+        when(contaRepository.existsById(contaOrigem.getId())).thenReturn(true);
+        when(contaRepository.existsById(contaDestino.getId())).thenReturn(true);
+        when(contaRepository.getReferenceById(contaOrigem.getId())).thenReturn(contaOrigem);
+        when(contaRepository.getReferenceById(contaDestino.getId())).thenReturn(contaDestino);
+
+        Transferencia transferencia = new Transferencia(null, contaOrigem, contaDestino, 100L);
+        when(transferenciaRepository.save(any())).thenReturn(transferencia);
+
+        DadosDetalhamentoTransferencia resultado = transferenciaService.cadastrar(dados);
+
+        assertNotNull(resultado);
+        assertTrue(resultado.sucesso());
+        assertNull(resultado.motivo());
+        assertEquals((long) (contaOrigem.getMoeda().getMultiplicador() * dados.valor()), resultado.valor());
+        assertEquals(contaOrigem.getId(), resultado.idContaOrigem());
+        assertEquals(contaDestino.getId(), resultado.idContaDestino());
+        assertEquals(new DadosDetalhamentoMoeda(contaOrigem.getMoeda()), resultado.moeda());
+        verify(transferenciaRepository, times(1)).save(any(Transferencia.class));
+    }
 
     @Test
     @DisplayName("Cadastrando Transferência com ID de Conta de Origem inexistente")
