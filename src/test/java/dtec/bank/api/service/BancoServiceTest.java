@@ -41,7 +41,7 @@ class BancoServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Banco com dados válidos")
     void testCadastrarBanco() {
-        DadosCadastroBanco dados = getBanco();
+        DadosCadastroBanco dados = getDadosCadastroBanco();
         when(bancoRepository.findByNome(dados.nome())).thenReturn(null);
 
         DadosDetalhamentoBanco resultado = bancoService.cadastrar(dados);
@@ -53,7 +53,7 @@ class BancoServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Banco com mesmo Nome que um preexistente")
     void testCadastrarBancoNomeDuplicado() {
-        DadosCadastroBanco dados = getBanco();
+        DadosCadastroBanco dados = getDadosCadastroBanco();
         when(bancoRepository.findByNome(dados.nome())).thenReturn(new Banco(dados));
         when(messageSource.getMessage("banco.nome.therealready", null, locateResolver.resolveLocale(request)))
                 .thenReturn(bancoNomeTherealready);
@@ -66,7 +66,7 @@ class BancoServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Bancos com mesmo Nome")
     void testCadastrarBancoComNomesIguais2() {
-        DadosCadastroBanco dados1 = getBanco();
+        DadosCadastroBanco dados1 = getDadosCadastroBanco();
         DadosCadastroBanco dados2 = new DadosCadastroBanco("Banco", Pais.USA);
 
         when(bancoRepository.findByNome(dados1.nome())).thenReturn(null);

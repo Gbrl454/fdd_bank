@@ -47,7 +47,7 @@ class AgenciaServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Agência com dados válidos")
     void testCadastrarAgencia() {
-        DadosCadastroAgencia dados = getAgencia();
+        DadosCadastroAgencia dados = getDadosCadastroAgencia();
 
         when(bancoRepository.existsById(dados.idBanco())).thenReturn(true);
         when(bancoRepository.getReferenceById(dados.idBanco())).thenReturn(new Banco());
@@ -63,7 +63,7 @@ class AgenciaServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Agência com ID de Banco inexistente")
     void testCadastrarAgenciaBancoInvalido() {
-        DadosCadastroAgencia dados = getAgencia();
+        DadosCadastroAgencia dados = getDadosCadastroAgencia();
 
         when(bancoRepository.existsById(dados.idBanco())).thenReturn(false);
         when(bancoRepository.getReferenceById(dados.idBanco())).thenReturn(null);
@@ -79,7 +79,7 @@ class AgenciaServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Agência com mesmo Nome que uma preexistente")
     void testCadastrarAgenciaNomeDuplicado() {
-        DadosCadastroAgencia dados = getAgencia();
+        DadosCadastroAgencia dados = getDadosCadastroAgencia();
 
         when(bancoRepository.existsById(dados.idBanco())).thenReturn(true);
         when(bancoRepository.getReferenceById(dados.idBanco())).thenReturn(new Banco());
