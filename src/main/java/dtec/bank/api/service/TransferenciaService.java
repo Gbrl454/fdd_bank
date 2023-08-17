@@ -71,28 +71,35 @@ public class TransferenciaService {
 
     }
 
-    private void removerSaldo(Conta oConta, Long valor) throws TransferenciaException {
+    protected void removerSaldo(Conta oConta, Long valor) throws TransferenciaException {
         if (oConta.getSaldo() > valor) {
             oConta.retirarSaldo(valor);
             return;
         }
 
-        if ((oConta.getTipo() == TipoConta.ESPECIAL || oConta.getTipo() == TipoConta.PREMIUM) &&
-                ((oConta.getSaldo() + oConta.getSaldo_lis()) > valor)) {
+        if (oConta.getTipo() == TipoConta.ESPECIAL && ((oConta.getSaldo() + oConta.getSaldo_cartao_de_credito()) > valor)) {
             valor -= oConta.getSaldo();
             oConta.zerarSaldo();
-            oConta.retirarSaldo_lis(valor);
+            oConta.retirarSaldo_cartao_de_credito(valor);
             return;
         }
 
-        if ((oConta.getTipo() == TipoConta.PREMIUM) &&
-                ((oConta.getSaldo() + oConta.getSaldo_lis() + oConta.getSaldo_cartao_de_credito()) > valor)) {
-            valor -= oConta.getSaldo();
-            oConta.zerarSaldo();
-            valor -= oConta.getSaldo_lis();
-            oConta.zerarSaldo_lis();
-            oConta.retirarSaldo_cartao_de_credito(valor);
-            return;
+        if (oConta.getTipo() == TipoConta.PREMIUM) {
+            if ((oConta.getSaldo() + oConta.getSaldo_lis()) > valor) {
+                valor -= oConta.getSaldo();
+                oConta.zerarSaldo();
+                oConta.retirarSaldo_lis(valor);
+                return;
+            }
+
+            if ((oConta.getSaldo() + oConta.getSaldo_lis() + oConta.getSaldo_cartao_de_credito()) > valor) {
+                valor -= oConta.getSaldo();
+                oConta.zerarSaldo();
+                valor -= oConta.getSaldo_lis();
+                oConta.zerarSaldo_lis();
+                oConta.retirarSaldo_cartao_de_credito(valor);
+                return;
+            }
         }
 
         throw new TransferenciaException(get("saldo.transferencia.insuficiente"));

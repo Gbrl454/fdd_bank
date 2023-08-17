@@ -52,7 +52,7 @@ class ContaServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Conta do tipo NORMAL com dados válidos")
     void testCadastrarContaNormal() {
-        DadosCadastroConta dados = getContaNormal();
+        DadosCadastroConta dados = getDadosCadastroContaNormal();
 
         when(agenciaRepository.existsById(dados.idAgencia())).thenReturn(true);
         when(agenciaRepository.getReferenceById(dados.idAgencia())).thenReturn(new Agencia());
@@ -79,7 +79,7 @@ class ContaServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Conta do tipo ESPECIAL com dados válidos")
     void testCadastrarContaEspecial() {
-        DadosCadastroConta dados = getContaEspecial();
+        DadosCadastroConta dados = getDadosCadastroContaEspecial();
 
         when(agenciaRepository.existsById(dados.idAgencia())).thenReturn(true);
         when(agenciaRepository.getReferenceById(dados.idAgencia())).thenReturn(new Agencia());
@@ -106,7 +106,7 @@ class ContaServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Conta do tipo PREMIUM com dados válidos")
     void testCadastrarContaPremium() {
-        DadosCadastroConta dados = getContaPremium();
+        DadosCadastroConta dados = getDadosCadastroContaPremium();
 
         when(agenciaRepository.existsById(dados.idAgencia())).thenReturn(true);
         when(agenciaRepository.getReferenceById(dados.idAgencia())).thenReturn(new Agencia());
@@ -133,7 +133,7 @@ class ContaServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Conta com ID de Agência inexistente")
     void testCadastrarAgenciaInvalida() {
-        DadosCadastroConta dados = getContaNormal();
+        DadosCadastroConta dados = getDadosCadastroContaNormal();
 
         when(agenciaRepository.existsById(dados.idAgencia())).thenReturn(false);
         when(agenciaRepository.getReferenceById(dados.idAgencia())).thenReturn(null);
@@ -149,7 +149,7 @@ class ContaServiceTest extends ConfigTests {
     @Test
     @DisplayName("Cadastrando Conta com ID de Usuário inexistente")
     void testCadastrarUsuarioInvalido() {
-        DadosCadastroConta dados = getContaNormal();
+        DadosCadastroConta dados = getDadosCadastroContaNormal();
 
         when(agenciaRepository.existsById(dados.idAgencia())).thenReturn(true);
         when(agenciaRepository.getReferenceById(dados.idAgencia())).thenReturn(new Agencia());

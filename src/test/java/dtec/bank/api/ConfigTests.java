@@ -1,5 +1,6 @@
 package dtec.bank.api;
 
+import dtec.bank.api.entity.Conta;
 import dtec.bank.api.entity.dto.DadosCadastroAgencia;
 import dtec.bank.api.entity.dto.DadosCadastroBanco;
 import dtec.bank.api.entity.dto.DadosCadastroConta;
@@ -16,17 +17,17 @@ public abstract class ConfigTests implements MessageTests {
         return new DadosCadastroAgencia("Agencia", 1L);
     }
 
-    protected DadosCadastroConta getContaNormal() {
+    protected DadosCadastroConta getDadosCadastroContaNormal() {
         return new DadosCadastroConta(1L, 1L, Moeda.USD, 500.0, TipoConta.NORMAL,
                 false, 0.0, false, 0.0);
     }
 
-    protected DadosCadastroConta getContaEspecial() {
+    protected DadosCadastroConta getDadosCadastroContaEspecial() {
         return new DadosCadastroConta(1L, 1L, Moeda.USD, 500.0, TipoConta.ESPECIAL,
                 true, 500.0, false, 0.0);
     }
 
-    protected DadosCadastroConta getContaPremium() {
+    protected DadosCadastroConta getDadosCadastroContaPremium() {
         return new DadosCadastroConta(1L, 1L, Moeda.USD, 500.0, TipoConta.PREMIUM,
                 true, 500.0, true, 500.0);
     }
