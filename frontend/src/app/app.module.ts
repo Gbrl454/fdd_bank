@@ -10,6 +10,8 @@ import { ExtratoComponent } from './pages/extrato/extrato.component';
 import { TransferenciaComponent } from './pages/transferencia/transferencia.component';
 import { TemplateNoAuthComponent } from './templates/template-no-auth/template-no-auth.component';
 import { TemplateAuthComponent } from './templates/template-auth/template-auth.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,16 @@ import { TemplateAuthComponent } from './templates/template-auth/template-auth.c
     ExtratoComponent,
     TransferenciaComponent,
     TemplateNoAuthComponent,
-    TemplateAuthComponent
+    TemplateAuthComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

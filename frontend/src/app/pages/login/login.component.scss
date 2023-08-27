@@ -1,0 +1,104 @@
+@import "/src/vars.scss";
+
+.container {
+  display: flex;
+  height: max(100dvh, 100px);
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 25px 0;
+  padding: 10px 2.5px 0 7.5px;
+
+  label {
+    font-size: large;
+    font-weight: bolder;
+    color: $cor-azul-escuro;
+  }
+
+  &:hover,
+  &:focus-within {
+    background-color: rgba(0, 0, 0, 0.1);
+    @include sombra(5px, 5px, 10px, 0.5);
+  }
+
+  input {
+    font-size: large;
+    caret-color: $cor-azul-escuro;
+    outline: none;
+    width: 40dvw;
+    padding: 10px 15px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid $cor-azul-escuro;
+    background: none;
+    color: $cor-branco;
+
+    &::placeholder {
+      color: $cor-azul-cinza;
+      font-style: italic;
+      opacity: 50%;
+    }
+  }
+}
+
+.images,
+.login {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.images {
+  width: 50%;
+  background-color: aqua;
+}
+
+.login {
+  padding: 0 2.5%;
+  width: 45%;
+  color: $cor-branco;
+  background-color: $cor-azul;
+  display: flex;
+  flex-direction: column;
+  @include sombra(-5px, 0px, 10px, 0.5);
+}
+
+.lnr-eye {
+  height: 30px;
+  position: absolute;
+  right: 5dvw;
+  transform: translateY(40%);
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .images {
+    display: none;
+  }
+
+  .login {
+    height: auto;
+    width: 100%;
+  }
+
+  .input input {
+    width: 70dvw;
+  }
+
+  .lnr-eye {
+    right: 15dvw;
+  }
+}
+
+.mensagem_erro {
+  font-size: 15px;
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 10px;
+}

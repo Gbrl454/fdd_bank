@@ -1,0 +1,50 @@
+@import "/src/vars.scss";
+
+.container {
+  display: flex;
+  height: max(100dvh, 100px);
+}
+
+.images,
+.cumprimento {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.images {
+  width: 70%;
+  background-color: aqua;
+}
+
+.cumprimento {
+  padding: 0 2.5%;
+  width: 25%;
+  color: $cor-branco;
+  background-color: $cor-azul;
+  display: flex;
+  flex-direction: column;
+  @include sombra(-5px, 0px, 10px, 0.5);
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .images,
+  .cumprimento {
+    width: 100%;
+  }
+
+  .images {
+    height: 70%;
+  }
+
+  .cumprimento {
+    padding: 0;
+    height: 30%;
+    @include sombra(0px, -5px, 10px, 0.5);
+  }
+}

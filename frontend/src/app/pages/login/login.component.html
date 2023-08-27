@@ -1,1 +1,58 @@
-<p>login works!</p>
+<section class="container">
+  <div class="images">*-*</div>
+  <div class="login">
+    <h1>Acesse sua conta</h1>
+    <form [formGroup]="formLogin">
+      <div class="input">
+        <label for="login">Login</label>
+        <input
+          type="text"
+          id="login"
+          formControlName="login"
+          placeholder="Digite seu Login"
+        />
+        <div
+          class="mensagem_erro"
+          *ngIf="
+            formLogin.get('login')?.errors && formLogin.get('login')?.touched
+          "
+        >
+          Esse campo é obrigatório!
+        </div>
+      </div>
+
+      <div class="input">
+        <label for="senha">Senha</label>
+        <div class="password">
+          <input
+            #passwordInput
+            type="password"
+            id="senha"
+            formControlName="senha"
+            placeholder="Digite sua Senha"
+          />
+          <img
+            src="assets/eye-{{ passwordEyeIs() }}.png"
+            class="lnr-eye"
+            (click)="changepasswordEye()"
+          />
+        </div>
+        <div
+          class="mensagem_erro"
+          *ngIf="
+            formLogin.get('senha')?.errors && formLogin.get('senha')?.touched
+          "
+        >
+          Esse campo é obrigatório!
+        </div>
+      </div>
+      <button
+        [disabled]="!this.formLogin.valid"
+        (click)="onSubmit()"
+        type="submit"
+      >
+        Entrar
+      </button>
+    </form>
+  </div>
+</section>
