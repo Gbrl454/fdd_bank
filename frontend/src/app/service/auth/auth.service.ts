@@ -2,13 +2,21 @@ import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/entity/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  constructor() {}
 
-  constructor() { }
+  login(user: User) {
+    return new Promise((resolve) => {
+      window.localStorage.setItem('token', 'meu-token');
+      resolve(true);
+    });
+  }
 
-  login(user:User){
-    
+  createAccount(account: User) {
+    return new Promise((resolve) => {
+      resolve(true);
+    });
   }
 }

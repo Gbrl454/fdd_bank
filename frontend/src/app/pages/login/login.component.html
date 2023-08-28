@@ -2,7 +2,7 @@
   <div class="images">*-*</div>
   <div class="login">
     <h1>Acesse sua conta</h1>
-    <form [formGroup]="formLogin">
+    <form class="form" [formGroup]="formLogin">
       <div class="input">
         <label for="login">Login</label>
         <input
@@ -47,7 +47,8 @@
         </div>
       </div>
       <button
-        [disabled]="!this.formLogin.valid"
+        [class]="habilitarBotao()"
+        [disabled]="this.formLogin.invalid"
         (click)="onSubmit()"
         type="submit"
       >

@@ -12,6 +12,7 @@ import { TemplateNoAuthComponent } from './templates/template-no-auth/template-n
 import { TemplateAuthComponent } from './templates/template-auth/template-auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     TransferenciaComponent,
     TemplateNoAuthComponent,
     TemplateAuthComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

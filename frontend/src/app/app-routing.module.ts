@@ -7,20 +7,20 @@ import { TemplateAuthComponent } from './templates/template-auth/template-auth.c
 import { ContaComponent } from './pages/conta/conta.component';
 import { ExtratoComponent } from './pages/extrato/extrato.component';
 import { TransferenciaComponent } from './pages/transferencia/transferencia.component';
-import { authGuard } from './service/auth/guard/auth.guard';
+import { AuthGuard } from './service/auth/guard/auth.guard';
+import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
   {
     path: '',
     component: TemplateAuthComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
+      { path: '', redirectTo: 'conta', pathMatch: 'full' },
       { path: 'conta', component: ContaComponent },
       { path: 'extrato', component: ExtratoComponent },
       { path: 'transferencia', component: TransferenciaComponent },
     ],
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: '',
@@ -29,6 +29,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
     ],
   },
   { path: '**', redirectTo: '' },
