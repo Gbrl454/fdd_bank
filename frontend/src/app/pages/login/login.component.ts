@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/entity/user.model';
 import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
@@ -9,15 +10,14 @@ import { AuthService } from 'src/app/service/auth/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  formLogin!: FormGroup;
-  login = {
+  login: User = {
     login: '',
     senha: '',
   };
 
-  private passwordEye: boolean = false;
-
   @ViewChild('passwordInput') passwordInput: ElementRef | undefined;
+  formLogin!: FormGroup;
+  private passwordEye: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -32,17 +32,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async onSubmit() {
-    try {
-      const result = await this.authService.login(this.login);
-      console.log(`Login efetuado: ${result}`);
-
-      this.router.navigate(['']);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   passwordEyeIs(): string {
     return this.passwordEye ? 'open' : 'close';
   }
@@ -53,7 +42,18 @@ export class LoginComponent implements OnInit {
     inputElement.type = this.passwordEye ? 'text' : 'password';
   }
 
-  // habilitarBotao(): string {
-  //   return this.formLogin.valid ? "botao" : "botao__desabilitado";
-  // }
+  habilitarBotao(): string {
+    return this.formLogin.valid ? 'botao' : 'botao_desabilitado';
+  }
+
+  async onSubmit() {
+    try {
+      const result = await this.authService.login(this.login);
+      console.log(`Login efetuado: ${result}`);
+
+      this.router.navigate(['']);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
