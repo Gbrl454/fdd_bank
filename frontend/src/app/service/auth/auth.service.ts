@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/entity/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor(private router: Router) {}
 
   login(user: User) {
     return new Promise((resolve) => {
@@ -18,5 +19,10 @@ export class AuthService {
     return new Promise((resolve) => {
       resolve(true);
     });
+  }
+
+  logout() {
+    window.localStorage.clear();
+    this.router.navigate(['login']);
   }
 }

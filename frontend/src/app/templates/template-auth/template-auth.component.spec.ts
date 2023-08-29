@@ -8,7 +8,7 @@ describe('TemplateAuthComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TemplateAuthComponent]
+      declarations: [TemplateAuthComponent],
     });
     fixture = TestBed.createComponent(TemplateAuthComponent);
     component = fixture.componentInstance;

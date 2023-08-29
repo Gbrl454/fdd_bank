@@ -1,24 +1,106 @@
 @import "/src/vars.scss";
 
-.welcome {
-  background-color: $cor-azul;
-  color: $cor-branco;
-  padding: 1rem;
-  border-radius: 1rem;
-  width: 75%;
-  max-width: 30rem;
-  height: 5rem;
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
-.saldoTotal {
-  border-radius: 1rem;
-  padding: 1rem;
-  border: 2px solid $cor-azul-cinza;
-  width: 50%;
-  background-color: $cor-branco;
-  @include sombra(1px, 1px, 3px, 0.05);
-  transition: all 0.5s ease;
+.saldo {
+  width: 12.5rem;
+  height: 3rem;
+
   &:hover {
-    scale: 1.025;
+    scale: 102.5%;
+    cursor: pointer;
   }
+
+  span {
+    font-size: x-large;
+    font-weight: bolder;
+  }
+}
+
+.saldos {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.card {
+  border: 3px solid $cor-azul-escuro;
+  border-radius: 1.5rem;
+  @include sombra(-1px, 1px, 3px, 0.5);
+  padding: 1rem;
+  margin: 0.75rem;
+}
+
+.extrato {
+  width: 90%;
+  height: 15rem;
+}
+
+.line {
+  background-color: $cor-azul-escuro;
+  height: 2px;
+  @include sombra(0, 1px, 2px, 1);
+}
+
+.transferencias {
+  overflow-y: scroll;
+  height: 92.5%;
+}
+
+.pesquisa {
+  border: none;
+  width: 75%;
+  font-size: large;
+  margin: 0.25rem 1rem;
+  outline: none;
+
+  &::placeholder {
+    font-style: italic;
+  }
+}
+
+.transferencia {
+  &:hover {
+    cursor: pointer;
+  }
+
+  border: 3px solid $cor-azul-escuro;
+  border-radius: 1.5rem;
+  @include sombra(-1px, 1px, 3px, 0.5);
+  margin: 0.75rem;
+  display: flex;
+  overflow: hidden;
+  height: 4.5rem;
+
+  & > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    border-left: 3px solid $cor-azul-escuro;
+    width: 100%;
+
+    &:first-child {
+      border-left: none;
+      width: 3rem;
+    }
+  }
+
+  .individuos {
+    flex-direction: column;
+  }
+}
+
+.sucesso {
+  background-color: $cor-verde;
+}
+
+.fail {
+  background-color: $cor-vermelho;
 }

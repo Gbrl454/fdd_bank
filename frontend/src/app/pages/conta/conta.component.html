@@ -1,13 +1,61 @@
 <section>
-  <div class="welcome">
-    <h1>Olá XXX</h1>
-    Bem-vindo de volta ao Painel do DTecBank, onde você pode gerenciar
-    facilmente suas contas, transações e pagamentos.
+  <div class="saldos">
+    <div class="card saldo">
+      <p>Saldo Total:</p>
+      <p>XXX <span>999.999.999,99</span></p>
+    </div>
+
+    <div class="card saldo">
+      <p>Saldo:</p>
+      <p>XXX <span>999.999.999,99</span></p>
+    </div>
+
+    <div class="card saldo">
+      <p>Saldo Cheque Especial:</p>
+      <p>XXX <span>999.999.999,99</span></p>
+    </div>
+
+    <div class="card saldo">
+      <p>Saldo Cartão de Crédito:</p>
+      <p>XXX <span>999.999.999,99</span></p>
+    </div>
   </div>
 
-  <div class="saldoTotal">
-    <h1>Saldo Total (XXX)</h1>
-    999.999.999,99
+  <div class="card extrato">
+    <h1>
+      <label for="pesquisa">Extrado:</label>
+      <input
+        id="pesquisa"
+        class="pesquisa"
+        placeholder="Pesquise uma Transferência"
+        type="text"
+      />
+    </h1>
+    <div class="line"></div>
+    <div
+      class="transferencias"
+      *ngIf="transferencias.length > 0; else extratoVazio"
+    >
+      <div class="transferencia" *ngFor="let transferencia of transferencias">
+        <span>{{ transferencia.id }}</span>
+
+        <span>{{ transferencia.moeda.simbolo }} {{ transferencia.valor }}</span>
+
+        <div class="individuos">
+          <span>De: {{ transferencia.idContaOrigem }}</span>
+          <span>Para: {{ transferencia.idContaDestino }}</span>
+        </div>
+
+        <span>
+          {{ transferencia.horarioTranferencia | date : "dd/MM/yyyy HH:mm" }}
+        </span>
+
+        <div [ngClass]="sucessoClass(transferencia)">
+          {{ sucessoMsg(transferencia) }}<br />
+          {{ transferencia.motivo }}
+        </div>
+      </div>
+    </div>
+    <ng-template #extratoVazio> Não há registros no Extrato</ng-template>
   </div>
-  
 </section>

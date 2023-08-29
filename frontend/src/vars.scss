@@ -1,8 +1,11 @@
 $cor-azul: #044cf4;
 $cor-branco: #fff;
 $cor-cinza-clarissimo: #f4f4f5;
+$cor-azul-cinza-clarissimo: #52adf8;
 $cor-azul-cinza: #87b7fe;
 $cor-azul-escuro: #132190;
+$cor-verde: #009900;
+$cor-vermelho: #990000;
 
 @mixin sombra($h, $v, $r, $o) {
   -webkit-box-shadow: $h $v $r calc($r/2) rgba(0, 0, 0, 0.5);

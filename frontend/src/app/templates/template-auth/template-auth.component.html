@@ -1,1 +1,33 @@
-<router-outlet></router-outlet>
+<section class="container">
+  <div routerLink="/" class="logo">DTecBank</div>
+
+  <nav class="menu">
+    <ul>
+      <li class="icone">
+        <img
+          routerLink="/conta"
+          src="/assets/icone-home.png"
+          alt="Ícone Home"
+        />
+      </li>
+      <li class="icone">
+        <img
+          routerLink="/transferencia"
+          src="/assets/icone-transferencia.png"
+          alt="Ícone Transferência"
+        />
+      </li>
+      <li class="icone">
+        <img
+          (click)="logout()"
+          src="/assets/icone-logout.png"
+          alt="Ícone Logout"
+        />
+      </li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <router-outlet></router-outlet>
+  </div>
+</section>

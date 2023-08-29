@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ContaComponent } from './pages/conta/conta.component';
-import { ExtratoComponent } from './pages/extrato/extrato.component';
 import { TransferenciaComponent } from './pages/transferencia/transferencia.component';
 import { TemplateNoAuthComponent } from './templates/template-no-auth/template-no-auth.component';
 import { TemplateAuthComponent } from './templates/template-auth/template-auth.component';
@@ -20,7 +19,6 @@ import { RegisterComponent } from './pages/register/register.component';
     HomeComponent,
     LoginComponent,
     ContaComponent,
-    ExtratoComponent,
     TransferenciaComponent,
     TemplateNoAuthComponent,
     TemplateAuthComponent,
