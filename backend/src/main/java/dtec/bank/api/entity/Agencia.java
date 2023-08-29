@@ -1,5 +1,6 @@
 package dtec.bank.api.entity;
 
+import dtec.bank.api.entity.Banco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

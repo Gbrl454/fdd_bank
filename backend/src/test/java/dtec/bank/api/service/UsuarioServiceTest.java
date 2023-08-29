@@ -16,31 +16,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.context.MessageSource;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.when;
-
-import dtec.bank.api.ConfigTests;
-import dtec.bank.api.entity.Agencia;
-import dtec.bank.api.entity.Banco;
-import dtec.bank.api.entity.dto.DadosCadastroAgencia;
-import dtec.bank.api.entity.dto.DadosDetalhamentoAgencia;
-import dtec.bank.api.exception.ValidacaoException;
-import dtec.bank.api.repository.AgenciaRepository;
-import dtec.bank.api.repository.BancoRepository;
-import dtec.bank.api.utils.BankLocateResolver;
-import jakarta.servlet.http.HttpServletRequest;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

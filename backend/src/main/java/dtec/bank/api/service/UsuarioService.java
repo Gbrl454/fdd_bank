@@ -14,16 +14,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {
+
     @Autowired
-    private BankLocateResolver locateResolver;
+    BankLocateResolver locateResolver;
     @Autowired
-    private MessageSource messageSource;
+    MessageSource messageSource;
     @Autowired
-    private HttpServletRequest request;
+    HttpServletRequest request;
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    UsuarioRepository usuarioRepository;
     @Autowired
-    private PasswordEncoder encoder;
+    PasswordEncoder encoder;
+
 
     private String get(String key) {
         return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));

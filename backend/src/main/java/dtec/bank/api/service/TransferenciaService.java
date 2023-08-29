@@ -19,16 +19,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TransferenciaService {
+
     @Autowired
-    private BankLocateResolver locateResolver;
+    BankLocateResolver locateResolver;
     @Autowired
-    private MessageSource messageSource;
+    MessageSource messageSource;
     @Autowired
-    private HttpServletRequest request;
+    HttpServletRequest request;
     @Autowired
-    private ContaRepository contaRepository;
+    BancoRepository bancoRepository;
     @Autowired
-    private TransferenciaRepository transferenciaRepository;
+    AgenciaRepository agenciaRepository;
+    @Autowired
+    ContaRepository contaRepository;
+    @Autowired
+    TransferenciaRepository transferenciaRepository;
 
     private String get(String key) {
         return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));

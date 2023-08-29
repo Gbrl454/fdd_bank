@@ -1,6 +1,5 @@
 package dtec.bank.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dtec.bank.api.entity.dto.DadosCadastroAgencia;
 import dtec.bank.api.entity.dto.DadosCadastroBanco;
 import dtec.bank.api.entity.dto.DadosCadastroConta;
@@ -32,12 +31,4 @@ public abstract class ConfigTests implements MessageTests {
                 true, 500.0, true, 500.0);
     }
 
-
-    protected String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

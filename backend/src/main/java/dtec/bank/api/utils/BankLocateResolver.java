@@ -20,7 +20,7 @@ public class BankLocateResolver implements LocaleResolver {
         }
 
         Locale locale = Locale.forLanguageTag(language);
-        List<Locale> idiomas = new ArrayList<>(Arrays.stream(Idioma.values()).map(str -> new Locale(str.toString())).toList());
+        List<Locale> idiomas = new ArrayList<>(Arrays.asList(Idioma.values()).stream().map(str -> new Locale(str.toString())).toList());
 
         if (idiomas.contains(locale)) {
             return locale;

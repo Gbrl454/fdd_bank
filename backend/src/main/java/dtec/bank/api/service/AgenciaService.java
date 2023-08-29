@@ -15,27 +15,29 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AgenciaService {
+
     @Autowired
-    private BankLocateResolver locateResolver;
+    BankLocateResolver locateResolver;
     @Autowired
-    private MessageSource messageSource;
+    MessageSource messageSource;
     @Autowired
-    private HttpServletRequest request;
+    HttpServletRequest request;
     @Autowired
-    private AgenciaRepository agenciaRepository;
+    AgenciaRepository agenciaRepository;
     @Autowired
-    private BancoRepository bancoRepository;
+    BancoRepository bancoRepository;
 
     private String get(String key) {
         return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));
     }
 
     public DadosDetalhamentoAgencia cadastrar(DadosCadastroAgencia dados) {
-        if (!bancoRepository.existsById(dados.idBanco())) {
+        if (dados.idBanco() != null && !bancoRepository.existsById(dados.idBanco())) {
             throw new ValidacaoException(get("banco.id.notexist"));
         }
 
         var banco = bancoRepository.getReferenceById(dados.idBanco());
+
         var agencia = new Agencia(null, dados.nome(), banco);
 
         if (agenciaRepository.findByNome(agencia.getNome()) != null) {

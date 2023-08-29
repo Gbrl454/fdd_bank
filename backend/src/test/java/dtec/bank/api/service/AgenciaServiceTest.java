@@ -92,6 +92,4 @@ class AgenciaServiceTest extends ConfigTests {
                 assertThrows(DataIntegrityViolationException.class, () -> agenciaService.cadastrar(dados)).getMessage());
         verify(agenciaRepository, times(0)).save(any(Agencia.class));
     }
-
-
 }

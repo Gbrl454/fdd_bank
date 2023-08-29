@@ -535,5 +535,4 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getLis(), conta.getLis());
         assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
     }
-
 }

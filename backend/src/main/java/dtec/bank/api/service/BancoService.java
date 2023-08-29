@@ -13,19 +13,24 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BancoService {
+
     @Autowired
-    private BankLocateResolver locateResolver;
+    BankLocateResolver locateResolver;
     @Autowired
-    private MessageSource messageSource;
+    MessageSource messageSource;
     @Autowired
-    private HttpServletRequest request;
+    HttpServletRequest request;
     @Autowired
-    private BancoRepository bancoRepository;
+    BancoRepository bancoRepository;
+
+    private String get(String key) {
+        return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));
+    }
 
     public DadosDetalhamentoBanco cadastrar(DadosCadastroBanco dados) {
         var banco = new Banco(dados);
         if (bancoRepository.findByNome(banco.getNome()) != null) {
-            throw new DataIntegrityViolationException(messageSource.getMessage("banco.nome.therealready", null, locateResolver.resolveLocale(request)));
+            throw new DataIntegrityViolationException(get("banco.nome.therealready"));
         }
 
         bancoRepository.save(banco);

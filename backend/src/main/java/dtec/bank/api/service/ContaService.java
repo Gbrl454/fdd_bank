@@ -8,7 +8,6 @@ import dtec.bank.api.repository.AgenciaRepository;
 import dtec.bank.api.repository.ContaRepository;
 import dtec.bank.api.repository.UsuarioRepository;
 import dtec.bank.api.utils.BankLocateResolver;
-import dtec.bank.api.utils.TipoConta;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -16,18 +15,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ContaService {
+
     @Autowired
-    private BankLocateResolver locateResolver;
+    BankLocateResolver locateResolver;
     @Autowired
-    private MessageSource messageSource;
+    MessageSource messageSource;
     @Autowired
-    private HttpServletRequest request;
+    HttpServletRequest request;
     @Autowired
-    private ContaRepository contaRepository;
+    ContaRepository contaRepository;
     @Autowired
-    private AgenciaRepository agenciaRepository;
+    AgenciaRepository agenciaRepository;
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    UsuarioRepository usuarioRepository;
 
     private String get(String key) {
         return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));
@@ -48,72 +48,92 @@ public class ContaService {
 
         var usuario = usuarioRepository.getReferenceById(dados.idUsuario());
 
-        boolean cartaoCredito = false;
-        long saldoCartaoCredito = 0L;
+        boolean cartao_de_credito = false;
+        long saldo_cartao_de_credito = 0L;
         boolean lis = false;
-        long saldoLis = 0L;
+        long saldo_lis = 0L;
 
-        if (dados.tipo() == TipoConta.NORMAL) {
-            if ((dados.cartao_de_credito() != null && dados.cartao_de_credito()) || (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0)) {
-                throw new ValidacaoException(get("conta.normal.notown.creditcard"));
+        switch (dados.tipo()) {
+            case NORMAL -> {
+                if ((dados.cartao_de_credito() != null && dados.cartao_de_credito()) || (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0)) {
+                    throw new ValidacaoException(get("conta.normal.notown.creditcard"));
+                }
+
+                if ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0)) {
+                    throw new ValidacaoException(get("conta.normal.notown.lis"));
+                }
             }
+            case ESPECIAL -> {
+                if (dados.cartao_de_credito() != null) {
+                    cartao_de_credito = dados.cartao_de_credito();
 
-            if ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0)) {
-                throw new ValidacaoException(get("conta.normal.notown.lis"));
-            }
-        }
-
-        if (dados.tipo() == TipoConta.ESPECIAL || dados.tipo() == TipoConta.PREMIUM) {
-            if (dados.cartao_de_credito() != null) {
-                cartaoCredito = dados.cartao_de_credito();
-
-                if (cartaoCredito) {
-                    if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                        saldoCartaoCredito = (long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador());
+                    if (cartao_de_credito) {
+                        if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                            saldo_cartao_de_credito = (long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador());
+                        } else {
+                            throw new ValidacaoException(get("saldo.creditcard.informwhenhave"));
+                        }
                     } else {
-                        throw new ValidacaoException(get("saldo.creditcard.informwhenhave"));
+                        if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                            throw new ValidacaoException(saldoCreditCardInformOnlyHave);
+                        }
                     }
                 } else {
                     if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
                         throw new ValidacaoException(saldoCreditCardInformOnlyHave);
                     }
                 }
-            } else {
-                if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
-                    throw new ValidacaoException(saldoCreditCardInformOnlyHave);
+
+                if ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0)) {
+                    throw new ValidacaoException(get("conta.especial.notown.lis"));
                 }
             }
-        }
+            case PREMIUM -> {
+                if (dados.cartao_de_credito() != null) {
+                    cartao_de_credito = dados.cartao_de_credito();
 
-        if (dados.tipo() == TipoConta.ESPECIAL && ((dados.lis() != null && dados.lis()) || (dados.saldo_lis() != null && dados.saldo_lis() > 0))) {
-            throw new ValidacaoException(get("conta.especial.notown.lis"));
-        }
-
-        if (dados.tipo() == TipoConta.PREMIUM) {
-            if (dados.lis() != null) {
-                lis = dados.lis();
-
-                if (lis) {
-                    if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
-                        saldoLis = (long) (dados.saldo_lis() * dados.moeda().getMultiplicador());
+                    if (cartao_de_credito) {
+                        if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                            saldo_cartao_de_credito = (long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador());
+                        } else {
+                            throw new ValidacaoException(get("saldo.creditcard.informwhenhave"));
+                        }
                     } else {
-                        throw new ValidacaoException(get("saldo.lis.informwhenhave"));
+                        if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                            throw new ValidacaoException(saldoCreditCardInformOnlyHave);
+                        }
+                    }
+                } else {
+                    if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0) {
+                        throw new ValidacaoException(saldoCreditCardInformOnlyHave);
+                    }
+                }
+
+                if (dados.lis() != null) {
+                    lis = dados.lis();
+
+                    if (lis) {
+                        if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
+                            saldo_lis = (long) (dados.saldo_lis() * dados.moeda().getMultiplicador());
+                        } else {
+                            throw new ValidacaoException(get("saldo.lis.informwhenhave"));
+                        }
+                    } else {
+                        if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
+                            throw new ValidacaoException(get("saldo.lis.informonlyhave"));
+                        }
                     }
                 } else {
                     if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
                         throw new ValidacaoException(get("saldo.lis.informonlyhave"));
                     }
                 }
-            } else {
-                if (dados.saldo_lis() != null && dados.saldo_lis() > 0) {
-                    throw new ValidacaoException(get("saldo.lis.informonlyhave"));
-                }
             }
         }
 
         Long saldo = (long) (dados.saldo() * dados.moeda().getMultiplicador());
 
-        var conta = new Conta(null, agencia, usuario, dados.moeda(), saldo, dados.tipo(), cartaoCredito, saldoCartaoCredito, lis, saldoLis);
+        var conta = new Conta(null, agencia, usuario, dados.moeda(), saldo, dados.tipo(), cartao_de_credito, saldo_cartao_de_credito, lis, saldo_lis);
         contaRepository.save(conta);
         return new DadosDetalhamentoConta(conta);
     }

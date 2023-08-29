@@ -25,7 +25,7 @@ public class Banco {
     @Enumerated(EnumType.STRING)
     private Pais pais;
 
-    public Banco(DadosCadastroBanco dados) {
+    public Banco (DadosCadastroBanco dados) {
         this.nome = dados.nome();
         this.pais = dados.pais();
     }
