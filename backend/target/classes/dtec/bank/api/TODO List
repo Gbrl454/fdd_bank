@@ -1,0 +1,19 @@
+Global
+    OK - Unificar mensagens
+    OK - A partir do idioma colocado no header mudar idioma das mensagens
+    OK - Revisar mensagens
+Usuário
+    OK - Ao criar usuário colocar a senha codificada
+    OK - Criar Token no login
+    OK - Validar Token para requisições
+Banco
+    OK - Colocar indicador de pais no Banco
+Conta
+    OK - Colocar indicador de moeda na Conta
+    OK - Ao cadastrar deve salvar saldo no banco em real (1 real -> 10000)
+Transferência
+    OK - Para o banco o horário da transferência deve ser de acordo com o UTF-0
+    OK - Motivo se não for realizada
+    OK - Ao cadastrar converter moeda da conta de origem para real (1 real -> 10000)
+    OK - Retirar saldo da conta de Origem
+    OK - Colocar saldo na conta de Destino

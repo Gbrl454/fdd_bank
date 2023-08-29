@@ -1,0 +1,24 @@
+@import "/src/vars.scss";
+
+.welcome {
+  background-color: $cor-azul;
+  color: $cor-branco;
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 75%;
+  max-width: 30rem;
+  height: 5rem;
+}
+
+.saldoTotal {
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 2px solid $cor-azul-cinza;
+  width: 50%;
+  background-color: $cor-branco;
+  @include sombra(1px, 1px, 3px, 0.05);
+  transition: all 0.5s ease;
+  &:hover {
+    scale: 1.025;
+  }
+}
