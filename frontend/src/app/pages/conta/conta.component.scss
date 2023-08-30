@@ -5,7 +5,7 @@ section {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  flex-wrap: wrap;
+  height: 100%;
 }
 
 .saldo {
@@ -26,7 +26,8 @@ section {
 .saldos {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .card {
@@ -40,6 +41,7 @@ section {
 .extrato {
   width: 90%;
   height: 15rem;
+  overflow: hidden;
 }
 
 .line {
@@ -49,13 +51,13 @@ section {
 }
 
 .transferencias {
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 92.5%;
 }
 
 .pesquisa {
   border: none;
-  width: 75%;
+  width: auto;
   font-size: large;
   margin: 0.25rem 1rem;
   outline: none;
@@ -84,16 +86,74 @@ section {
     justify-content: center;
     padding: 1rem 1.5rem;
     border-left: 3px solid $cor-azul-escuro;
-    width: 100%;
+  }
 
-    &:first-child {
-      border-left: none;
-      width: 3rem;
-    }
+  .id {
+    grid-area: id;
+    border-left: none;
+    width: 2.5%;
+  }
+
+  .valor {
+    grid-area: valor;
+    width: 20%;
+  }
+
+  .horario {
+    grid-area: horario;
+    width: 7.5%;
+    text-align: center;
   }
 
   .individuos {
+    width: 40%;
     flex-direction: column;
+    grid-area: individuos;
+  }
+
+  .realizado {
+    width: 30%;
+    color: $cor-branco;
+    font-weight: bold;
+    grid-area: realizado;
+  }
+
+  @media (max-width: $size-mobile) {
+    display: grid;
+    grid-template-areas:
+      "id horario"
+      "valor valor"
+      "individuos individuos"
+      "realizado realizado";
+    height: auto;
+
+    & > * {
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      width: 100%;
+      border-top: 3px solid $cor-azul-escuro;
+    }
+
+    .id,
+    .horario {
+      border-top: 0;
+    }
+
+    .horario {
+      border-left: 3px solid $cor-azul-escuro;
+    }
+
+    .id,
+    .valor,
+    .horario,
+    .individuos,
+    .realizado {
+      width: auto;
+      text-align: center;
+    }
   }
 }
 

@@ -28,7 +28,7 @@
   @include sombra(-2px, 0px, 7px, 0.5);
 }
 
-@media (max-width: 900px) {
+@media (max-width: $size-mobile) {
   .container {
     flex-direction: column;
   }

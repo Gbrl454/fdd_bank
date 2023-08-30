@@ -6,6 +6,7 @@ $cor-azul-cinza: #87b7fe;
 $cor-azul-escuro: #132190;
 $cor-verde: #009900;
 $cor-vermelho: #990000;
+$size-mobile: 800px;
 
 @mixin sombra($h, $v, $r, $o) {
   -webkit-box-shadow: $h $v $r calc($r/2) rgba(0, 0, 0, 0.5);

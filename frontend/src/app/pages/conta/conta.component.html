@@ -11,12 +11,12 @@
     </div>
 
     <div class="card saldo">
-      <p>Saldo Cheque Especial:</p>
+      <p>Cheque Especial:</p>
       <p>XXX <span>999.999.999,99</span></p>
     </div>
 
     <div class="card saldo">
-      <p>Saldo Cartão de Crédito:</p>
+      <p>Cartão de Crédito:</p>
       <p>XXX <span>999.999.999,99</span></p>
     </div>
   </div>
@@ -37,22 +37,23 @@
       *ngIf="transferencias.length > 0; else extratoVazio"
     >
       <div class="transferencia" *ngFor="let transferencia of transferencias">
-        <span>{{ transferencia.id }}</span>
+        <span class="id">{{ transferencia.id }}</span>
 
-        <span>{{ transferencia.moeda.simbolo }} {{ transferencia.valor }}</span>
+        <span class="valor"
+          >{{ transferencia.moeda.simbolo }} {{ transferencia.valor }}</span
+        >
 
         <div class="individuos">
           <span>De: {{ transferencia.idContaOrigem }}</span>
           <span>Para: {{ transferencia.idContaDestino }}</span>
         </div>
 
-        <span>
+        <span class="horario">
           {{ transferencia.horarioTranferencia | date : "dd/MM/yyyy HH:mm" }}
         </span>
 
-        <div [ngClass]="sucessoClass(transferencia)">
-          {{ sucessoMsg(transferencia) }}<br />
-          {{ transferencia.motivo }}
+        <div class="realizado" [ngClass]="sucessoClass(transferencia)">
+          {{ sucessoMsg(transferencia) }}
         </div>
       </div>
     </div>

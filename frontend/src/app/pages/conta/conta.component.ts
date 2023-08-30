@@ -16,23 +16,30 @@ export class ContaComponent {
     multiplicador: 1,
   };
 
+  trasf: Transferencia = {
+    id: 1,
+    sucesso: true,
+    motivo: 'Equilibrios insuficientes para realizar la transferencia',
+    valor: 123456,
+    idContaOrigem: 1,
+    idContaDestino: 1,
+    moeda: this.moeda,
+    horarioTranferencia: new Date(),
+  };
+
   constructor() {
     this.transferencias = [
-      {
-        id: 1,
-        sucesso: true,
-        motivo: '',
-        valor: 123456,
-        idContaOrigem: 1,
-        idContaDestino: 1,
-        moeda: this.moeda,
-        horarioTranferencia: new Date(),
-      },
+      this.trasf,
+      this.trasf,
+      this.trasf,
+      this.trasf,
+      this.trasf,
+      this.trasf,
     ];
   }
 
   sucessoMsg(transferencia: Transferencia): string {
-    return transferencia.sucesso ? 'Okay' : ';-;';
+    return transferencia.sucesso ? 'Okay' : transferencia.motivo;
   }
 
   sucessoClass(transferencia: Transferencia): string {
