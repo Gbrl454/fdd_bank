@@ -1,4 +1,26 @@
 * {
   margin: 0px;
   padding: 0px;
+
+  $preto: #000000;
+  $transparente: #00000000;
+  $size: 5px;
+
+  scrollbar-width: thin;
+  scrollbar-color: $preto $transparente;
+
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $transparente;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $preto;
+    border-radius: $size;
+    border: $size none $transparente;
+  }
 }

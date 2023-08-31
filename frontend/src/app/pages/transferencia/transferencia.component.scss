@@ -1,0 +1,82 @@
+@import "/src/vars.scss";
+
+section {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 25px 0;
+  padding: 10px 2.5px 0 7.5px;
+
+  label {
+    font-size: large;
+    font-weight: bolder;
+    color: $cor-azul-escuro;
+  }
+
+  input {
+    font-size: large;
+    caret-color: $cor-azul-escuro;
+    outline: none;
+    width: 100%;
+    padding: 10px 15px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid $cor-azul-escuro;
+    background: none;
+    color: $cor-azul;
+
+    &::placeholder {
+      color: $cor-azul-cinza;
+      font-style: italic;
+      opacity: 50%;
+    }
+  }
+}
+
+.botao_desabilitado,
+.botao {
+  width: 40%;
+  height: 2rem;
+  font-weight: bolder;
+  border-radius: 1rem;
+  border: none;
+  @include sombra(2px, 2px, 7px, 0.5);
+  transition: all 1s ease;
+}
+
+.botao {
+  background-color: $cor-azul-escuro;
+  color: $cor-branco;
+
+  &:hover {
+    background-color: $cor-azul-cinza;
+    color: $cor-azul-escuro;
+    cursor: pointer;
+  }
+}
+
+.botao_desabilitado {
+  background-color: $cor-azul-cinza;
+  color: $cor-azul-escuro;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+}

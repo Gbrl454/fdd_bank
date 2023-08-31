@@ -18,12 +18,6 @@
     color: $cor-azul-escuro;
   }
 
-  &:hover,
-  &:focus-within {
-    background-color: rgba(100, 100, 100, 0.1);
-    @include sombra(5px, 5px, 10px, 0.5);
-  }
-
   input {
     font-size: large;
     caret-color: $cor-azul-escuro;

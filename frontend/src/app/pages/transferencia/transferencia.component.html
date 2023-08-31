@@ -1,1 +1,28 @@
-<p>transferencia works!</p>
+<section class="container">
+  <h1>Preencha os dados da Transferência</h1>
+  <form class="form" [formGroup]="formTransf">
+    <div class="input">
+      <label for="valor">Valor que Será Enviado</label>
+      <input formControlName="valor" type="number" name="valor" id="valor" />
+    </div>
+
+    <div class="input">
+      <label for="idConta">ID da Conta de Destino</label>
+      <input
+        formControlName="idDestino"
+        type="number"
+        name="idConta"
+        id="idConta"
+      />
+    </div>
+
+    <button
+      [class]="habilitarBotao()"
+      [disabled]="this.formTransf.invalid"
+      (click)="onSubmit()"
+      type="submit"
+    >
+      Transferir
+    </button>
+  </form>
+</section>
