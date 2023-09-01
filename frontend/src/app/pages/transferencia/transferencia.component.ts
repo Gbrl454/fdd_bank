@@ -13,8 +13,8 @@ export class TransferenciaComponent {
 
   ngOnInit(): void {
     this.formTransf = this.formBuilder.group({
-      valor: ['', Validators.compose([Validators.required])],
-      idDestino: ['', Validators.compose([Validators.required])],
+      valor: [null, Validators.compose([Validators.required])],
+      idDestino: [null, Validators.compose([Validators.required])],
     });
   }
 

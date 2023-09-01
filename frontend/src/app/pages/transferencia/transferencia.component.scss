@@ -10,13 +10,13 @@ section {
 
 .form {
   display: flex;
-  width: 50%;
+  width: 75%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.input {
+.inputContainer {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -28,24 +28,29 @@ section {
     font-weight: bolder;
     color: $cor-azul-escuro;
   }
+}
 
-  input {
-    font-size: large;
-    caret-color: $cor-azul-escuro;
-    outline: none;
+:host ::ng-deep {
+  .p-inputnumber {
     width: 100%;
     padding: 10px 15px;
     margin: 5px 0;
     box-sizing: border-box;
-    border: none;
     border-bottom: 2px solid $cor-azul-escuro;
     background: none;
-    color: $cor-azul;
+  }
 
-    &::placeholder {
-      color: $cor-azul-cinza;
-      font-style: italic;
-      opacity: 50%;
+  .p-inputtext {
+    outline: none;
+    border: none;
+    caret-color: $cor-azul-escuro;
+    font-size: large;
+    color: $cor-azul;
+  }
+
+  @media (max-width: $size-mobile) {
+    * {
+      text-align: center;
     }
   }
 }
@@ -79,4 +84,12 @@ section {
   &:hover {
     cursor: not-allowed;
   }
+}
+
+.mensagem_erro {
+  font-size: 15px;
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 10px;
 }

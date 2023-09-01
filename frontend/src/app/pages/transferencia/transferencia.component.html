@@ -1,19 +1,60 @@
 <section class="container">
   <h1>Preencha os dados da Transferência</h1>
   <form class="form" [formGroup]="formTransf">
-    <div class="input">
+    <div class="inputContainer">
       <label for="valor">Valor que Será Enviado</label>
-      <input formControlName="valor" type="number" name="valor" id="valor" />
+      <p-inputNumber
+        class="input"
+        formControlName="valor"
+        inputId="minmaxfraction"
+        mode="decimal"
+        name="valor"
+        id="valor"
+        placeholder="Valor da Transferência"
+        [minFractionDigits]="1"
+        [maxFractionDigits]="2"
+        [min]="1"
+        [maxlength]="12"
+      >
+      </p-inputNumber>
+      <div
+        class="mensagem_erro"
+        *ngIf="
+          formTransf.get('valor')?.errors && formTransf.get('valor')?.touched
+        "
+      >
+        <span *ngIf="formTransf.get('valor')!.errors!['required']"
+          >Esse campo é obrigatório!</span
+        >
+      </div>
     </div>
 
-    <div class="input">
+    <div class="inputContainer">
       <label for="idConta">ID da Conta de Destino</label>
-      <input
+      <p-inputNumber
+        class="input"
         formControlName="idDestino"
-        type="number"
         name="idConta"
         id="idConta"
-      />
+        placeholder="ID da Conta"
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+        [min]="1"
+        [maxlength]="9"
+      >
+      </p-inputNumber>
+      <div
+        class="mensagem_erro"
+        *ngIf="
+          formTransf.get('idDestino')?.errors &&
+          formTransf.get('idDestino')?.touched
+        "
+      >
+        <span *ngIf="formTransf.get('idDestino')!.errors!['required']"
+          >Esse campo é obrigatório!</span
+        >
+      </div>
     </div>
 
     <button

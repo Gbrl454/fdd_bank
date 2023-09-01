@@ -12,6 +12,8 @@ import { TemplateAuthComponent } from './templates/template-auth/template-auth.c
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { RegisterComponent } from './pages/register/register.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    InputMaskModule,
+    InputNumberModule
   ],
   providers: [],
   bootstrap: [AppComponent],
