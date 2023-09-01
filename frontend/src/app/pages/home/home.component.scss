@@ -18,6 +18,13 @@
   background-color: aqua;
 }
 
+.link {
+  &:hover {
+    cursor: pointer;
+    font-style: italic;
+  }
+}
+
 .cumprimento {
   padding: 0 2.5%;
   width: 25%;

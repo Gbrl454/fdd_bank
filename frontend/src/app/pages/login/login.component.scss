@@ -142,3 +142,15 @@
   font-style: italic;
   margin-bottom: 10px;
 }
+
+.notClient {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    font-style: italic;
+    cursor: pointer;
+  }
+}

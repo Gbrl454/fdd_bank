@@ -1,1 +1,113 @@
-<p>register works!</p>
+email login senha confirsenha
+<section class="container">
+  <h1>Preencha os dados da Transferência</h1>
+  <form class="form" [formGroup]="formRegister">
+    <div class="inputContainer">
+      <label for="nome">Nome</label>
+      <input
+        class="input"
+        formControlName="nome"
+        name="nome"
+        id="nome"
+        placeholder="Nome"
+        pInputText
+        maxlength="100"
+      />
+      <div
+        class="mensagem_erro"
+        *ngIf="
+          formRegister.get('nome')?.errors && formRegister.get('nome')?.touched
+        "
+      >
+        <span *ngIf="formRegister.get('nome')!.errors!['required']"
+          >Esse campo é obrigatório!</span
+        >
+      </div>
+    </div>
+
+    <div class="inputContainer">
+      <label for="email">E-Mail</label>
+      <input
+        class="input"
+        formControlName="email"
+        name="email"
+        id="email"
+        placeholder="E-Mail"
+        pInputText
+        maxlength="100"
+      />
+      <div class="mensagem_erro" *ngIf="formRegister.get('email')?.errors">
+        <span
+          *ngIf="
+            formRegister.get('email')!.errors!['required'] &&
+            formRegister.get('email')?.touched
+          "
+          >Esse campo é obrigatório!</span
+        >
+        <span *ngIf="formRegister.get('email')!.errors!['email']"
+          >Esse campo deve ser preenchido com algo no formato de e-mail</span
+        >
+      </div>
+    </div>
+
+    <div class="inputContainer">
+      <label for="senha">Senha</label>
+      <p-password
+        class="input"
+        formControlName="senha"
+        name="senha"
+        id="senha"
+        placeholder="Senha"
+        pInputText
+        maxlength="100"
+        [toggleMask]="true"
+      ></p-password>
+      <div class="mensagem_erro" *ngIf="formRegister.get('senha')?.errors">
+        <span
+          *ngIf="
+            formRegister.get('senha')!.errors!['required'] &&
+            formRegister.get('senha')?.touched
+          "
+          >Esse campo é obrigatório!</span
+        >
+      </div>
+    </div>
+
+    <div class="inputContainer">
+      <label for="confSenha">Confirmar Senha</label>
+      <p-password
+        class="input"
+        formControlName="confSenha"
+        name="confSenha"
+        id="confSenha"
+        placeholder="Confirmar Senha"
+        pInputText
+        maxlength="100"
+        [toggleMask]="true"
+      ></p-password>
+      <div class="mensagem_erro">
+        <div *ngIf="formRegister.get('confSenha')?.errors && !senhasIguais()">
+          <span
+            *ngIf="
+              formRegister.get('confSenha')!.errors!['required'] &&
+              formRegister.get('confSenha')?.touched
+            "
+            >Esse campo é obrigatório!</span
+          >
+          <span *ngIf="!senhasIguais()">As senhas devem ser iguais!</span>
+        </div>
+      </div>
+    </div>
+
+    {{ !senhasIguais() }}
+
+    <button
+      [class]="habilitarBotao()"
+      [disabled]="this.formRegister.invalid"
+      (click)="onSubmit()"
+      type="submit"
+    >
+      Cadastrar
+    </button>
+  </form>
+</section>

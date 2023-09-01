@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     HttpClientModule,
     ReactiveFormsModule,
     InputMaskModule,
-    InputNumberModule
+    InputNumberModule,
+    PasswordModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
