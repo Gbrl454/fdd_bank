@@ -1,12 +1,12 @@
-import { Moeda } from './moeda.model';
+import { DetailMoeda } from './detailMoeda.model';
 
-export interface Transferencia {
+export interface DetailTransf {
   id: number;
   sucesso: boolean;
-  motivo: string;
+  motivo?: string;
   valor: number;
   idContaOrigem: number;
   idContaDestino: number;
-  moeda: Moeda;
+  moeda: DetailMoeda;
   horarioTranferencia: Date;
 }

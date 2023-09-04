@@ -1,6 +1,6 @@
-import { Moeda } from './../../models/entity/moeda.model';
+import { DetailMoeda } from '../../models/entity/detailMoeda.model';
 import { Component } from '@angular/core';
-import { Transferencia } from 'src/app/models/entity/transferencia.model';
+import { DetailTransf } from 'src/app/models/entity/detailTransf.model';
 
 @Component({
   selector: 'app-conta',
@@ -8,15 +8,15 @@ import { Transferencia } from 'src/app/models/entity/transferencia.model';
   styleUrls: ['./conta.component.scss'],
 })
 export class ContaComponent {
-  transferencias: Transferencia[] = [];
+  transferencias: DetailTransf[] = [];
 
-  moeda: Moeda = {
+  moeda: DetailMoeda = {
     nome: 'Real',
     simbolo: 'R$',
     multiplicador: 1,
   };
 
-  trasf: Transferencia = {
+  trasf: DetailTransf = {
     id: 1,
     sucesso: true,
     motivo: 'Equilibrios insuficientes para realizar la transferencia',
@@ -38,11 +38,11 @@ export class ContaComponent {
     ];
   }
 
-  sucessoMsg(transferencia: Transferencia): string {
-    return transferencia.sucesso ? 'Okay' : transferencia.motivo;
+  sucessoMsg(transferencia: DetailTransf): string {
+    return transferencia.sucesso ? 'Okay' : transferencia.motivo!;
   }
 
-  sucessoClass(transferencia: Transferencia): string {
+  sucessoClass(transferencia: DetailTransf): string {
     return transferencia.sucesso ? 'sucesso' : 'fail';
   }
 }
