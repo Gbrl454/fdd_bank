@@ -1,11 +1,9 @@
-email login senha confirsenha
 <section class="container">
   <h1>Preencha os dados da Transferência</h1>
   <form class="form" [formGroup]="formRegister">
     <div class="inputContainer">
       <label for="nome">Nome</label>
       <input
-        class="input"
         formControlName="nome"
         name="nome"
         id="nome"
@@ -28,7 +26,6 @@ email login senha confirsenha
     <div class="inputContainer">
       <label for="email">E-Mail</label>
       <input
-        class="input"
         formControlName="email"
         name="email"
         id="email"
@@ -49,20 +46,24 @@ email login senha confirsenha
         >
       </div>
     </div>
-
-    <div class="inputContainer">
+    <!--
+     <div class="inputContainer">
       <label for="senha">Senha</label>
-      <p-password
-        class="input"
-        formControlName="senha"
-        name="senha"
-        id="senha"
-        placeholder="Senha"
-        pInputText
-        maxlength="100"
-        [toggleMask]="true"
-      ></p-password>
-      <div class="mensagem_erro" *ngIf="formRegister.get('senha')?.errors">
+
+        <input
+          #passwordInput
+          type="password"
+          id="senha"
+          formControlName="senha"
+          placeholder="Digite sua Senha"
+        />
+        <img
+          src="assets/eye-{{ passwordEyeIs() }}.png"
+          class="lnr-eye"
+          (click)="changePasswordEye()"
+        />
+      </div>
+      <div *ngIf="formRegister.get('senha')?.errors && !senhasIguais()">
         <span
           *ngIf="
             formRegister.get('senha')!.errors!['required'] &&
@@ -70,36 +71,58 @@ email login senha confirsenha
           "
           >Esse campo é obrigatório!</span
         >
+        <span *ngIf="!senhasIguais()">As senhas devem ser iguais!</span>
+      </div> -->
+
+    <div class="inputContainer">
+      <label for="senha">Senha</label>
+      <div class="containerPassword">
+        <input
+          formControlName="senha"
+          name="senha"
+          id="senha"
+          placeholder="Digite sua Senha"
+          pInputText
+          #passwordInput
+          type="password"
+          maxlength="100"
+        />
+        <img
+          src="assets/eye-{{ passwordEyeIs() }}.png"
+          class="lnr-eye"
+          (click)="changePasswordEye()"
+        />
+      </div>
+      <div class="mensagem_erro" *ngIf="formRegister.get('senha')?.errors && !senhasIguais()">
+        <span *ngIf="formRegister.get('senha')!.errors!['required'] && formRegister.get('senha')?.touched">Esse campo é obrigatório!</span>
+        <span *ngIf="!senhasIguais()">As senhas devem ser iguais!</span>
       </div>
     </div>
 
     <div class="inputContainer">
-      <label for="confSenha">Confirmar Senha</label>
-      <p-password
-        class="input"
-        formControlName="confSenha"
-        name="confSenha"
-        id="confSenha"
-        placeholder="Confirmar Senha"
-        pInputText
-        maxlength="100"
-        [toggleMask]="true"
-      ></p-password>
-      <div class="mensagem_erro">
-        <div *ngIf="formRegister.get('confSenha')?.errors && !senhasIguais()">
-          <span
-            *ngIf="
-              formRegister.get('confSenha')!.errors!['required'] &&
-              formRegister.get('confSenha')?.touched
-            "
-            >Esse campo é obrigatório!</span
-          >
-          <span *ngIf="!senhasIguais()">As senhas devem ser iguais!</span>
-        </div>
+      <label for="confSenha">Confirmação de Senha</label>
+      <div class="containerPassword">
+        <input
+          formControlName="confSenha"
+          name="confSenha"
+          id="confSenha"
+          placeholder="Digite sua Senha"
+          pInputText
+          #confPasswordInput
+          type="password"
+          maxlength="100"
+        />
+        <img
+          src="assets/eye-{{ confPasswordEyeIs() }}.png"
+          class="lnr-eye"
+          (click)="changeConfPasswordEye()"
+        />
+      </div>
+      <div class="mensagem_erro" *ngIf="formRegister.get('confSenha')?.errors || !senhasIguais()">
+        <span *ngIf="formRegister.get('confSenha')!.errors!['required'] && formRegister.get('confSenha')?.touched">Esse campo é obrigatório!</span>
+        <span *ngIf="!senhasIguais()">As senhas devem ser iguais!</span>
       </div>
     </div>
-
-    {{ !senhasIguais() }}
 
     <button
       [class]="habilitarBotao()"
@@ -109,5 +132,6 @@ email login senha confirsenha
     >
       Cadastrar
     </button>
+   <p class="link" routerLink="/login">Acesse sua conta</p>
   </form>
 </section>

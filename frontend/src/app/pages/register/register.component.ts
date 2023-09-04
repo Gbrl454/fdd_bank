@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/entity/user.model';
 
@@ -9,6 +9,12 @@ import { User } from 'src/app/models/entity/user.model';
 })
 export class RegisterComponent implements OnInit {
   formRegister!: FormGroup;
+
+  @ViewChild('passwordInput') passwordInput: ElementRef | undefined;
+  @ViewChild('confPasswordInput') confPasswordInput: ElementRef | undefined;
+  formLogin!: FormGroup;
+  private passwordEye: boolean = false;
+  private confPasswordEye: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -29,9 +35,30 @@ export class RegisterComponent implements OnInit {
   }
 
   senhasIguais() {
-    const senha = this.formRegister.get('senha')?.value;
-    const confSenha = this.formRegister.get('confSenha')?.value;
+    let senha: string = this.formRegister.get('senha')?.value;
+    let confSenha: string = this.formRegister.get('confSenha')?.value;
     return senha === confSenha;
+  }
+
+  passwordEyeIs(): string {
+    return this.passwordEye ? 'open' : 'close';
+  }
+
+  changePasswordEye() {
+    this.passwordEye = !this.passwordEye;
+    const inputElement: HTMLInputElement = this.passwordInput?.nativeElement;
+    inputElement.type = this.passwordEye ? 'text' : 'password';
+  }
+
+  confPasswordEyeIs(): string {
+    return this.confPasswordEye ? 'open' : 'close';
+  }
+
+  changeConfPasswordEye() {
+    this.confPasswordEye = !this.confPasswordEye;
+    const inputElement: HTMLInputElement =
+      this.confPasswordInput?.nativeElement;
+    inputElement.type = this.confPasswordEye ? 'text' : 'password';
   }
 
   async onSubmit() {}

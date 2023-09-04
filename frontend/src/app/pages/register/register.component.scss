@@ -1,0 +1,137 @@
+@import "/src/vars.scss";
+
+.container {
+  background-color: $cor-azul;
+  height: max(100dvh, 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    color: $cor-branco;
+  }
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 25px 0;
+
+  label {
+    font-size: large;
+    font-weight: bolder;
+    color: $cor-azul-escuro;
+  }
+
+  .containerPassword {
+    width: 100%;
+    border-bottom: 2px solid $cor-azul-escuro;
+    input {
+      width: calc(100% - 30px);
+      border: none !important;
+    }
+  }
+
+  input {
+    font-size: large;
+    caret-color: $cor-azul-escuro;
+    outline: none;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    color: $cor-branco;
+    border-bottom: 2px solid $cor-azul-escuro;
+
+    &::placeholder {
+      color: $cor-azul-cinza;
+      font-style: italic;
+      opacity: 50%;
+    }
+  }
+}
+
+.lnr-eye {
+  height: 30px;
+  width: auto;
+  transform: translateY(40%);
+  cursor: pointer;
+}
+
+.botao_desabilitado,
+.botao {
+  width: 20%;
+  height: 2rem;
+  font-weight: bolder;
+  border-radius: 1rem;
+  border: none;
+  @include sombra(2px, 2px, 7px, 0.5);
+  transition: all 1s ease;
+}
+
+.botao {
+  background-color: $cor-azul-escuro;
+  color: $cor-branco;
+
+  &:hover {
+    background-color: $cor-azul-cinza;
+    color: $cor-azul-escuro;
+    cursor: pointer;
+  }
+}
+
+.botao_desabilitado {
+  background-color: $cor-azul-cinza;
+  color: $cor-azul-escuro;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
+.link {
+  color: $cor-branco;
+  font-weight: bold;
+  padding: 1rem;
+  &:hover {
+    cursor: pointer;
+    font-style: italic;
+  }
+}
+
+@media (max-width: $size-mobile) {
+  .botao_desabilitado,
+  .botao {
+    width: 45%;
+    height: 2.5rem;
+    font-weight: bolder;
+    border-radius: 1rem;
+  }
+
+  .inputContainer {
+    width: 70dvw;
+    margin: 10px 0;
+  }
+
+  .lnr-eye {
+    right: 15dvw;
+  }
+}
+
+.mensagem_erro {
+  font-size: 15px;
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
