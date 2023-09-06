@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import jwtDecode from 'jwt-decode';
+import { environment } from 'src/ environments/environment';
 import { Auth } from 'src/app/models/entity/auth.model';
 import { RegisterUser } from 'src/app/models/entity/registerUser.model';
 
@@ -7,19 +10,57 @@ import { RegisterUser } from 'src/app/models/entity/registerUser.model';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
-  login(user: Auth) {
-    return new Promise((resolve) => {
-      window.localStorage.setItem('token', 'meu-token');
-      resolve(true);
-    });
+  async login(user: Auth) {
+    console.log(user);
+
+    const result = await this.http
+      .post<any>(`${environment.api}/login`, user)
+      .toPromise();
+    if (result && result.access_token) {
+      console.log(result);
+
+      window.localStorage.setItem('token', result.access_token);
+      return true;
+    }
+
+    return false;
+  }
+  async createAccount(account: RegisterUser) {
+    const result = await this.http
+      .post<RegisterUser>(`${environment.api}/usuarios`, account)
+      .toPromise();
+    return result;
   }
 
-  createAccount(account: RegisterUser) {
-    return new Promise((resolve) => {
-      resolve(true);
-    });
+  getAuthorizationToken() {
+    const token = window.localStorage.getItem('token');
+    return token;
+  }
+
+  getTokenExpirationDate(token: string): Date | null {
+    const decoded: any = jwtDecode(token);
+    if (decoded.exp === undefined) return null;
+
+    const date = new Date(0);
+    date.setUTCSeconds(decoded.exp);
+    return date;
+  }
+
+  isTokenExpired(token?: string): boolean {
+    if (!token) return true;
+
+    const date = this.getTokenExpirationDate(token);
+    if (date === undefined || date === null) return false;
+
+    return !(date.valueOf() > new Date().valueOf());
+  }
+
+  isUserLoggedIn() {
+    const token = this.getAuthorizationToken();
+    if (!token) return false;
+    else return !this.isTokenExpired(token);
   }
 
   logout() {

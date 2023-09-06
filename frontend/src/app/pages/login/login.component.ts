@@ -1,7 +1,7 @@
+import { Auth } from './../../models/entity/auth.model';
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Auth } from 'src/app/models/entity/auth.model';
 import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
@@ -10,10 +10,7 @@ import { AuthService } from 'src/app/service/auth/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  login: Auth = {
-    login: '',
-    senha: '',
-  };
+  login: Auth = { login: '', senha: '' };
 
   @ViewChild('passwordInput') passwordInput: ElementRef | undefined;
   formLogin!: FormGroup;
@@ -27,8 +24,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formLogin = this.formBuilder.group({
-      login: ['', Validators.compose([Validators.required])],
-      senha: ['', Validators.compose([Validators.required])],
+      login: [null, Validators.compose([Validators.required])],
+      senha: [null, Validators.compose([Validators.required])],
     });
   }
 

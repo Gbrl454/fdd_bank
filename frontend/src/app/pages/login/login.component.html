@@ -10,6 +10,7 @@
           id="login"
           formControlName="login"
           placeholder="Digite seu Login"
+          [(ngModel)]="login.login"
         />
         <div
           class="mensagem_erro"
@@ -30,6 +31,7 @@
             id="senha"
             formControlName="senha"
             placeholder="Digite sua Senha"
+            [(ngModel)]="login.senha"
           />
           <img
             src="assets/eye-{{ passwordEyeIs() }}.png"

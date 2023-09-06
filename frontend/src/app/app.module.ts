@@ -15,6 +15,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
+import { httpInterceptorProviders } from './service/http-interceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { PasswordModule } from 'primeng/password';
     InputNumberModule,
     PasswordModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

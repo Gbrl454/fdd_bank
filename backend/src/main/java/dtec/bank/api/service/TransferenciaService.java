@@ -2,8 +2,11 @@ package dtec.bank.api.service;
 
 import dtec.bank.api.entity.Conta;
 import dtec.bank.api.entity.Transferencia;
+import dtec.bank.api.entity.Usuario;
 import dtec.bank.api.entity.dto.DadosCadastroTransferencia;
+import dtec.bank.api.entity.dto.DadosDetalhamentoMoeda;
 import dtec.bank.api.entity.dto.DadosDetalhamentoTransferencia;
+import dtec.bank.api.entity.dto.DadosListagemTransferencia;
 import dtec.bank.api.exception.TransferenciaException;
 import dtec.bank.api.exception.ValidacaoException;
 import dtec.bank.api.repository.AgenciaRepository;
@@ -16,6 +19,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class TransferenciaService {
@@ -40,17 +46,14 @@ public class TransferenciaService {
     }
 
     public DadosDetalhamentoTransferencia cadastrar(DadosCadastroTransferencia dados) {
-        if (dados.idOConta() != null && !contaRepository.existsById(dados.idOConta())) {
+        if (dados.idOConta() != null && !contaRepository.existsById(dados.idOConta()))
             throw new ValidacaoException(get("conta.origem.notexist"));
-        }
 
-        if (dados.idDConta() != null && !contaRepository.existsById(dados.idDConta())) {
+        if (dados.idDConta() != null && !contaRepository.existsById(dados.idDConta()))
             throw new ValidacaoException(get("conta.destino.notexist"));
-        }
 
-        if (dados.idOConta().equals(dados.idDConta())) {
+        if (dados.idOConta().equals(dados.idDConta()))
             throw new ValidacaoException(get("conta.origemdestinoequals"));
-        }
 
         Conta oConta = contaRepository.getReferenceById(dados.idOConta());
         Conta dConta = contaRepository.getReferenceById(dados.idDConta());
@@ -103,5 +106,22 @@ public class TransferenciaService {
         }
 
         throw new TransferenciaException(get("saldo.transferencia.insuficiente"));
+    }
+
+    public List<DadosListagemTransferencia> listar(Usuario logado) {
+        return transferenciaRepository
+                .findAllById(Collections.singleton(logado.getId()))
+                .stream()
+                .map(ddt -> new DadosListagemTransferencia(
+                        ddt.getId(),
+                        ddt.getSucesso(),
+                        ddt.getMotivo(),
+                        ((double) ddt.getValor() / ddt.getOConta().getMoeda().getMultiplicador()),
+                        contaRepository.getReferenceById(ddt.getOConta().getId()).getUsuario().getNome(),
+                        contaRepository.getReferenceById(ddt.getDConta().getId()).getUsuario().getNome(),
+                        new DadosDetalhamentoMoeda(ddt.getOConta().getMoeda()),
+                        ddt.getHorario_tranferencia()
+                ))
+                .toList();
     }
 }

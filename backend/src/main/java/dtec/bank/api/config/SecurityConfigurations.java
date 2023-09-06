@@ -23,7 +23,6 @@ public class SecurityConfigurations {
     @Autowired
     private SecurityFilter securityFilter;
 
-    // TODO tá td quebrado, viver não faz sentido
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable()).sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(req -> {
