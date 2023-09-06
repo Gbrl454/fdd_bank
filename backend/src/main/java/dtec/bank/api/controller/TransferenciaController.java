@@ -20,8 +20,8 @@ public class TransferenciaController {
 
 
     @PostMapping
-    public ResponseEntity transferir(@RequestBody @Valid DadosCadastroTransferencia dados) {
-        var dto = transferenciaService.cadastrar(dados);
+    public ResponseEntity transferir(@RequestBody @Valid DadosCadastroTransferencia dados, @AuthenticationPrincipal Usuario logado) {
+        var dto = transferenciaService.cadastrar(dados, logado);
         return ResponseEntity.ok(dto);
     }
 

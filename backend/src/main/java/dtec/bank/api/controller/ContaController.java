@@ -1,12 +1,12 @@
 package dtec.bank.api.controller;
 
+import dtec.bank.api.entity.Usuario;
 import dtec.bank.api.entity.dto.DadosCadastroConta;
 import dtec.bank.api.service.ContaService;
-import dtec.bank.api.utils.BankLocateResolver;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +21,8 @@ public class ContaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroConta dados) {
-        var dto = contaService.cadastrar(dados);
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroConta dados,@AuthenticationPrincipal Usuario logado) {
+        var dto = contaService.cadastrar(dados,logado);
         return ResponseEntity.ok(dto);
     }
 }

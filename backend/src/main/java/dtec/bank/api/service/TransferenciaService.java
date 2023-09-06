@@ -46,16 +46,22 @@ public class TransferenciaService {
     }
 
     public DadosDetalhamentoTransferencia cadastrar(DadosCadastroTransferencia dados) {
-        if (dados.idOConta() != null && !contaRepository.existsById(dados.idOConta()))
+        return cadastrar(dados, null);
+    }
+
+    public DadosDetalhamentoTransferencia cadastrar(DadosCadastroTransferencia dados, Usuario logado) {
+        Long idOConta = (dados.idOConta() == null) ? logado.getId() : dados.idOConta();
+
+        if ((idOConta != null && !contaRepository.existsById(idOConta)))
             throw new ValidacaoException(get("conta.origem.notexist"));
 
-        if (dados.idDConta() != null && !contaRepository.existsById(dados.idDConta()))
+        if (!contaRepository.existsById(dados.idDConta()))
             throw new ValidacaoException(get("conta.destino.notexist"));
 
-        if (dados.idOConta().equals(dados.idDConta()))
+        if (idOConta != null && idOConta.equals(dados.idDConta()))
             throw new ValidacaoException(get("conta.origemdestinoequals"));
 
-        Conta oConta = contaRepository.getReferenceById(dados.idOConta());
+        Conta oConta = contaRepository.getReferenceById(idOConta);
         Conta dConta = contaRepository.getReferenceById(dados.idDConta());
         long valor = (long) (dados.valor() * oConta.getMoeda().getMultiplicador());
 
@@ -71,7 +77,6 @@ public class TransferenciaService {
 
         transferenciaRepository.save(transferencia);
         return new DadosDetalhamentoTransferencia(transferencia);
-
     }
 
     protected void removerSaldo(Conta oConta, Long valor) throws TransferenciaException {
@@ -110,7 +115,7 @@ public class TransferenciaService {
 
     public List<DadosListagemTransferencia> listar(Usuario logado) {
         return transferenciaRepository
-                .findAllById(Collections.singleton(logado.getId()))
+                .findAllByIdOConta(logado.getId())
                 .stream()
                 .map(ddt -> new DadosListagemTransferencia(
                         ddt.getId(),
