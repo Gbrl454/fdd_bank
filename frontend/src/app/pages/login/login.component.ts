@@ -46,8 +46,6 @@ export class LoginComponent implements OnInit {
   async onSubmit() {
     try {
       const result = await this.authService.login(this.login);
-      console.log(`Login efetuado: ${result}`);
-
       this.router.navigate(['']);
     } catch (error) {
       console.error(error);

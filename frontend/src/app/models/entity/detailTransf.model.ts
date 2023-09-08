@@ -5,8 +5,8 @@ export interface DetailTransf {
   sucesso: boolean;
   motivo?: string;
   valor: number;
-  idContaOrigem: number;
-  idContaDestino: number;
+  nomeUserContaOrigem: string;
+  nomeUserContaDestino: string;
   moeda: DetailMoeda;
   horarioTranferencia: Date;
 }

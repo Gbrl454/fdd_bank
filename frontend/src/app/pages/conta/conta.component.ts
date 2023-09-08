@@ -1,4 +1,4 @@
-import { DetailMoeda } from '../../models/entity/detailMoeda.model';
+import { TransferenciaService } from './../../service/transferencia/transferencia.service';
 import { Component } from '@angular/core';
 import { DetailTransf } from 'src/app/models/entity/detailTransf.model';
 
@@ -10,32 +10,8 @@ import { DetailTransf } from 'src/app/models/entity/detailTransf.model';
 export class ContaComponent {
   transferencias: DetailTransf[] = [];
 
-  moeda: DetailMoeda = {
-    nome: 'Real',
-    simbolo: 'R$',
-    multiplicador: 1,
-  };
-
-  trasf: DetailTransf = {
-    id: 1,
-    sucesso: true,
-    motivo: 'Equilibrios insuficientes para realizar la transferencia',
-    valor: 123456,
-    idContaOrigem: 1,
-    idContaDestino: 1,
-    moeda: this.moeda,
-    horarioTranferencia: new Date(),
-  };
-
-  constructor() {
-    this.transferencias = [
-      this.trasf,
-      this.trasf,
-      this.trasf,
-      this.trasf,
-      this.trasf,
-      this.trasf,
-    ];
+  constructor(private transferenciaService: TransferenciaService) {
+    this.onList();
   }
 
   sucessoMsg(transferencia: DetailTransf): string {
@@ -44,5 +20,17 @@ export class ContaComponent {
 
   sucessoClass(transferencia: DetailTransf): string {
     return transferencia.sucesso ? 'sucesso' : 'fail';
+  }
+
+  private onList() {
+    this.transferenciaService.listar().subscribe((items) => {
+      const dataAux = items;
+
+      let data: DetailTransf[] = [];
+      for (let i = 0; i < dataAux.length; i++) {
+        data.push(dataAux[i]);
+      }
+      this.transferencias = data;
+    });
   }
 }

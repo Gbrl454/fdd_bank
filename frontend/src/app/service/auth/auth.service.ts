@@ -18,15 +18,14 @@ export class AuthService {
     const result = await this.http
       .post<any>(`${environment.api}/login`, user)
       .toPromise();
-    if (result && result.access_token) {
-      console.log(result);
-
-      window.localStorage.setItem('token', result.access_token);
+    if (result && result.token) {
+      window.localStorage.setItem('token', result.token);
       return true;
     }
 
     return false;
   }
+
   async createAccount(account: RegisterUser) {
     const result = await this.http
       .post<RegisterUser>(`${environment.api}/usuarios`, account)
