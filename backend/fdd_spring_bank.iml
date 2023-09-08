@@ -8,4 +8,9 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/target/test-classes" />
     </content>
   </component>
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+  </component>
 </module>
