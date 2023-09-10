@@ -2,16 +2,17 @@ package dtec.bank.api.controller;
 
 import dtec.bank.api.entity.Usuario;
 import dtec.bank.api.entity.dto.DadosCadastroConta;
+import dtec.bank.api.entity.dto.DadosDetalhamentoBanco;
+import dtec.bank.api.entity.dto.DadosDetalhamentoConta;
 import dtec.bank.api.service.ContaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/contas")
@@ -21,8 +22,20 @@ public class ContaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroConta dados,@AuthenticationPrincipal Usuario logado) {
-        var dto = contaService.cadastrar(dados,logado);
+    public ResponseEntity<DadosDetalhamentoConta> cadastrar(@RequestBody @Valid DadosCadastroConta dados, @AuthenticationPrincipal Usuario logado) {
+        DadosDetalhamentoConta dto = contaService.cadastrar(dados, logado);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DadosDetalhamentoConta>> listAll(@AuthenticationPrincipal Usuario logado) {
+        List<DadosDetalhamentoConta> dto = contaService.listAll(logado);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/{idConta}")
+    public ResponseEntity<DadosDetalhamentoConta> detailBanco(@PathVariable Long idConta) {
+        DadosDetalhamentoConta dto = contaService.contaById(idConta);
         return ResponseEntity.ok(dto);
     }
 }

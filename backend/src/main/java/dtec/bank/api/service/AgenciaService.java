@@ -4,6 +4,8 @@ import dtec.bank.api.entity.Agencia;
 import dtec.bank.api.entity.Banco;
 import dtec.bank.api.entity.dto.DadosCadastroAgencia;
 import dtec.bank.api.entity.dto.DadosDetalhamentoAgencia;
+import dtec.bank.api.entity.dto.DadosDetalhamentoBanco;
+import dtec.bank.api.entity.dto.DadosDetalhamentoConta;
 import dtec.bank.api.exception.ValidacaoException;
 import dtec.bank.api.repository.AgenciaRepository;
 import dtec.bank.api.repository.BancoRepository;
@@ -35,9 +37,7 @@ public class AgenciaService {
     }
 
     public DadosDetalhamentoAgencia register(DadosCadastroAgencia dados) {
-        if (!bancoRepository.existsById(dados.idBanco()))
-            throw new ValidacaoException(get("banco.id.notexist"));
-
+        if (!bancoRepository.existsById(dados.idBanco())) throw new ValidacaoException(get("banco.id.notexist"));
         if (agenciaRepository.findByNome(dados.nome()) != null)
             throw new DataIntegrityViolationException(get("agencia.nome.therealready"));
 
@@ -51,20 +51,17 @@ public class AgenciaService {
     public List<DadosDetalhamentoAgencia> listAll() {
         List<DadosDetalhamentoAgencia> list = agenciaRepository.findAll().stream().map(DadosDetalhamentoAgencia::new).toList();
 
-        if (list.isEmpty())
-            throw new ValidacaoException(get("agencia.list.empty.all"));
+        if (list.isEmpty()) throw new ValidacaoException(get("agencia.list.empty.all"));
 
         return list;
     }
 
     public List<DadosDetalhamentoAgencia> listAllByIdBanco(Long idBanco) {
-        if (!bancoRepository.existsById(idBanco))
-            throw new ValidacaoException(get("banco.id.notexist"));
+        if (!bancoRepository.existsById(idBanco)) throw new ValidacaoException(get("banco.id.notexist"));
 
         List<DadosDetalhamentoAgencia> list = agenciaRepository.findAllByIdBanco(idBanco);
 
-        if (list.isEmpty())
-            throw new ValidacaoException(get("agencia.list.empty.byidbanco"));
+        if (list.isEmpty()) throw new ValidacaoException(get("agencia.list.empty.byidbanco"));
 
         return list;
     }

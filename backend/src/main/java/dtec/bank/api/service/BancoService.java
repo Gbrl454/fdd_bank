@@ -34,7 +34,7 @@ public class BancoService {
         if (bancoRepository.findByNome(dados.nome()) != null)
             throw new DataIntegrityViolationException(get("banco.nome.therealready"));
 
-        var banco = new Banco(dados);
+        Banco banco = new Banco(dados);
 
         bancoRepository.save(banco);
         return new DadosDetalhamentoBanco(banco);
@@ -43,15 +43,13 @@ public class BancoService {
     public List<DadosDetalhamentoBanco> listAll() {
         List<DadosDetalhamentoBanco> list = bancoRepository.findAll().stream().map(DadosDetalhamentoBanco::new).toList();
 
-        if (list.isEmpty())
-            throw new ValidacaoException(get("banco.list.empty.all"));
+        if (list.isEmpty()) throw new ValidacaoException(get("banco.list.empty.all"));
 
         return list;
     }
 
     public DadosDetalhamentoBanco bancoById(Long idBanco) {
-        if (!bancoRepository.existsById(idBanco))
-            throw new ValidacaoException(get("banco.id.notexist"));
+        if (!bancoRepository.existsById(idBanco)) throw new ValidacaoException(get("banco.id.notexist"));
 
         return new DadosDetalhamentoBanco(bancoRepository.getReferenceById(idBanco));
     }

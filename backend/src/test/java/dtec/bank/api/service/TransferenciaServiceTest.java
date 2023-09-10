@@ -162,7 +162,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.NORMAL, false, 0L, false, 0L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -175,10 +175,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(contaAUX.getSaldo() - valor, conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals(contaAUX.getSaldo_cartao_de_credito(), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals(contaAUX.getSaldoCartaoDeCredito(), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
     }
 
     @Test
@@ -188,7 +188,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 0L, TipoConta.NORMAL, false, 0L, false, 0L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -207,10 +207,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(contaAUX.getSaldo(), conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals(contaAUX.getSaldo_cartao_de_credito(), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals(contaAUX.getSaldoCartaoDeCredito(), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
     }
 
     @Test
@@ -220,7 +220,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.ESPECIAL, true, 200000L, false, 0L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -233,10 +233,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(contaAUX.getSaldo() - valor, conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals(contaAUX.getSaldo_cartao_de_credito(), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals(contaAUX.getSaldoCartaoDeCredito(), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
     }
 
     @Test
@@ -246,7 +246,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.ESPECIAL, true, 200000L, false, 0L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -259,10 +259,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(0, conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals((contaAUX.getSaldo_cartao_de_credito() + contaAUX.getSaldo() - valor), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals((contaAUX.getSaldoCartaoDeCredito() + contaAUX.getSaldo() - valor), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
     }
 
     @Test
@@ -272,7 +272,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 0L, TipoConta.ESPECIAL, true, 200000L, false, 0L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -285,10 +285,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(contaAUX.getSaldo(), conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals(contaAUX.getSaldo_cartao_de_credito() - valor, conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals(contaAUX.getSaldoCartaoDeCredito() - valor, conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
 
     }
 
@@ -299,7 +299,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.ESPECIAL, true, 200000L, false, 0L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -317,10 +317,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(contaAUX.getSaldo(), conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals(contaAUX.getSaldo_cartao_de_credito(), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals(contaAUX.getSaldoCartaoDeCredito(), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
     }
 
     @Test
@@ -330,7 +330,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.PREMIUM, false, 0L, false, 0L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -343,10 +343,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(contaAUX.getSaldo() - valor, conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals(contaAUX.getSaldo_cartao_de_credito(), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals(contaAUX.getSaldoCartaoDeCredito(), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
     }
 
     @Test
@@ -356,7 +356,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.PREMIUM, true, 200000L, false, 0L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -369,10 +369,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(0, conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals((contaAUX.getSaldo_cartao_de_credito() + contaAUX.getSaldo() - valor), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals((contaAUX.getSaldoCartaoDeCredito() + contaAUX.getSaldo() - valor), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
     }
 
     @Test
@@ -382,7 +382,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 0L, TipoConta.PREMIUM, false, 0L, true, 200000L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -395,10 +395,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(contaAUX.getSaldo(), conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals(contaAUX.getSaldo_cartao_de_credito(), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals(contaAUX.getSaldoCartaoDeCredito(), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis() - valor, conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis() - valor, conta.getSaldoLis());
     }
 
     @Test
@@ -408,7 +408,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.PREMIUM, true, 200000L, false, 0L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -421,10 +421,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(0, conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals((contaAUX.getSaldo_cartao_de_credito() + contaAUX.getSaldo() - valor), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals((contaAUX.getSaldoCartaoDeCredito() + contaAUX.getSaldo() - valor), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
     }
 
     @Test
@@ -434,7 +434,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.PREMIUM, false, 0L, true, 200000L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -447,10 +447,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(0, conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals(contaAUX.getSaldo_cartao_de_credito(), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals(contaAUX.getSaldoCartaoDeCredito(), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals((contaAUX.getSaldo_lis() + contaAUX.getSaldo() - valor), conta.getSaldo_lis());
+        assertEquals((contaAUX.getSaldoLis() + contaAUX.getSaldo() - valor), conta.getSaldoLis());
     }
 
     @Test
@@ -460,7 +460,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 0L, TipoConta.PREMIUM, true, 200000L, true, 200000L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -473,10 +473,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(contaAUX.getSaldo(), conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals((contaAUX.getSaldo_cartao_de_credito() + contaAUX.getSaldo_lis() - valor), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals((contaAUX.getSaldoCartaoDeCredito() + contaAUX.getSaldoLis() - valor), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(0, conta.getSaldo_lis());
+        assertEquals(0, conta.getSaldoLis());
     }
 
     @Test
@@ -486,7 +486,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.PREMIUM, true, 200000L, true, 200000L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -499,10 +499,10 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(0, conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals((contaAUX.getSaldo_cartao_de_credito() + contaAUX.getSaldo_lis() + contaAUX.getSaldo() - valor), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals((contaAUX.getSaldoCartaoDeCredito() + contaAUX.getSaldoLis() + contaAUX.getSaldo() - valor), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(0, conta.getSaldo_lis());
+        assertEquals(0, conta.getSaldoLis());
     }
 
     @Test
@@ -512,7 +512,7 @@ class TransferenciaServiceTest extends ConfigTests {
                 Moeda.BRL, 200000L, TipoConta.PREMIUM, true, 200000L, true, 200000L);
         Conta contaAUX = new Conta(conta.getId(), conta.getAgencia(), conta.getUsuario(),
                 conta.getMoeda(), conta.getSaldo(), conta.getTipo(),
-                conta.getCartao_de_credito(), conta.getSaldo_cartao_de_credito(), conta.getLis(), conta.getSaldo_lis());
+                conta.getCartaoDeCredito(), conta.getSaldoCartaoDeCredito(), conta.getLis(), conta.getSaldoLis());
 
         when(contaRepository.existsById(conta.getId())).thenReturn(true);
         when(contaRepository.getReferenceById(conta.getId())).thenReturn(conta);
@@ -530,9 +530,9 @@ class TransferenciaServiceTest extends ConfigTests {
         assertEquals(contaAUX.getMoeda(), conta.getMoeda());
         assertEquals(contaAUX.getSaldo(), conta.getSaldo());
         assertEquals(contaAUX.getTipo(), conta.getTipo());
-        assertEquals(contaAUX.getCartao_de_credito(), conta.getCartao_de_credito());
-        assertEquals(contaAUX.getSaldo_cartao_de_credito(), conta.getSaldo_cartao_de_credito());
+        assertEquals(contaAUX.getCartaoDeCredito(), conta.getCartaoDeCredito());
+        assertEquals(contaAUX.getSaldoCartaoDeCredito(), conta.getSaldoCartaoDeCredito());
         assertEquals(contaAUX.getLis(), conta.getLis());
-        assertEquals(contaAUX.getSaldo_lis(), conta.getSaldo_lis());
+        assertEquals(contaAUX.getSaldoLis(), conta.getSaldoLis());
     }
 }

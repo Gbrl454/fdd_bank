@@ -67,7 +67,7 @@ class ContaServiceTest extends ConfigTests {
         assertEquals((long) (dados.saldo() * dados.moeda().getMultiplicador()),
                 resultado.saldo());
         assertEquals(dados.tipo(), resultado.tipo());
-        assertEquals(dados.cartao_de_credito(), resultado.cartao_de_credito());
+        assertEquals(dados.cartao_de_credito(), resultado.cartaoDeCredito());
         assertEquals((long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador()),
                 resultado.saldo_cartao_de_credito());
         assertEquals(dados.lis(), resultado.lis());
@@ -94,7 +94,7 @@ class ContaServiceTest extends ConfigTests {
         assertEquals((long) (dados.saldo() * dados.moeda().getMultiplicador()),
                 resultado.saldo());
         assertEquals(dados.tipo(), resultado.tipo());
-        assertEquals(dados.cartao_de_credito(), resultado.cartao_de_credito());
+        assertEquals(dados.cartao_de_credito(), resultado.cartaoDeCredito());
         assertEquals((long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador()),
                 resultado.saldo_cartao_de_credito());
         assertEquals(dados.lis(), resultado.lis());
@@ -121,7 +121,7 @@ class ContaServiceTest extends ConfigTests {
         assertEquals((long) (dados.saldo() * dados.moeda().getMultiplicador()),
                 resultado.saldo());
         assertEquals(dados.tipo(), resultado.tipo());
-        assertEquals(dados.cartao_de_credito(), resultado.cartao_de_credito());
+        assertEquals(dados.cartao_de_credito(), resultado.cartaoDeCredito());
         assertEquals((long) (dados.saldo_cartao_de_credito() * dados.moeda().getMultiplicador()),
                 resultado.saldo_cartao_de_credito());
         assertEquals(dados.lis(), resultado.lis());

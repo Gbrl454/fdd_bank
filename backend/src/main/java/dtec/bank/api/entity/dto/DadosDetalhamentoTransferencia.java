@@ -22,7 +22,7 @@ public record DadosDetalhamentoTransferencia(
                 transferencia.getValor(),
                 transferencia.getOConta().getId(),
                 transferencia.getDConta().getId(),
-                new DadosDetalhamentoMoeda(transferencia.getOConta().getMoeda()),
+                new DadosDetalhamentoMoeda(transferencia.getOConta().getBanco().getPais().getMoeda()),
                 transferencia.getHorario_tranferencia()
         );
     }

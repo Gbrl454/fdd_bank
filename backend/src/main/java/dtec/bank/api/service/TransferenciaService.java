@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -63,7 +62,7 @@ public class TransferenciaService {
 
         Conta oConta = contaRepository.getReferenceById(idOConta);
         Conta dConta = contaRepository.getReferenceById(dados.idDConta());
-        long valor = (long) (dados.valor() * oConta.getMoeda().getMultiplicador());
+        long valor = (long) (dados.valor() * oConta.getBanco().getPais().getMoeda().getMultiplicador());
 
         Transferencia transferencia;
 
@@ -85,27 +84,27 @@ public class TransferenciaService {
             return;
         }
 
-        if (oConta.getTipo() == TipoConta.ESPECIAL && ((oConta.getSaldo() + oConta.getSaldo_cartao_de_credito()) > valor)) {
+        if (oConta.getTipo() == TipoConta.ESPECIAL && ((oConta.getSaldo() + oConta.getSaldoCartaoDeCredito()) > valor)) {
             valor -= oConta.getSaldo();
             oConta.zerarSaldo();
-            oConta.retirarSaldo_cartao_de_credito(valor);
+            oConta.retirarSaldoCartaoCeCredito(valor);
             return;
         }
 
         if (oConta.getTipo() == TipoConta.PREMIUM) {
-            if ((oConta.getSaldo() + oConta.getSaldo_lis()) > valor) {
+            if ((oConta.getSaldo() + oConta.getSaldoLis()) > valor) {
                 valor -= oConta.getSaldo();
                 oConta.zerarSaldo();
-                oConta.retirarSaldo_lis(valor);
+                oConta.retirarSaldoLis(valor);
                 return;
             }
 
-            if ((oConta.getSaldo() + oConta.getSaldo_lis() + oConta.getSaldo_cartao_de_credito()) > valor) {
+            if ((oConta.getSaldo() + oConta.getSaldoLis() + oConta.getSaldoCartaoDeCredito()) > valor) {
                 valor -= oConta.getSaldo();
                 oConta.zerarSaldo();
-                valor -= oConta.getSaldo_lis();
-                oConta.zerarSaldo_lis();
-                oConta.retirarSaldo_cartao_de_credito(valor);
+                valor -= oConta.getSaldoLis();
+                oConta.zerarSaldoLis();
+                oConta.retirarSaldoCartaoCeCredito(valor);
                 return;
             }
         }
@@ -121,10 +120,10 @@ public class TransferenciaService {
                         ddt.getId(),
                         ddt.getSucesso(),
                         ddt.getMotivo(),
-                        ((double) ddt.getValor() / ddt.getOConta().getMoeda().getMultiplicador()),
+                        ((double) ddt.getValor() / ddt.getOConta().getBanco().getPais().getMoeda().getMultiplicador()),
                         contaRepository.getReferenceById(ddt.getOConta().getId()).getUsuario().getNome(),
                         contaRepository.getReferenceById(ddt.getDConta().getId()).getUsuario().getNome(),
-                        new DadosDetalhamentoMoeda(ddt.getOConta().getMoeda()),
+                        new DadosDetalhamentoMoeda(ddt.getOConta().getBanco().getPais().getMoeda()),
                         ddt.getHorario_tranferencia()
                 ))
                 .toList();
