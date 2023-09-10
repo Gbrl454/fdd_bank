@@ -1,17 +1,19 @@
-create table contas
+CREATE TABLE contas
 (
-    id                      bigint      not null auto_increment,
-    agencia_id              bigint      not null,
-    usuario_id              bigint      not null,
-    moeda                   varchar(5)  not null,
-    saldo                   bigint      not null,
-    tipo                    varchar(15) not null,
-    cartao_de_credito       tinyint default 0,
-    saldo_cartao_de_credito bigint  default 0.0,
-    lis                     tinyint default 0,
-    saldo_lis               bigint  default 0.0,
-
-    primary key (id),
-    constraint fk_contas_agencia_id foreign key (agencia_id) references agencias (id),
-    constraint fk_contas_usuario_id foreign key (usuario_id) references usuarios (id)
-);
+    id                      BIGINT      NOT NULL AUTO_INCREMENT,
+    tipo                    VARCHAR(15) NOT NULL,
+    saldo                   BIGINT      NULL DEFAULT 0,
+    cartao_de_credito       TINYINT     NULL DEFAULT 0,
+    saldo_cartao_de_credito BIGINT      NULL DEFAULT 0,
+    lis                     TINYINT     NULL DEFAULT 0,
+    saldo_lis               BIGINT      NULL DEFAULT 0,
+    agencia_id              BIGINT      NOT NULL,
+    agencia_banco_id        BIGINT      NOT NULL,
+    usuario_id              BIGINT      NOT NULL,
+    PRIMARY KEY (id, agencia_id, agencia_banco_id, usuario_id),
+    INDEX fk_conta_agencia_idx (agencia_id ASC, agencia_banco_id ASC) VISIBLE,
+    INDEX fk_conta_usuario_idx (usuario_id ASC) VISIBLE,
+    CONSTRAINT fk_conta_agencia FOREIGN KEY (agencia_id, agencia_banco_id) REFERENCES agencias (id, banco_id),
+    CONSTRAINT fk_conta_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id)
+)
+    ENGINE = InnoDB;

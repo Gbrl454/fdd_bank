@@ -1,14 +1,14 @@
-create table transferencias
+CREATE TABLE transferencias
 (
-    id                   bigint    not null auto_increment,
-    o_conta_id           bigint    not null,
-    d_conta_id           bigint    not null,
-    valor                bigint    not null,
-    horario_tranferencia timestamp not null,
-    sucesso              tinyint   not null,
-    motivo               varchar(150),
+    id                   BIGINT    NOT NULL AUTO_INCREMENT,
+    o_conta_id           BIGINT    NOT NULL,
+    d_conta_id           BIGINT    NOT NULL,
+    valor                BIGINT    NOT NULL,
+    horario_tranferencia TIMESTAMP NOT NULL,
+    sucesso              TINYINT   NOT NULL,
+    motivo               VARCHAR(150),
 
-    primary key (id),
-    constraint fk_transferencias_o_contas_id foreign key (o_conta_id) references contas (id),
-    constraint fk_transferencias_d_contas_id foreign key (d_conta_id) references contas (id)
+    PRIMARY KEY (id),
+    CONSTRAINT fk_transferencias_o_contas_id FOREIGN KEY (o_conta_id) REFERENCES contas (id),
+    CONSTRAINT fk_transferencias_d_contas_id FOREIGN KEY (d_conta_id) REFERENCES contas (id)
 );

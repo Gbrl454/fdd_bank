@@ -7,7 +7,6 @@ spring:
 server:
   error:
     include-stacktrace: never
-  port: 8080
 api:
   security:
     token:

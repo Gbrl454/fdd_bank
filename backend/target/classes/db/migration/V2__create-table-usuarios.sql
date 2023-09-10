@@ -1,10 +1,12 @@
-create table usuarios
+CREATE TABLE usuarios
 (
-    id    bigint       not null auto_increment,
-    nome  varchar(100) not null,
-    email varchar(100) not null unique,
-    login varchar(100) not null unique,
-    senha varchar(300) not null,
-
-    primary key (id)
-);
+    id    BIGINT       NOT NULL AUTO_INCREMENT,
+    nome  VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    login VARCHAR(100) NOT NULL,
+    senha VARCHAR(300) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE INDEX email_UNIQUE (email ASC) VISIBLE,
+    UNIQUE INDEX login_UNIQUE (login ASC) VISIBLE
+)
+    ENGINE = InnoDB;

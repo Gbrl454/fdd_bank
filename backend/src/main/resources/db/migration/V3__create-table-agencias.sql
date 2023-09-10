@@ -1,9 +1,12 @@
-create table agencias
+CREATE TABLE agencias
 (
-    id       bigint not null auto_increment,
-    nome     varchar(100) UNIQUE,
-    banco_id bigint not null,
-
-    primary key (id),
-    constraint fk_agencias_banco_id foreign key (banco_id) references bancos (id)
-);
+    id       BIGINT       NOT NULL AUTO_INCREMENT,
+    nome     VARCHAR(100) NOT NULL,
+    banco_id BIGINT       NOT NULL,
+    PRIMARY KEY (id,
+                 banco_id),
+    UNIQUE INDEX nome_UNIQUE (nome ASC) VISIBLE,
+    INDEX fk_agencia_banco_idx (banco_id ASC) VISIBLE,
+    CONSTRAINT fk_agencia_banco FOREIGN KEY (banco_id) REFERENCES bancos (id)
+)
+    ENGINE = InnoDB;

@@ -1,8 +1,9 @@
-create table bancos
+CREATE TABLE bancos
 (
-    id   bigint     not null auto_increment,
-    nome varchar(100) UNIQUE,
-    pais varchar(5) not null,
-
-    primary key (id)
-);
+    id   BIGINT       NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    pais VARCHAR(5)   NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE INDEX nome_UNIQUE (nome ASC) VISIBLE
+)
+    ENGINE = InnoDB;
