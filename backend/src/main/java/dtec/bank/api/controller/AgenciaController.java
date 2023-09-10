@@ -1,17 +1,15 @@
 package dtec.bank.api.controller;
 
 import dtec.bank.api.entity.dto.DadosCadastroAgencia;
+import dtec.bank.api.entity.dto.DadosDetalhamentoAgencia;
 import dtec.bank.api.service.AgenciaService;
-import dtec.bank.api.utils.BankLocateResolver;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/agencias")
@@ -21,10 +19,21 @@ public class AgenciaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroAgencia dados) {
-        var dto = agenciaService.cadastrar(dados);
+    public ResponseEntity<DadosDetalhamentoAgencia> cadastrar(@RequestBody @Valid DadosCadastroAgencia dados) {
+        DadosDetalhamentoAgencia dto = agenciaService.register(dados);
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping
+    public ResponseEntity<List<DadosDetalhamentoAgencia>> listAll() {
+        List<DadosDetalhamentoAgencia> dto = agenciaService.listAll();
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/{idBanco}")
+    public ResponseEntity<List<DadosDetalhamentoAgencia>> listAllByIdBanco(@PathVariable Long idBanco) {
+        List<DadosDetalhamentoAgencia> dto = agenciaService.listAllByIdBanco(idBanco);
+        return ResponseEntity.ok(dto);
+    }
 
 }

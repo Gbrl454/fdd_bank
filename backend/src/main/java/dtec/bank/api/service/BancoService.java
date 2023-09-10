@@ -7,16 +7,12 @@ import dtec.bank.api.exception.ValidacaoException;
 import dtec.bank.api.repository.BancoRepository;
 import dtec.bank.api.utils.BankLocateResolver;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.xml.bind.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class BancoService {
@@ -48,7 +44,7 @@ public class BancoService {
         List<DadosDetalhamentoBanco> list = bancoRepository.findAll().stream().map(DadosDetalhamentoBanco::new).toList();
 
         if (list.isEmpty())
-            throw new ValidacaoException(get("banco.list.empty"));
+            throw new ValidacaoException(get("banco.list.empty.all"));
 
         return list;
     }
