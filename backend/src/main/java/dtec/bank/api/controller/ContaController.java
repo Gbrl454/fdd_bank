@@ -2,7 +2,6 @@ package dtec.bank.api.controller;
 
 import dtec.bank.api.entity.Usuario;
 import dtec.bank.api.entity.dto.DadosCadastroConta;
-import dtec.bank.api.entity.dto.DadosDetalhamentoBanco;
 import dtec.bank.api.entity.dto.DadosDetalhamentoConta;
 import dtec.bank.api.service.ContaService;
 import jakarta.validation.Valid;
@@ -23,7 +22,7 @@ public class ContaController {
     @PostMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoConta> cadastrar(@RequestBody @Valid DadosCadastroConta dados, @AuthenticationPrincipal Usuario logado) {
-        DadosDetalhamentoConta dto = contaService.cadastrar(dados, logado);
+        DadosDetalhamentoConta dto = contaService.register(dados, logado);
         return ResponseEntity.ok(dto);
     }
 

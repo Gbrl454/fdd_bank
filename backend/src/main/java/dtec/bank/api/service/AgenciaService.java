@@ -4,8 +4,6 @@ import dtec.bank.api.entity.Agencia;
 import dtec.bank.api.entity.Banco;
 import dtec.bank.api.entity.dto.DadosCadastroAgencia;
 import dtec.bank.api.entity.dto.DadosDetalhamentoAgencia;
-import dtec.bank.api.entity.dto.DadosDetalhamentoBanco;
-import dtec.bank.api.entity.dto.DadosDetalhamentoConta;
 import dtec.bank.api.exception.ValidacaoException;
 import dtec.bank.api.repository.AgenciaRepository;
 import dtec.bank.api.repository.BancoRepository;

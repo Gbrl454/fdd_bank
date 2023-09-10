@@ -9,19 +9,19 @@ public record DadosDetalhamentoTransferencia(
         Boolean sucesso,
         String motivo,
         Long valor,
-        Long idContaOrigem,
-        Long idContaDestino,
+        DadosDetalhamentoConta ContaOrigem,
+        DadosDetalhamentoConta ContaDestino,
         DadosDetalhamentoMoeda moeda,
         LocalDateTime horarioTranferencia
 ) {
-    public DadosDetalhamentoTransferencia (Transferencia transferencia) {
+    public DadosDetalhamentoTransferencia(Transferencia transferencia) {
         this(
                 transferencia.getId(),
                 transferencia.getSucesso(),
                 transferencia.getMotivo(),
                 transferencia.getValor(),
-                transferencia.getOConta().getId(),
-                transferencia.getDConta().getId(),
+                new DadosDetalhamentoConta(transferencia.getOConta()),
+                new DadosDetalhamentoConta(transferencia.getDConta()),
                 new DadosDetalhamentoMoeda(transferencia.getOConta().getBanco().getPais().getMoeda()),
                 transferencia.getHorario_tranferencia()
         );

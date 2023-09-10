@@ -2,7 +2,7 @@ package dtec.bank.api.controller;
 
 import dtec.bank.api.entity.Usuario;
 import dtec.bank.api.entity.dto.DadosCadastroTransferencia;
-import dtec.bank.api.entity.dto.DadosListagemTransferencia;
+import dtec.bank.api.entity.dto.DadosDetalhamentoTransferencia;
 import dtec.bank.api.service.TransferenciaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,20 @@ public class TransferenciaController {
 
 
     @PostMapping
-    public ResponseEntity transferir(@RequestBody @Valid DadosCadastroTransferencia dados, @AuthenticationPrincipal Usuario logado) {
-        var dto = transferenciaService.cadastrar(dados, logado);
+    public ResponseEntity<DadosDetalhamentoTransferencia> transferir(@RequestBody @Valid DadosCadastroTransferencia dados, @AuthenticationPrincipal Usuario logado) {
+        DadosDetalhamentoTransferencia dto = transferenciaService.register(dados, logado);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosListagemTransferencia>> listar(@AuthenticationPrincipal Usuario logado) {
-        var dto = transferenciaService.listar(logado);
+    public ResponseEntity<List<DadosDetalhamentoTransferencia>> listAll(@AuthenticationPrincipal Usuario logado) {
+        List<DadosDetalhamentoTransferencia> dto = transferenciaService.listAll(logado);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/{idTransferencia}")
+    public ResponseEntity<DadosDetalhamentoTransferencia> detailtransferencia(@PathVariable Long idTransferencia) {
+        DadosDetalhamentoTransferencia dto = transferenciaService.transferenciaById(idTransferencia);
         return ResponseEntity.ok(dto);
     }
 }

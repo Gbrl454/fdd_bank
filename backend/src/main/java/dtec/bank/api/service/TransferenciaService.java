@@ -4,15 +4,11 @@ import dtec.bank.api.entity.Conta;
 import dtec.bank.api.entity.Transferencia;
 import dtec.bank.api.entity.Usuario;
 import dtec.bank.api.entity.dto.DadosCadastroTransferencia;
-import dtec.bank.api.entity.dto.DadosDetalhamentoMoeda;
+import dtec.bank.api.entity.dto.DadosDetalhamentoConta;
 import dtec.bank.api.entity.dto.DadosDetalhamentoTransferencia;
-import dtec.bank.api.entity.dto.DadosListagemTransferencia;
 import dtec.bank.api.exception.TransferenciaException;
 import dtec.bank.api.exception.ValidacaoException;
-import dtec.bank.api.repository.AgenciaRepository;
-import dtec.bank.api.repository.BancoRepository;
-import dtec.bank.api.repository.ContaRepository;
-import dtec.bank.api.repository.TransferenciaRepository;
+import dtec.bank.api.repository.*;
 import dtec.bank.api.utils.BankLocateResolver;
 import dtec.bank.api.utils.TipoConta;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,18 +34,28 @@ public class TransferenciaService {
     @Autowired
     ContaRepository contaRepository;
     @Autowired
+    UsuarioRepository usuarioRepository;
+    @Autowired
     TransferenciaRepository transferenciaRepository;
 
     private String get(String key) {
         return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));
     }
 
-    public DadosDetalhamentoTransferencia cadastrar(DadosCadastroTransferencia dados) {
-        return cadastrar(dados, null);
+    public DadosDetalhamentoTransferencia register(DadosCadastroTransferencia dados) {
+        return register(dados, null);
     }
 
-    public DadosDetalhamentoTransferencia cadastrar(DadosCadastroTransferencia dados, Usuario logado) {
-        Long idOConta = (dados.idOConta() == null) ? logado.getId() : dados.idOConta();
+    public DadosDetalhamentoTransferencia register(DadosCadastroTransferencia dados, Usuario logado) {
+        Long idOConta;
+        if (dados.idOConta() == null) {
+            List<DadosDetalhamentoConta> listConta = contaRepository.findAllByIdUsuario(logado.getId());
+
+            if (listConta.isEmpty()) throw new ValidacaoException(get("conta.list.empty.byidusuario"));
+            if (listConta.size() > 1) throw new ValidacaoException(get("conta.list.several"));
+
+            idOConta = listConta.get(0).id();
+        } else idOConta = dados.idOConta();
 
         if ((idOConta != null && !contaRepository.existsById(idOConta)))
             throw new ValidacaoException(get("conta.origem.notexist"));
@@ -112,20 +118,18 @@ public class TransferenciaService {
         throw new TransferenciaException(get("saldo.transferencia.insuficiente"));
     }
 
-    public List<DadosListagemTransferencia> listar(Usuario logado) {
-        return transferenciaRepository
-                .findAllByIdOConta(logado.getId())
-                .stream()
-                .map(ddt -> new DadosListagemTransferencia(
-                        ddt.getId(),
-                        ddt.getSucesso(),
-                        ddt.getMotivo(),
-                        ((double) ddt.getValor() / ddt.getOConta().getBanco().getPais().getMoeda().getMultiplicador()),
-                        contaRepository.getReferenceById(ddt.getOConta().getId()).getUsuario().getNome(),
-                        contaRepository.getReferenceById(ddt.getDConta().getId()).getUsuario().getNome(),
-                        new DadosDetalhamentoMoeda(ddt.getOConta().getBanco().getPais().getMoeda()),
-                        ddt.getHorario_tranferencia()
-                ))
-                .toList();
+    public List<DadosDetalhamentoTransferencia> listAll(Usuario logado) {
+        List<DadosDetalhamentoTransferencia> list = transferenciaRepository.findAll().stream().map(DadosDetalhamentoTransferencia::new).toList();
+
+        if (list.isEmpty()) throw new ValidacaoException(get("transferencia.list.empty.all"));
+
+        return list;
+    }
+
+    public DadosDetalhamentoTransferencia transferenciaById(Long idTransferencia) {
+        if (!transferenciaRepository.existsById(idTransferencia))
+            throw new ValidacaoException(get("transferencia.id.notexist"));
+
+        return new DadosDetalhamentoTransferencia(transferenciaRepository.getReferenceById(idTransferencia));
     }
 }

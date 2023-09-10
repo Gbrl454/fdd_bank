@@ -46,11 +46,11 @@ public class ContaService {
         return messageSource.getMessage(key, null, locateResolver.resolveLocale(request));
     }
 
-    public DadosDetalhamentoConta cadastrar(DadosCadastroConta dados) {
-        return cadastrar(dados, null);
+    public DadosDetalhamentoConta register(DadosCadastroConta dados) {
+        return register(dados, null);
     }
 
-    public DadosDetalhamentoConta cadastrar(DadosCadastroConta dados, Usuario logado) {
+    public DadosDetalhamentoConta register(DadosCadastroConta dados, Usuario logado) {
         Long idUser = (dados.idUsuario() == null) ? logado.getId() : dados.idUsuario();
 
         List<DadosDetalhamentoConta> contas = contaRepository.findAllByIdUsuario(idUser);

@@ -59,7 +59,7 @@ class ContaServiceTest extends ConfigTests {
         when(usuarioRepository.existsById(dados.idUsuario())).thenReturn(true);
         when(usuarioRepository.getReferenceById(dados.idUsuario())).thenReturn(new Usuario());
 
-        DadosDetalhamentoConta resultado = contaService.cadastrar(dados);
+        DadosDetalhamentoConta resultado = contaService.register(dados);
 
         assertNotNull(resultado);
         assertEquals(dados.moeda().getSimbolo(),
@@ -86,7 +86,7 @@ class ContaServiceTest extends ConfigTests {
         when(usuarioRepository.existsById(dados.idUsuario())).thenReturn(true);
         when(usuarioRepository.getReferenceById(dados.idUsuario())).thenReturn(new Usuario());
 
-        DadosDetalhamentoConta resultado = contaService.cadastrar(dados);
+        DadosDetalhamentoConta resultado = contaService.register(dados);
 
         assertNotNull(resultado);
         assertEquals(dados.moeda().getSimbolo(),
@@ -113,7 +113,7 @@ class ContaServiceTest extends ConfigTests {
         when(usuarioRepository.existsById(dados.idUsuario())).thenReturn(true);
         when(usuarioRepository.getReferenceById(dados.idUsuario())).thenReturn(new Usuario());
 
-        DadosDetalhamentoConta resultado = contaService.cadastrar(dados);
+        DadosDetalhamentoConta resultado = contaService.register(dados);
 
         assertNotNull(resultado);
         assertEquals(dados.moeda().getSimbolo(),
@@ -142,7 +142,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 agenciaIdNotexist,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -160,7 +160,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 usuarioIdNotexist,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -183,7 +183,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 contaNormalNotownCreditcard,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -206,7 +206,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 contaNormalNotownCreditcard,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -229,7 +229,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 contaNormalNotownLis,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -252,7 +252,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 contaNormalNotownLis,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -276,7 +276,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 saldoCreditcardInformonlyhave,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -300,7 +300,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 saldoCreditcardInformonlyhave,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -323,7 +323,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 saldoCreditcardInformonlyhave,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -346,7 +346,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 contaEspecialNotownLis,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -369,7 +369,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 contaEspecialNotownLis,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -393,7 +393,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 saldoCreditcardInformonlyhave,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -417,7 +417,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 saldoCreditcardInformonlyhave,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -440,7 +440,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 saldoCreditcardInformonlyhave,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -464,7 +464,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 saldoLisInformwhenhave,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -487,7 +487,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 saldoLisInformonlyhave,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
@@ -511,7 +511,7 @@ class ContaServiceTest extends ConfigTests {
 
         assertEquals(
                 saldoLisInformonlyhave,
-                assertThrows(ValidacaoException.class, () -> contaService.cadastrar(dados)).getMessage());
+                assertThrows(ValidacaoException.class, () -> contaService.register(dados)).getMessage());
         verify(contaRepository, times(0)).save(any(Conta.class));
     }
 
