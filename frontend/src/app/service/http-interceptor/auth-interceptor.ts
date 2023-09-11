@@ -1,3 +1,4 @@
+import { DetailError } from './../../models/entity/detailError.model';
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
@@ -31,12 +32,9 @@ export class AuthInterceptor implements HttpInterceptor {
   private handleError(error: HttpErrorResponse) {
     if (error.status >= 400)
       if (error.error instanceof ErrorEvent) {
-        console.error('Ocorreu um erro:', error.error.message);
+        return throwError(`Ocorreu um erro: ${error.error.message}`);
       } else {
-        console.error(
-          `Código do erro ${error.status}, ` +
-            `Erro: ${JSON.stringify(error.error)}`
-        );
+        return throwError(JSON.stringify(error.error));
       }
     return throwError('Ocorreu um erro, tente novamente');
   }

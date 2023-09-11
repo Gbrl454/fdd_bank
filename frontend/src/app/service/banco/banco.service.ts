@@ -11,7 +11,16 @@ import { DetailBanco } from 'src/app/models/entity/detailBanco.model';
 export class BancoService {
   constructor(private router: Router, private http: HttpClient) {}
 
-  listAll(): Observable<DetailBanco[]> {
-    return this.http.get<DetailBanco[]>(`${environment.api}/bancos`);
+  listAll(): Promise<any> {
+    return new Promise((resolve) => {
+      this.http.get(`${environment.api}/bancos`).subscribe(
+        async (res: any) => {
+          resolve({ result: res });
+        },
+        (error) => {
+          resolve({ message: error });
+        }
+      );
+    });
   }
 }

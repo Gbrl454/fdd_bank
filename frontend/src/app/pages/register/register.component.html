@@ -1,5 +1,6 @@
 <section class="container">
   <h1>{{ title }}</h1>
+  <h1 class="erro">{{ msgErros.registerUserGeral }}</h1>
   <form class="form" [formGroup]="formRegister">
     <div class="btnsSec">
       <button class="btnSec {{ isSec(1) }}" (click)="goSec(1)" type="button">
@@ -16,21 +17,62 @@
     <div *ngIf="sec == 1" class="sec">
       <div class="inputContainer">
         <label for="nome">Nome</label>
-        <input id="nome" type="text" placeholder="Digite seu Nome" />
+        <input
+          id="nome"
+          type="text"
+          [(ngModel)]="user.nome"
+          formControlName="nome"
+          placeholder="Digite seu Nome"
+        />
         <p class="line"></p>
         <div class="erro">
-          <p>Esse campo é obrigatório!</p>
+          <p
+            *ngIf="
+              formRegister.get('nome')?.errors &&
+              formRegister.get('nome')?.touched &&
+              (formRegister.get('nome')?.errors)!['required']
+            "
+          >
+            Esse campo é obrigatório!
+          </p>
+          <p *ngIf="!formRegister.get('nome')?.touched">
+            {{ msgErros.registerUserNome }}
+          </p>
         </div>
       </div>
 
       <div class="inputContainer">
         <label for="email">E-Mail</label>
-        <input id="email" type="email" placeholder="Digite seu E-Mail" />
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="user.email"
+          formControlName="email"
+          placeholder="Digite seu E-Mail"
+        />
         <p class="line"></p>
         <div class="erro">
-          <p>Esse campo é obrigatório!</p>
-          <p>E-Mail deve ser válido!</p>
-          <p>E-Mail já cadastrado!</p>
+          <p
+            *ngIf="
+              formRegister.get('email')?.errors &&
+              formRegister.get('email')?.touched &&
+              (formRegister.get('email')?.errors)!['required']
+            "
+          >
+            Esse campo é obrigatório!
+          </p>
+          <p
+            *ngIf="
+              formRegister.get('email')?.errors &&
+              formRegister.get('email')?.touched &&
+              (formRegister.get('email')?.errors)!['email']
+            "
+          >
+            E-Mail deve ser válido!
+          </p>
+          <p *ngIf="!formRegister.get('email')?.touched">
+            {{ msgErros.registerUserEmail }}
+          </p>
         </div>
       </div>
 
@@ -43,11 +85,27 @@
     <div *ngIf="sec == 2" class="sec">
       <div class="inputContainer">
         <label for="login">Login</label>
-        <input id="login" type="text" placeholder="Digite seu Login" />
+        <input
+          id="login"
+          type="text"
+          [(ngModel)]="user.login"
+          formControlName="login"
+          placeholder="Digite seu Login"
+        />
         <p class="line"></p>
         <div class="erro">
-          <p>Esse campo é obrigatório!</p>
-          <p>Login já cadastrado!</p>
+          <p
+            *ngIf="
+              formRegister.get('login')?.errors &&
+              formRegister.get('login')?.touched &&
+              (formRegister.get('login')?.errors)!['required']
+            "
+          >
+            Esse campo é obrigatório!
+          </p>
+          <p>
+            {{ msgErros.registerUserLogin }}
+          </p>
         </div>
       </div>
 
@@ -58,7 +116,10 @@
             id="senha"
             #passwordInput
             type="password"
+            [(ngModel)]="user.senha"
             placeholder="Digite seu Senha"
+            [(ngModel)]="user.senha"
+            formControlName="senha"
           />
           <img
             src="assets/eye-{{ passwordEyeIs() }}.png"
@@ -68,8 +129,19 @@
         </div>
         <p class="line"></p>
         <div class="erro">
-          <p>Esse campo é obrigatório!</p>
+          <p
+            *ngIf="
+              formRegister.get('senha')?.errors &&
+              formRegister.get('senha')?.touched &&
+              (formRegister.get('senha')?.errors)!['required']
+            "
+          >
+            Esse campo é obrigatório!
+          </p>
           <p *ngIf="!samePassword()">As senhas devem ser iguais!</p>
+          <p *ngIf="!formRegister.get('senha')?.touched">
+            {{ msgErros.registerUserSenha }}
+          </p>
         </div>
       </div>
 
@@ -80,7 +152,9 @@
             id="confSenha"
             #confirmPasswordInput
             type="password"
+            [(ngModel)]="userConfirmSenha"
             placeholder="Digite seu Senha"
+            formControlName="confirmSenha"
           />
           <img
             src="assets/eye-{{ confirmPasswordEyeIs() }}.png"
@@ -90,8 +164,19 @@
         </div>
         <p class="line"></p>
         <div class="erro">
-          <p>Esse campo é obrigatório!</p>
+          <p
+            *ngIf="
+              formRegister.get('confirmSenha')?.errors &&
+              formRegister.get('confirmSenha')?.touched &&
+              (formRegister.get('confirmSenha')?.errors)!['required']
+            "
+          >
+            Esse campo é obrigatório!
+          </p>
           <p *ngIf="!samePassword()">As senhas devem ser iguais!</p>
+          <p *ngIf="!formRegister.get('confirmSenha')?.touched">
+            {{ msgErros.registerUserSenha }}
+          </p>
         </div>
       </div>
 
@@ -103,9 +188,26 @@
 
     <div *ngIf="sec == 3" class="sec">
       <div class="menuConstas">
-        <button class="btn {{isTipConta(1)}}" (click)="goTipConta(1)" type="button">NORMAL</button>
-        <button class="btn {{isTipConta(2)}}" (click)="goTipConta(2)" type="button">ESPECIAL</button>
-        <button class="btn {{isTipConta(3)}}" (click)="goTipConta(3)" type="button">PREMIUM
+        <button
+          class="btn {{ isTipConta(1) }}"
+          (click)="goTipConta(1)"
+          type="button"
+        >
+          NORMAL
+        </button>
+        <button
+          class="btn {{ isTipConta(2) }}"
+          (click)="goTipConta(2)"
+          type="button"
+        >
+          ESPECIAL
+        </button>
+        <button
+          class="btn {{ isTipConta(3) }}"
+          (click)="goTipConta(3)"
+          type="button"
+        >
+          PREMIUM
         </button>
       </div>
 
@@ -145,9 +247,8 @@
             </div>
           </div>
           <div class="erroComboBox">
-            <p *ngIf="this.agencias.length == 0 && idBanco >= 1">
-              Esse Banco não Possui Agências Cadastradas
-            </p>
+            <p>{{ msgErros.registerUserBanco }}</p>
+            <p>{{ msgErros.registerUserAgencia }}</p>
           </div>
         </div>
       </div>
@@ -188,6 +289,7 @@
             </div>
           </div>
           <div class="erroComboBox">
+            <p *ngIf="this.bancos.length == 0">Não há Bancos Cadastrados</p>
             <p *ngIf="this.agencias.length == 0 && idBanco >= 1">
               Esse Banco não Possui Agências Cadastradas
             </p>
@@ -242,6 +344,7 @@
             </div>
           </div>
           <div class="erroComboBox">
+            <p *ngIf="this.bancos.length == 0">Não há Bancos Cadastrados</p>
             <p *ngIf="this.agencias.length == 0 && idBanco >= 1">
               Esse Banco não Possui Agências Cadastradas
             </p>
@@ -271,7 +374,7 @@
 
       <div class="btns">
         <button class="btn" (click)="goSec(2)">Anterior</button>
-        <button class="btn">Cadastrar</button>
+        <button class="btn" (click)="onSubmit()">Cadastrar</button>
       </div>
     </div>
   </form>
