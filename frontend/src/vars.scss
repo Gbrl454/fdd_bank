@@ -1,6 +1,6 @@
 $cor-azul: #044cf4;
 $cor-branco: #fff;
-$cor-cinza-clarissimo: #f4f4f5;
+$cor-cinza-clarissimo: #c5c5c5;
 $cor-azul-cinza-clarissimo: #52adf8;
 $cor-azul-cinza: #87b7fe;
 $cor-azul-escuro: #132190;
@@ -8,8 +8,113 @@ $cor-verde: #009900;
 $cor-vermelho: #990000;
 $size-mobile: 800px;
 
-@mixin sombra($h, $v, $r, $o) {
-  -webkit-box-shadow: $h $v $r calc($r/2) rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: $h $v $r calc($r/2) rgba(0, 0, 0, 0.5);
-  box-shadow: $h $v $r calc($r/2) rgba(0, 0, 0, 0.5);
+@mixin sombra($horizontal, $vertical, $raio, $opacity) {
+  @include sombraN($horizontal, $vertical, $raio, 0, 0, 0, $opacity);
+}
+
+@mixin sombraN($horizontal, $vertical, $raio, $red, $green, $blue, $opacity) {
+  -webkit-box-shadow: $horizontal $vertical $raio calc($raio/2)
+    rgba($red, $green, $blue, $opacity);
+
+  -moz-box-shadow: $horizontal $vertical $raio calc($raio/2)
+    rgba($red, $green, $blue, $opacity);
+
+  box-shadow: $horizontal $vertical $raio calc($raio/2)
+    rgba($red, $green, $blue, $opacity);
+}
+
+@mixin circulo($size) {
+  width: $size;
+  height: $size;
+  border-radius: $size;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 3rem;
+
+  * {
+    color: $cor-branco;
+  }
+
+  label {
+    font-size: 25px;
+    font-weight: bolder;
+    margin: 0.5rem 0;
+  }
+
+  .erro {
+    margin: 0 1rem;
+    font-size: 15px;
+    p {
+      font-weight: bold;
+      color: $cor-vermelho;
+      font-style: italic;
+    }
+  }
+
+  .line {
+    background-color: $cor-azul-escuro;
+    width: 100%;
+    height: 3px;
+    margin-bottom: 0.5rem;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    & img {
+      height: 2rem;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  & input {
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    width: 100%;
+
+    &::placeholder {
+      color: $cor-azul-escuro;
+      font-style: italic;
+      font-size: 15px;
+    }
+  }
+}
+
+.btn_off {
+  background-color: $cor-azul-cinza !important;
+  color: $cor-azul-escuro !important;
+
+  &:hover {
+    cursor: not-allowed !important;
+  }
+}
+
+.btn {
+  width: 25%;
+  height: 2.5rem;
+  border-radius: 5rem;
+  background-color: $cor-azul-escuro;
+  color: $cor-branco;
+  border: none;
+  @include sombraN(2px, 2px, 7px, 13, 21, 90, 0.5);
+
+  &:hover {
+    background-color: $cor-azul-cinza;
+    color: $cor-azul-escuro;
+    cursor: pointer;
+  }
+
+  @media (max-width: $size-mobile) {
+    width: 50%;
+  }
 }

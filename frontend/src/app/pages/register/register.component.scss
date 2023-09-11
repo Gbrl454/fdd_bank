@@ -4,134 +4,171 @@
   background-color: $cor-azul;
   height: max(100dvh, 100px);
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-
-  h1 {
-    color: $cor-branco;
-  }
-}
-
-.inputContainer {
-  display: flex;
+  align-items: stretch;
   flex-direction: column;
-  width: 50%;
-  margin: 25px 0;
-
-  label {
-    font-size: large;
-    font-weight: bolder;
-    color: $cor-azul-escuro;
-  }
-
-  .containerPassword {
-    width: 100%;
-    border-bottom: 2px solid $cor-azul-escuro;
-    input {
-      width: calc(100% - 30px);
-      border: none !important;
-    }
-  }
-
-  input {
-    font-size: large;
-    caret-color: $cor-azul-escuro;
-    outline: none;
-    padding: 10px 15px;
-    box-sizing: border-box;
-    border: none;
-    background: none;
+  & > h1 {
     color: $cor-branco;
-    border-bottom: 2px solid $cor-azul-escuro;
-
-    &::placeholder {
-      color: $cor-azul-cinza;
-      font-style: italic;
-      opacity: 50%;
-    }
+    text-align: center;
+    margin: 0 5rem;
   }
 }
 
-.lnr-eye {
-  height: 30px;
-  width: auto;
-  transform: translateY(40%);
-  cursor: pointer;
+.btnsSec {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.botao_desabilitado,
-.botao {
-  width: 20%;
-  height: 2rem;
-  font-weight: bolder;
-  border-radius: 1rem;
+.btnSec {
+  @include circulo(30px);
   border: none;
-  @include sombra(2px, 2px, 7px, 0.5);
-  transition: all 1s ease;
-}
-
-.botao {
+  @include sombraN(-3px, 4px, 3px, 0, 0, 0, 0.25);
+  margin: 0 1.5rem;
   background-color: $cor-azul-escuro;
   color: $cor-branco;
 
   &:hover {
-    background-color: $cor-azul-cinza;
-    color: $cor-azul-escuro;
-    cursor: pointer;
+    @include sombraN(-3px, 4px, 3px, 0, 0, 0, 0.5);
+    font-weight: bold;
   }
 }
 
-.botao_desabilitado {
-  background-color: $cor-azul-cinza;
-  color: $cor-azul-escuro;
+.inputContainer {
+  width: 75%;
+}
 
-  &:hover {
-    cursor: not-allowed;
+.sec {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btns {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+
+  @media (max-width: $size-mobile) {
+    flex-direction: column;
+
+    & * {
+      margin: 0.5rem;
+    }
   }
 }
 
-.link {
-  color: $cor-branco;
-  font-weight: bold;
-  padding: 1rem;
-  &:hover {
-    cursor: pointer;
+.menuConstas {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .btn {
+    width: 25%;
+    margin: 0 1rem;
+  }
+}
+
+.comboboxContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  width: 100%;
+
+  * {
+    color: $cor-branco;
+  }
+
+  label {
+    font-size: 25px;
+    font-weight: bolder;
+    margin: 0.5rem 0;
+  }
+
+  select {
+    background-color: $cor-azul-escuro;
+    height: 2.5rem;
+    appearance: none;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 15px;
+
+    option:first-child {
+      pointer-events: none;
+    }
+  }
+}
+
+.conta {
+  margin: 1rem 0;
+  width: 100%;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $cor-branco;
+    font-size: 20px;
+    font-weight: bold;
+
+    .checkbox {
+      @include circulo(20px);
+      border: none;
+      margin: 0 1rem;
+    }
+  }
+}
+
+.comboboxs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.erroComboBox {
+  width: 100%;
+  height: 1rem;
+  text-align: center;
+
+  p {
+    font-size: 15px;
+    font-weight: bold;
+    color: $cor-vermelho;
     font-style: italic;
   }
 }
 
-@media (max-width: $size-mobile) {
-  .botao_desabilitado,
-  .botao {
-    width: 45%;
-    height: 2.5rem;
-    font-weight: bolder;
-    border-radius: 1rem;
-  }
-
-  .inputContainer {
-    width: 70dvw;
-    margin: 10px 0;
-  }
-
-  .lnr-eye {
-    right: 15dvw;
-  }
+.red {
+  background-color: $cor-vermelho;
 }
 
-.mensagem_erro {
-  font-size: 15px;
-  color: red;
-  font-weight: bold;
-  font-style: italic;
-  margin-bottom: 10px;
+.green {
+  background-color: $cor-verde;
 }
 
-.form {
+.blueGray {
+  background-color: $cor-azul-cinza-clarissimo;
+}
+
+.gray {
+  background-color: $cor-cinza-clarissimo;
+}
+
+.checkboxs {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
+  justify-content: space-around;
+
+  @media (max-width: $size-mobile) {
+    flex-direction: column;
+    & * {
+      margin: 1rem 0;
+    }
+  }
 }

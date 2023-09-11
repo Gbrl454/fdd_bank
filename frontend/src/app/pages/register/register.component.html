@@ -1,137 +1,278 @@
 <section class="container">
-  <h1>Preencha os dados da Transferência</h1>
+  <h1>{{ title }}</h1>
   <form class="form" [formGroup]="formRegister">
-    <div class="inputContainer">
-      <label for="nome">Nome</label>
-      <input
-        formControlName="nome"
-        name="nome"
-        id="nome"
-        placeholder="Nome"
-        pInputText
-        maxlength="100"
-      />
-      <div
-        class="mensagem_erro"
-        *ngIf="
-          formRegister.get('nome')?.errors && formRegister.get('nome')?.touched
-        "
-      >
-        <span *ngIf="formRegister.get('nome')!.errors!['required']"
-          >Esse campo é obrigatório!</span
-        >
+    <div class="btnsSec">
+      <button class="btnSec {{ isSec(1) }}" (click)="goSec(1)" type="button">
+        1
+      </button>
+      <button class="btnSec {{ isSec(2) }}" (click)="goSec(2)" type="button">
+        2
+      </button>
+      <button class="btnSec {{ isSec(3) }}" (click)="goSec(3)" type="button">
+        3
+      </button>
+    </div>
+
+    <div *ngIf="sec == 1" class="sec">
+      <div class="inputContainer">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" placeholder="Digite seu Nome" />
+        <p class="line"></p>
+        <div class="erro">
+          <p>Esse campo é obrigatório!</p>
+        </div>
+      </div>
+
+      <div class="inputContainer">
+        <label for="email">E-Mail</label>
+        <input id="email" type="email" placeholder="Digite seu E-Mail" />
+        <p class="line"></p>
+        <div class="erro">
+          <p>Esse campo é obrigatório!</p>
+          <p>E-Mail deve ser válido!</p>
+          <p>E-Mail já cadastrado!</p>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button class="btn" routerLink="/home">Cancelar</button>
+        <button class="btn" (click)="goSec(2)">Próximo</button>
       </div>
     </div>
 
-    <div class="inputContainer">
-      <label for="email">E-Mail</label>
-      <input
-        formControlName="email"
-        name="email"
-        id="email"
-        placeholder="E-Mail"
-        pInputText
-        maxlength="100"
-      />
-      <div class="mensagem_erro" *ngIf="formRegister.get('email')?.errors">
+    <div *ngIf="sec == 2" class="sec">
+      <div class="inputContainer">
+        <label for="login">Login</label>
+        <input id="login" type="text" placeholder="Digite seu Login" />
+        <p class="line"></p>
+        <div class="erro">
+          <p>Esse campo é obrigatório!</p>
+          <p>Login já cadastrado!</p>
+        </div>
+      </div>
+
+      <div class="inputContainer">
+        <label for="senha">Senha</label>
+        <div class="wrapper">
+          <input
+            id="senha"
+            #passwordInput
+            type="password"
+            placeholder="Digite seu Senha"
+          />
+          <img
+            src="assets/eye-{{ passwordEyeIs() }}.png"
+            (click)="changePasswordEye()"
+            alt="Ícone Senha"
+          />
+        </div>
+        <p class="line"></p>
+        <div class="erro">
+          <p>Esse campo é obrigatório!</p>
+          <p *ngIf="!samePassword()">As senhas devem ser iguais!</p>
+        </div>
+      </div>
+
+      <div class="inputContainer">
+        <label for="confSenha">Confirmar Senha</label>
+        <div class="wrapper">
+          <input
+            id="confSenha"
+            #confirmPasswordInput
+            type="password"
+            placeholder="Digite seu Senha"
+          />
+          <img
+            src="assets/eye-{{ confirmPasswordEyeIs() }}.png"
+            (click)="changeConfirmPasswordEye()"
+            alt="Ícone Senha"
+          />
+        </div>
+        <p class="line"></p>
+        <div class="erro">
+          <p>Esse campo é obrigatório!</p>
+          <p *ngIf="!samePassword()">As senhas devem ser iguais!</p>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button class="btn" (click)="goSec(1)">Anterior</button>
+        <button class="btn" (click)="goSec(3)">Próximo</button>
+      </div>
+    </div>
+
+    <div *ngIf="sec == 3" class="sec">
+      <div class="menuConstas">
+        <button class="btn {{isTipConta(1)}}" (click)="goTipConta(1)" type="button">NORMAL</button>
+        <button class="btn {{isTipConta(2)}}" (click)="goTipConta(2)" type="button">ESPECIAL</button>
+        <button class="btn {{isTipConta(3)}}" (click)="goTipConta(3)" type="button">PREMIUM
+        </button>
+      </div>
+
+      <div *ngIf="tipConta == 1" class="conta">
         <span
-          *ngIf="
-            formRegister.get('email')!.errors!['required'] &&
-            formRegister.get('email')?.touched
-          "
-          >Esse campo é obrigatório!</span
-        >
-        <span *ngIf="formRegister.get('email')!.errors!['email']"
-          >Esse campo deve ser preenchido com algo no formato de e-mail</span
-        >
-      </div>
-    </div>
-    <!--
-     <div class="inputContainer">
-      <label for="senha">Senha</label>
+          >Criar Conta do Tipo NORMAL?
+          <button
+            class="checkbox {{ isPossuirContaNormal() }}"
+            type="button"
+            (click)="terContaNormal()"
+          ></button
+        ></span>
+        <div class="register" *ngIf="possuirContaNormal">
+          <div class="comboboxs">
+            <div class="comboboxContainer">
+              <label for="banco">Banco</label>
+              <select
+                id="banco"
+                formControlName="banco"
+                (click)="onListAgencias()"
+              >
+                <option disabled [ngValue]="null">Escolha um Banco</option>
+                <option *ngFor="let banco of bancos" [value]="banco.id">
+                  {{ banco.id }} | {{ banco.nome }} | {{ banco.pais.nome }}
+                </option>
+              </select>
+            </div>
 
-        <input
-          #passwordInput
-          type="password"
-          id="senha"
-          formControlName="senha"
-          placeholder="Digite sua Senha"
-        />
-        <img
-          src="assets/eye-{{ passwordEyeIs() }}.png"
-          class="lnr-eye"
-          (click)="changePasswordEye()"
-        />
+            <div class="comboboxContainer">
+              <label for="agencia">Agência</label>
+              <select id="agencia" formControlName="agencia">
+                <option disabled [ngValue]="null">Escolha um Agência</option>
+                <option *ngFor="let agencia of agencias">
+                  {{ agencia.id }} | {{ agencia.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="erroComboBox">
+            <p *ngIf="this.agencias.length == 0 && idBanco >= 1">
+              Esse Banco não Possui Agências Cadastradas
+            </p>
+          </div>
+        </div>
       </div>
-      <div *ngIf="formRegister.get('senha')?.errors && !senhasIguais()">
+
+      <div *ngIf="tipConta == 2" class="conta">
         <span
-          *ngIf="
-            formRegister.get('senha')!.errors!['required'] &&
-            formRegister.get('senha')?.touched
-          "
-          >Esse campo é obrigatório!</span
-        >
-        <span *ngIf="!senhasIguais()">As senhas devem ser iguais!</span>
-      </div> -->
+          >Criar Conta do Tipo ESPECIAL?
+          <button
+            class="checkbox {{ isPossuirContaEspecial() }}"
+            type="button"
+            (click)="terContaEspecial()"
+          ></button
+        ></span>
+        <div class="register" *ngIf="possuirContaEspecial">
+          <div class="comboboxs">
+            <div class="comboboxContainer">
+              <label for="banco">Banco</label>
+              <select
+                id="banco"
+                formControlName="banco"
+                (click)="onListAgencias()"
+              >
+                <option disabled [ngValue]="null">Escolha um Banco</option>
+                <option *ngFor="let banco of bancos" [value]="banco.id">
+                  {{ banco.id }} | {{ banco.nome }} | {{ banco.pais.nome }}
+                </option>
+              </select>
+            </div>
 
-    <div class="inputContainer">
-      <label for="senha">Senha</label>
-      <div class="containerPassword">
-        <input
-          formControlName="senha"
-          name="senha"
-          id="senha"
-          placeholder="Digite sua Senha"
-          pInputText
-          #passwordInput
-          type="password"
-          maxlength="100"
-        />
-        <img
-          src="assets/eye-{{ passwordEyeIs() }}.png"
-          class="lnr-eye"
-          (click)="changePasswordEye()"
-        />
+            <div class="comboboxContainer">
+              <label for="agencia">Agência</label>
+              <select id="agencia" formControlName="agencia">
+                <option disabled [ngValue]="null">Escolha um Agência</option>
+                <option *ngFor="let agencia of agencias">
+                  {{ agencia.id }} | {{ agencia.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="erroComboBox">
+            <p *ngIf="this.agencias.length == 0 && idBanco >= 1">
+              Esse Banco não Possui Agências Cadastradas
+            </p>
+          </div>
+
+          <div class="checkboxs">
+            <span
+              >Cartão de Crédito?
+              <button
+                class="checkbox {{ isPossuirContaEspecialCartaoDeCredito() }}"
+                type="button"
+                (click)="terContaEspecialCartaoDeCredito()"
+              ></button
+            ></span>
+          </div>
+        </div>
       </div>
-      <div class="mensagem_erro" *ngIf="formRegister.get('senha')?.errors && !senhasIguais()">
-        <span *ngIf="formRegister.get('senha')!.errors!['required'] && formRegister.get('senha')?.touched">Esse campo é obrigatório!</span>
-        <span *ngIf="!senhasIguais()">As senhas devem ser iguais!</span>
+
+      <div *ngIf="tipConta == 3" class="conta">
+        <span
+          >Criar Conta do Tipo PREMIUM?
+          <button
+            class="checkbox {{ isPossuirContaPremium() }}"
+            type="button"
+            (click)="terContaPremium()"
+          ></button
+        ></span>
+        <div class="register" *ngIf="possuirContaPremium">
+          <div class="comboboxs">
+            <div class="comboboxContainer">
+              <label for="banco">Banco</label>
+              <select
+                id="banco"
+                formControlName="banco"
+                (click)="onListAgencias()"
+              >
+                <option disabled [ngValue]="null">Escolha um Banco</option>
+                <option *ngFor="let banco of bancos" [value]="banco.id">
+                  {{ banco.id }} | {{ banco.nome }} | {{ banco.pais.nome }}
+                </option>
+              </select>
+            </div>
+
+            <div class="comboboxContainer">
+              <label for="agencia">Agência</label>
+              <select id="agencia" formControlName="agencia">
+                <option disabled [ngValue]="null">Escolha um Agência</option>
+                <option *ngFor="let agencia of agencias">
+                  {{ agencia.id }} | {{ agencia.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="erroComboBox">
+            <p *ngIf="this.agencias.length == 0 && idBanco >= 1">
+              Esse Banco não Possui Agências Cadastradas
+            </p>
+          </div>
+
+          <div class="checkboxs">
+            <span
+              >Cartão de Crédito?
+              <button
+                class="checkbox {{ isPossuirContaPremiumCartaoDeCredito() }}"
+                type="button"
+                (click)="terContaPremiumCartaoDeCredito()"
+              ></button
+            ></span>
+
+            <span
+              >Cheque Especial?
+              <button
+                class="checkbox {{ isPossuirContaPremiumLIS() }}"
+                type="button"
+                (click)="terContaPremiumLIS()"
+              ></button
+            ></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button class="btn" (click)="goSec(2)">Anterior</button>
+        <button class="btn">Cadastrar</button>
       </div>
     </div>
-
-    <div class="inputContainer">
-      <label for="confSenha">Confirmação de Senha</label>
-      <div class="containerPassword">
-        <input
-          formControlName="confSenha"
-          name="confSenha"
-          id="confSenha"
-          placeholder="Digite sua Senha"
-          pInputText
-          #confPasswordInput
-          type="password"
-          maxlength="100"
-        />
-        <img
-          src="assets/eye-{{ confPasswordEyeIs() }}.png"
-          class="lnr-eye"
-          (click)="changeConfPasswordEye()"
-        />
-      </div>
-      <div class="mensagem_erro" *ngIf="formRegister.get('confSenha')?.errors || !senhasIguais()">
-        <span *ngIf="formRegister.get('confSenha')!.errors!['required'] && formRegister.get('confSenha')?.touched">Esse campo é obrigatório!</span>
-        <span *ngIf="!senhasIguais()">As senhas devem ser iguais!</span>
-      </div>
-    </div>
-
-    <button
-      [class]="habilitarBotao()"
-      [disabled]="this.formRegister.invalid"
-      (click)="onSubmit()"
-      type="submit"
-    >
-      Cadastrar
-    </button>
-   <p class="link" routerLink="/login">Acesse sua conta</p>
   </form>
 </section>
