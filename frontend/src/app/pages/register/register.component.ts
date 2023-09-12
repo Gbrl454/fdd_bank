@@ -12,6 +12,7 @@ import { TipoConta } from 'src/app/util/enums/TipoConta';
 import { ContaService } from 'src/app/service/conta/conta.service';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { Router } from '@angular/router';
+import { Util } from 'src/app/util/util';
 
 @Component({
   selector: 'app-register',
@@ -93,7 +94,8 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private contaService: ContaService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private ut: Util
   ) {}
 
   goSec(sec: number) {
@@ -109,23 +111,6 @@ export class RegisterComponent implements OnInit {
         : '???';
   }
 
-  transformarStringParaVetor(
-    json: string
-  ): { campo: string; mensagem: string }[] {
-    try {
-      const entrada = JSON.parse(json);
-      const resultado: { campo: string; mensagem: string }[] = [];
-
-      entrada.forEach((item: { campo: any; mensagem: any }) => {
-        resultado.push({ campo: item.campo, mensagem: item.mensagem });
-      });
-
-      return resultado;
-    } catch (error) {
-      throw new Error();
-    }
-  }
-
   async onSubmit() {
     this.msgErros = {};
 
@@ -133,7 +118,7 @@ export class RegisterComponent implements OnInit {
       this.userService.register(this.user).then((data: any) => {
         if (data) {
           try {
-            const results = this.transformarStringParaVetor(data.message);
+            const results = this.ut.transformarStringParaVetor(data.message);
 
             let vNome: string[] = [];
             let vEmail: string[] = [];
@@ -173,7 +158,7 @@ export class RegisterComponent implements OnInit {
         this.contaService.register(this.contaNormal).then((data: any) => {
           if (data) {
             try {
-              const results = this.transformarStringParaVetor(data.message);
+              const results = this.ut.transformarStringParaVetor(data.message);
               console.log(results);
 
               let vBanco: string[] = [];
@@ -197,7 +182,7 @@ export class RegisterComponent implements OnInit {
         this.contaService.register(this.contaEspecial).then((data: any) => {
           if (data) {
             try {
-              const results = this.transformarStringParaVetor(data.message);
+              const results = this.ut.transformarStringParaVetor(data.message);
               console.log(results);
 
               let vBanco: string[] = [];
@@ -222,7 +207,7 @@ export class RegisterComponent implements OnInit {
         this.contaService.register(this.contaPremium).then((data: any) => {
           if (data) {
             try {
-              const results = this.transformarStringParaVetor(data.message);
+              const results = this.ut.transformarStringParaVetor(data.message);
               console.log(results);
 
               let vBanco: string[] = [];

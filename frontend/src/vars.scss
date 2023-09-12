@@ -29,6 +29,16 @@ $size-mobile: 800px;
   border-radius: $size;
 }
 
+.erro {
+  margin: 0 1rem;
+  font-size: 15px;
+  p {
+    font-weight: bold;
+    color: $cor-vermelho;
+    font-style: italic;
+  }
+}
+
 .inputContainer {
   display: flex;
   flex-direction: column;
@@ -42,16 +52,6 @@ $size-mobile: 800px;
     font-size: 25px;
     font-weight: bolder;
     margin: 0.5rem 0;
-  }
-
-  .erro {
-    margin: 0 1rem;
-    font-size: 15px;
-    p {
-      font-weight: bold;
-      color: $cor-vermelho;
-      font-style: italic;
-    }
   }
 
   .line {

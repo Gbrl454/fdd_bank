@@ -5,6 +5,9 @@
     <form class="form" [formGroup]="formLogin">
       <div class="input">
         <label for="login">Login</label>
+        <div class="erro">
+          <p>{{ error }}</p>
+        </div>
         <input
           type="text"
           id="login"
