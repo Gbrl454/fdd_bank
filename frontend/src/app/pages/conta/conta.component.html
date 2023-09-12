@@ -1,23 +1,61 @@
 <section>
+  <div class="btnsSec">
+    <button
+      *ngIf="user.contaNormal != null"
+      class="btnSec {{ isSec(1) }}"
+      (click)="goSec(1)"
+      type="button"
+    >
+      N
+    </button>
+    <button
+      *ngIf="user.contaEspecial != null"
+      class="btnSec {{ isSec(2) }}"
+      (click)="goSec(2)"
+      type="button"
+    >
+      E
+    </button>
+    <button
+      *ngIf="user.contaPremium != null"
+      class="btnSec {{ isSec(3) }}"
+      (click)="goSec(3)"
+      type="button"
+    >
+      P
+    </button>
+  </div>
+
   <div class="saldos">
-    <div class="card saldo">
+    <div *ngIf="sec != 1" class="card saldo">
       <p>Saldo Total:</p>
-      <p>XXX <span>999.999.999,99</span></p>
+      <p>
+        {{ moeda.simbolo
+        }}<span>{{ getSaldoTotal(conta) }}</span>
+      </p>
     </div>
 
     <div class="card saldo">
       <p>Saldo:</p>
-      <p>XXX <span>999.999.999,99</span></p>
+      <p>
+        {{ moeda.simbolo }} <span>{{ conta.saldo }}</span>
+      </p>
     </div>
 
-    <div class="card saldo">
+    <div *ngIf="sec == 3" class="card saldo">
       <p>Cheque Especial:</p>
-      <p>XXX <span>999.999.999,99</span></p>
+      <p>
+        {{ moeda.simbolo }}
+        <span>{{ conta.saldoLis }}</span>
+      </p>
     </div>
 
-    <div class="card saldo">
+    <div *ngIf="sec != 1" class="card saldo">
       <p>Cartão de Crédito:</p>
-      <p>XXX <span>999.999.999,99</span></p>
+      <p>
+        {{ moeda.simbolo }}
+        <span>{{ conta.saldoCartaoDeCredito }}</span>
+      </p>
     </div>
   </div>
 

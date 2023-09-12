@@ -23,4 +23,21 @@ export class UserService {
       );
     });
   }
+
+  getUser(): Promise<any> {
+    return new Promise((resolve) => {
+      this.http.get(`${environment.api}/usuarios`).subscribe(
+        async (res: any) => {
+          resolve({
+            id: res.id,
+            nome: res.nome,
+            contas: res.detalhamentoContas,
+          });
+        },
+        (error) => {
+          resolve({ message: error.replaceAll('"', '') });
+        }
+      );
+    });
+  }
 }

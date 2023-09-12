@@ -1,14 +1,18 @@
+import { TipoConta } from 'src/app/util/enums/TipoConta';
 import { DetailMoeda } from './detailMoeda.model';
+import { DetailAgencia } from './detailAgencia.model';
+import { DetailBanco } from './detailBanco.model';
+import { DetailUser } from './detailUser.model';
 
 export interface DetailConta {
   id: number;
-  idAgencia: number;
-  idUsuario: number;
-  moeda: DetailMoeda;
+  tipo: TipoConta|null;
   saldo: number;
-  tipo: TipoConta;
-  cartao_de_credito: boolean;
-  saldo_cartao_de_credito: number;
+  cartaoDeCredito: boolean;
+  saldoCartaoDeCredito: number;
   lis: boolean;
-  saldo_lis: number;
+  saldoLis: number;
+  agencia: DetailAgencia|null;
+  banco: DetailBanco;
+  usuario: DetailUser|null;
 }

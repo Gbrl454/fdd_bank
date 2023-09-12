@@ -72,6 +72,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.goSec(this.sec);
     this.onListBancos();
+    if (window.localStorage.getItem('idUser')) this.goSec(3);
 
     this.formRegister = this.formBuilder.group({
       nome: [null, Validators.compose([Validators.required])],
@@ -98,9 +99,7 @@ export class RegisterComponent implements OnInit {
     private ut: Util
   ) {}
 
-  goSec(sec: number) {
-    if (this.sec != 3) this.sec = sec;
-
+  setTitle(sec: number) {
     this.title =
       this.sec == 1
         ? 'Preencha Seus Dados Pessoais'
@@ -111,8 +110,14 @@ export class RegisterComponent implements OnInit {
         : '???';
   }
 
+  goSec(sec: number) {
+    if (this.sec != 3) this.sec = sec;
+    this.setTitle(this.sec);
+  }
+
   async onSubmit() {
     this.msgErros = {};
+    let idUser = window.localStorage.getItem('idUser');
 
     if (this.sec != 3) {
       this.userService.register(this.user).then((data: any) => {
@@ -141,13 +146,18 @@ export class RegisterComponent implements OnInit {
           }
           if (data.message != undefined) return;
 
-          this.contaNormal.idUsuario = data.result.id;
-          this.contaEspecial.idUsuario = data.result.id;
-          this.contaPremium.idUsuario = data.result.id;
+          window.localStorage.setItem('idUser', data.result.id);
           this.goSec(3);
         }
       });
     }
+
+    this.contaNormal.idUsuario =
+      idUser == undefined ? undefined : parseInt(idUser!);
+    this.contaEspecial.idUsuario =
+      idUser == undefined ? undefined : parseInt(idUser!);
+    this.contaPremium.idUsuario =
+      idUser == undefined ? undefined : parseInt(idUser!);
 
     this.contaNormal.idAgencia = this.formRegister.get('agencia')?.value;
     this.contaEspecial.idAgencia = this.formRegister.get('agencia')?.value;
@@ -208,7 +218,6 @@ export class RegisterComponent implements OnInit {
           if (data) {
             try {
               const results = this.ut.transformarStringParaVetor(data.message);
-              console.log(results);
 
               let vBanco: string[] = [];
               for (let i = 0; i < results.length; i++) {
@@ -216,8 +225,6 @@ export class RegisterComponent implements OnInit {
                   vBanco.push(results[i].mensagem);
               }
               this.msgErros.registerUserBanco = vBanco;
-
-              console.log(results);
             } catch (error) {
               if (data.message)
                 this.msgErros.registerUserGeral = [data.message];
@@ -229,6 +236,7 @@ export class RegisterComponent implements OnInit {
       }
 
       try {
+        window.localStorage.clear();
         const result = await this.authService.login({
           login: this.user.login,
           senha: this.user.senha,

@@ -118,3 +118,40 @@ $size-mobile: 800px;
     width: 50%;
   }
 }
+
+.btnsSec {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnSec {
+  @include circulo(30px);
+  border: none;
+  @include sombraN(-3px, 4px, 3px, 0, 0, 0, 0.25);
+  margin: 0 1.5rem;
+  background-color: $cor-azul-escuro;
+  color: $cor-branco;
+
+  &:hover {
+    @include sombraN(-3px, 4px, 3px, 0, 0, 0, 0.5);
+    font-weight: bold;
+  }
+}
+
+.red {
+  background-color: $cor-vermelho;
+}
+
+.green {
+  background-color: $cor-verde;
+}
+
+.blueGray {
+  background-color: $cor-azul-cinza-clarissimo;
+}
+
+.gray {
+  background-color: $cor-cinza-clarissimo;
+}

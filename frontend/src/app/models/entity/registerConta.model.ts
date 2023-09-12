@@ -7,6 +7,6 @@ export interface RegisterConta {
   saldo_cartao_de_credito?: number;
   lis?: boolean;
   saldo_lis?: number;
-  idUsuario: number;
-  idAgencia: number;
+  idUsuario?: number;
+  idAgencia?: number;
 }
