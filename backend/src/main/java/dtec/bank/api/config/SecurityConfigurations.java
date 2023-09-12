@@ -29,6 +29,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/contas").permitAll();
                     req.requestMatchers(HttpMethod.GET, "/bancos").permitAll();
                     req.requestMatchers(HttpMethod.GET, "/bancos/*").permitAll();
                     req.requestMatchers(HttpMethod.GET, "/agencias").permitAll();

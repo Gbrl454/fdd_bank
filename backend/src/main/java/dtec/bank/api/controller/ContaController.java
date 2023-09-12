@@ -21,7 +21,7 @@ public class ContaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DadosDetalhamentoConta> cadastrar(@RequestBody @Valid DadosCadastroConta dados, @AuthenticationPrincipal Usuario logado) {
+    public ResponseEntity<DadosDetalhamentoConta> register(@RequestBody @Valid DadosCadastroConta dados, @AuthenticationPrincipal Usuario logado) {
         DadosDetalhamentoConta dto = contaService.register(dados, logado);
         return ResponseEntity.ok(dto);
     }

@@ -64,9 +64,7 @@ public class ContaService {
 
         Agencia agencia = agenciaRepository.getReferenceById(dados.idAgencia());
 
-        if (!bancoRepository.existsById(dados.idBanco())) throw new ValidacaoException(get("banco.id.notexist"));
-
-        Banco banco = bancoRepository.getReferenceById(dados.idBanco());
+        Banco banco = bancoRepository.getReferenceById(agencia.getBanco().getId());
 
         if (!usuarioRepository.existsById(idUser)) throw new ValidacaoException(get("usuario.id.notexist"));
 
@@ -80,7 +78,7 @@ public class ContaService {
             case PREMIUM -> validaContaPremium(dados, moeda);
         }
 
-        Long saldo = (long) (dados.saldo() * moeda.getMultiplicador());
+        Long saldo = (long) (((dados.saldo() == null) ? 0 : dados.saldo()) * moeda.getMultiplicador());
 
         Conta conta = new Conta(null, dados.tipo(), saldo, cartaoDeCredito, saldoCartaoDeCredito, lis, saldoLis, agencia, banco, usuario);
         contaRepository.save(conta);
@@ -110,7 +108,6 @@ public class ContaService {
             if (cartaoDeCredito) {
                 if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0)
                     saldoCartaoDeCredito = (long) (dados.saldo_cartao_de_credito() * moeda.getMultiplicador());
-                else throw new ValidacaoException(get("saldo.creditcard.informwhenhave"));
 
             } else if (dados.saldo_cartao_de_credito() != null && dados.saldo_cartao_de_credito() > 0)
                 throw new ValidacaoException(get("saldo.creditcard.informonlyhave"));
@@ -128,7 +125,6 @@ public class ContaService {
             if (lis) {
                 if (dados.saldo_lis() != null && dados.saldo_lis() > 0)
                     saldoLis = (long) (dados.saldo_lis() * moeda.getMultiplicador());
-                else throw new ValidacaoException(get("saldo.lis.informwhenhave"));
 
             } else if (dados.saldo_lis() != null && dados.saldo_lis() > 0)
                 throw new ValidacaoException(get("saldo.lis.informonlyhave"));
