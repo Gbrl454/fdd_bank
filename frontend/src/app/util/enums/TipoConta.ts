@@ -1,4 +1,4 @@
-enum TipoConta {
+export enum TipoConta {
   NORMAL,
   ESPECIAL,
   PREMIUM,

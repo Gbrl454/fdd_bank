@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/ environments/environment';
+import { RegisterConta } from 'src/app/models/entity/registerConta.model';
 import { RegisterUser } from 'src/app/models/entity/registerUser.model';
 
 @Injectable({
@@ -17,7 +18,7 @@ export class UserService {
           resolve({ result: res });
         },
         (error) => {
-          resolve({ message: error.replaceAll('"','') });
+          resolve({ message: error.replaceAll('"', '') });
         }
       );
     });

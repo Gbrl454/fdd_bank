@@ -8,6 +8,10 @@ import { RegisterConta } from 'src/app/models/entity/registerConta.model';
 import { AgenciaService } from 'src/app/service/agencia/agencia.service';
 import { BancoService } from 'src/app/service/banco/banco.service';
 import { MsgErros } from 'src/app/models/entity/MsgErros.model';
+import { TipoConta } from 'src/app/util/enums/TipoConta';
+import { ContaService } from 'src/app/service/conta/conta.service';
+import { AuthService } from 'src/app/service/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -24,38 +28,28 @@ export class RegisterComponent implements OnInit {
 
   msgErros: MsgErros = {};
 
+  possuirContaNormal: boolean = false;
   contaNormal: RegisterConta = {
-    idUser: 0,
+    tipo: TipoConta.NORMAL,
+    idUsuario: 0,
     idAgencia: 0,
-    moeda: '',
-    saldo: 0,
-    tipo: '',
-    cartao_de_credito: false,
-    saldo_cartao_de_credito: 0,
-    lis: false,
-    saldo_lis: 0,
   };
+
+  possuirContaEspecial: boolean = false;
+  possuirContaEspecialCartaoDeCredito: boolean = false;
   contaEspecial: RegisterConta = {
-    idUser: 0,
+    tipo: TipoConta.ESPECIAL,
+    idUsuario: 0,
     idAgencia: 0,
-    moeda: '',
-    saldo: 0,
-    tipo: '',
-    cartao_de_credito: false,
-    saldo_cartao_de_credito: 0,
-    lis: false,
-    saldo_lis: 0,
   };
+
+  possuirContaPremium: boolean = false;
+  possuirContaPremiumCartaoDeCredito: boolean = false;
+  possuirContaPremiumLIS: boolean = false;
   contaPremium: RegisterConta = {
-    idUser: 0,
+    tipo: TipoConta.PREMIUM,
+    idUsuario: 0,
     idAgencia: 0,
-    moeda: '',
-    saldo: 0,
-    tipo: '',
-    cartao_de_credito: false,
-    saldo_cartao_de_credito: 0,
-    lis: false,
-    saldo_lis: 0,
   };
 
   formRegister!: FormGroup;
@@ -66,12 +60,6 @@ export class RegisterComponent implements OnInit {
   bancos: DetailBanco[] = [];
   agencias: DetailAgencia[] = [];
   idBanco: number = 0;
-  possuirContaNormal: boolean = false;
-  possuirContaEspecial: boolean = false;
-  possuirContaEspecialCartaoDeCredito: boolean = false;
-  possuirContaPremium: boolean = false;
-  possuirContaPremiumCartaoDeCredito: boolean = false;
-  possuirContaPremiumLIS: boolean = false;
 
   @ViewChild('passwordInput') passwordInput: ElementRef | undefined;
   @ViewChild('confirmPasswordInput') confirmPasswordInput:
@@ -93,7 +81,6 @@ export class RegisterComponent implements OnInit {
       login: [null, Validators.compose([Validators.required])],
       senha: [null, Validators.compose([Validators.required])],
       confirmSenha: [null, Validators.compose([Validators.required])],
-
       banco: [null, Validators.compose([Validators.required])],
       agencia: [null, Validators.compose([Validators.required])],
     });
@@ -103,11 +90,14 @@ export class RegisterComponent implements OnInit {
     private bancoService: BancoService,
     private agenciaService: AgenciaService,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private contaService: ContaService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   goSec(sec: number) {
-    this.sec = sec;
+    if (this.sec != 3) this.sec = sec;
 
     this.title =
       this.sec == 1
@@ -132,48 +122,137 @@ export class RegisterComponent implements OnInit {
 
       return resultado;
     } catch (error) {
-      throw new Error('Não é uma lista');
+      throw new Error();
     }
   }
 
   async onSubmit() {
     this.msgErros = {};
-    this.userService.register(this.user).then((data: any) => {
-      if (data) {
-        try {
-          const results = this.transformarStringParaVetor(data.message);
 
-          let vNome: string[] = [];
-          let vEmail: string[] = [];
-          let vLogin: string[] = [];
-          let vSenha: string[] = [];
+    if (this.sec != 3) {
+      this.userService.register(this.user).then((data: any) => {
+        if (data) {
+          try {
+            const results = this.transformarStringParaVetor(data.message);
 
-          for (let i = 0; i < results.length; i++) {
-            if (results[i].campo == 'nome') vNome.push(results[i].mensagem);
-            if (results[i].campo == 'email') vEmail.push(results[i].mensagem);
-            if (results[i].campo == 'login') vLogin.push(results[i].mensagem);
-            if (results[i].campo == 'senha') vSenha.push(results[i].mensagem);
+            let vNome: string[] = [];
+            let vEmail: string[] = [];
+            let vLogin: string[] = [];
+            let vSenha: string[] = [];
+
+            for (let i = 0; i < results.length; i++) {
+              if (results[i].campo == 'nome') vNome.push(results[i].mensagem);
+              if (results[i].campo == 'email') vEmail.push(results[i].mensagem);
+              if (results[i].campo == 'login') vLogin.push(results[i].mensagem);
+              if (results[i].campo == 'senha') vSenha.push(results[i].mensagem);
+            }
+            this.msgErros.registerUserNome = vNome;
+            this.msgErros.registerUserEmail = vEmail;
+            this.msgErros.registerUserLogin = vLogin;
+            this.msgErros.registerUserSenha = vSenha;
+            return;
+          } catch (error) {
+            if (data.message) this.msgErros.registerUserGeral = [data.message];
           }
-          this.msgErros.registerUserNome = vNome;
-          this.msgErros.registerUserEmail = vEmail;
-          this.msgErros.registerUserLogin = vLogin;
-          this.msgErros.registerUserSenha = vSenha;
-          return;
-        } catch (error) {
-          if (data.message) this.msgErros.registerUserGeral = [data.message];
+          if (data.message != undefined) return;
+
+          this.contaNormal.idUsuario = data.result.id;
+          this.contaEspecial.idUsuario = data.result.id;
+          this.contaPremium.idUsuario = data.result.id;
+          this.goSec(3);
         }
-        if (data.message != undefined) return;
+      });
+    }
 
-        // Usuario Cadastrado
-        console.log(data.result.id);
+    this.contaNormal.idAgencia = this.formRegister.get('agencia')?.value;
+    this.contaEspecial.idAgencia = this.formRegister.get('agencia')?.value;
+    this.contaPremium.idAgencia = this.formRegister.get('agencia')?.value;
+
+    if (this.sec == 3) {
+      if (this.possuirContaNormal) {
+        this.contaService.register(this.contaNormal).then((data: any) => {
+          if (data) {
+            try {
+              const results = this.transformarStringParaVetor(data.message);
+              console.log(results);
+
+              let vBanco: string[] = [];
+              for (let i = 0; i < results.length; i++) {
+                if (results[i].campo == 'idBanco')
+                  vBanco.push(results[i].mensagem);
+              }
+              this.msgErros.registerUserBanco = vBanco;
+
+              console.log(results);
+            } catch (error) {
+              this.msgErros.registerUserGeral = ['Erro ao Cadastrar Conta(s)'];
+              return;
+            }
+            if (data.message != undefined) return;
+          }
+        });
       }
-    });
-    // console.log(this.msgErros);
-    // console.log(this.user);
 
-    // console.log(this.contaNormal);
-    // console.log(this.contaEspecial);
-    // console.log(this.contaPremium);
+      if (this.possuirContaEspecial) {
+        this.contaService.register(this.contaEspecial).then((data: any) => {
+          if (data) {
+            try {
+              const results = this.transformarStringParaVetor(data.message);
+              console.log(results);
+
+              let vBanco: string[] = [];
+              for (let i = 0; i < results.length; i++) {
+                if (results[i].campo == 'idBanco')
+                  vBanco.push(results[i].mensagem);
+              }
+              this.msgErros.registerUserBanco = vBanco;
+
+              console.log(results);
+            } catch (error) {
+              if (data.message)
+                this.msgErros.registerUserGeral = [data.message];
+              return;
+            }
+            if (data.message != undefined) return;
+          }
+        });
+      }
+
+      if (this.possuirContaPremium) {
+        this.contaService.register(this.contaPremium).then((data: any) => {
+          if (data) {
+            try {
+              const results = this.transformarStringParaVetor(data.message);
+              console.log(results);
+
+              let vBanco: string[] = [];
+              for (let i = 0; i < results.length; i++) {
+                if (results[i].campo == 'idBanco')
+                  vBanco.push(results[i].mensagem);
+              }
+              this.msgErros.registerUserBanco = vBanco;
+
+              console.log(results);
+            } catch (error) {
+              if (data.message)
+                this.msgErros.registerUserGeral = [data.message];
+              return;
+            }
+            if (data.message != undefined) return;
+          }
+        });
+      }
+
+      try {
+        const result = await this.authService.login({
+          login: this.user.login,
+          senha: this.user.senha,
+        });
+        this.router.navigate(['']);
+      } catch (error) {
+        this.router.navigate(['/login']);
+      }
+    }
   }
 
   isSec(sec: number) {
@@ -215,6 +294,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onListBancos() {
+    this.msgErros.registerUserBanco = [];
     this.bancoService.listAll().then((data: any) => {
       if (data) {
         if (data.result instanceof Array) this.bancos = data.result;
@@ -230,6 +310,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onListAgencias() {
+    this.msgErros.registerUserAgencia = [];
     this.agencias = [];
     this.idBanco = this.formRegister.get('banco')?.value;
 
@@ -268,6 +349,8 @@ export class RegisterComponent implements OnInit {
   terContaEspecialCartaoDeCredito() {
     this.possuirContaEspecialCartaoDeCredito =
       !this.possuirContaEspecialCartaoDeCredito;
+    this.contaEspecial.cartao_de_credito =
+      this.possuirContaEspecialCartaoDeCredito;
   }
 
   isPossuirContaEspecialCartaoDeCredito(): string {
@@ -285,6 +368,8 @@ export class RegisterComponent implements OnInit {
   terContaPremiumCartaoDeCredito() {
     this.possuirContaPremiumCartaoDeCredito =
       !this.possuirContaPremiumCartaoDeCredito;
+    this.contaPremium.cartao_de_credito =
+      this.possuirContaPremiumCartaoDeCredito;
   }
 
   isPossuirContaPremiumCartaoDeCredito(): string {
@@ -293,9 +378,27 @@ export class RegisterComponent implements OnInit {
 
   terContaPremiumLIS() {
     this.possuirContaPremiumLIS = !this.possuirContaPremiumLIS;
+    this.contaPremium.lis = this.possuirContaPremiumLIS;
   }
 
   isPossuirContaPremiumLIS(): string {
     return this.possuirContaPremiumLIS ? 'green' : 'red';
+  }
+
+  habilitarBotaoSteps1(): string {
+    return !this.formRegister.get('nome')?.invalid &&
+      !this.formRegister.get('email')?.invalid &&
+      !this.formRegister.get('login')?.invalid &&
+      !this.formRegister.get('senha')?.invalid &&
+      !this.formRegister.get('confirmSenha')?.invalid
+      ? ''
+      : 'btn_off';
+  }
+
+  habilitarBotaoSteps2(): string {
+    return !this.formRegister.get('banco')?.invalid &&
+      !this.formRegister.get('agencia')?.invalid
+      ? ''
+      : 'btn_off';
   }
 }

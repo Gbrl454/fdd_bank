@@ -3,15 +3,16 @@
   <h1 class="erro">{{ msgErros.registerUserGeral }}</h1>
   <form class="form" [formGroup]="formRegister">
     <div class="btnsSec">
-      <button class="btnSec {{ isSec(1) }}" (click)="goSec(1)" type="button">
-        1
-      </button>
-      <button class="btnSec {{ isSec(2) }}" (click)="goSec(2)" type="button">
-        2
-      </button>
-      <button class="btnSec {{ isSec(3) }}" (click)="goSec(3)" type="button">
-        3
-      </button>
+      <button
+        class="btnSec {{ isSec(1) }}"
+        (click)="goSec(1)"
+        type="button"
+      ></button>
+      <button
+        class="btnSec {{ isSec(2) }}"
+        (click)="goSec(2)"
+        type="button"
+      ></button>
     </div>
 
     <div *ngIf="sec == 1" class="sec">
@@ -182,7 +183,20 @@
 
       <div class="btns">
         <button class="btn" (click)="goSec(1)">Anterior</button>
-        <button class="btn" (click)="goSec(3)">Próximo</button>
+        <button
+          class="btn"
+          [class]="habilitarBotaoSteps1()"
+          [disabled]="
+            this.formRegister.get('nome')?.invalid ||
+            this.formRegister.get('email')?.invalid ||
+            this.formRegister.get('login')?.invalid ||
+            this.formRegister.get('senha')?.invalid ||
+            this.formRegister.get('confirmSenha')?.invalid
+          "
+          (click)="onSubmit()"
+        >
+          Cadastrar
+        </button>
       </div>
     </div>
 
@@ -240,7 +254,7 @@
               <label for="agencia">Agência</label>
               <select id="agencia" formControlName="agencia">
                 <option disabled [ngValue]="null">Escolha um Agência</option>
-                <option *ngFor="let agencia of agencias">
+                <option *ngFor="let agencia of agencias" [value]="agencia.id">
                   {{ agencia.id }} | {{ agencia.nome }}
                 </option>
               </select>
@@ -282,17 +296,15 @@
               <label for="agencia">Agência</label>
               <select id="agencia" formControlName="agencia">
                 <option disabled [ngValue]="null">Escolha um Agência</option>
-                <option *ngFor="let agencia of agencias">
+                <option *ngFor="let agencia of agencias" [value]="agencia.id">
                   {{ agencia.id }} | {{ agencia.nome }}
                 </option>
               </select>
             </div>
           </div>
           <div class="erroComboBox">
-            <p *ngIf="this.bancos.length == 0">Não há Bancos Cadastrados</p>
-            <p *ngIf="this.agencias.length == 0 && idBanco >= 1">
-              Esse Banco não Possui Agências Cadastradas
-            </p>
+            <p>{{ msgErros.registerUserBanco }}</p>
+            <p>{{ msgErros.registerUserAgencia }}</p>
           </div>
 
           <div class="checkboxs">
@@ -337,17 +349,15 @@
               <label for="agencia">Agência</label>
               <select id="agencia" formControlName="agencia">
                 <option disabled [ngValue]="null">Escolha um Agência</option>
-                <option *ngFor="let agencia of agencias">
+                <option *ngFor="let agencia of agencias" [value]="agencia.id">
                   {{ agencia.id }} | {{ agencia.nome }}
                 </option>
               </select>
             </div>
           </div>
           <div class="erroComboBox">
-            <p *ngIf="this.bancos.length == 0">Não há Bancos Cadastrados</p>
-            <p *ngIf="this.agencias.length == 0 && idBanco >= 1">
-              Esse Banco não Possui Agências Cadastradas
-            </p>
+            <p>{{ msgErros.registerUserBanco }}</p>
+            <p>{{ msgErros.registerUserAgencia }}</p>
           </div>
 
           <div class="checkboxs">
@@ -373,8 +383,17 @@
       </div>
 
       <div class="btns">
-        <button class="btn" (click)="goSec(2)">Anterior</button>
-        <button class="btn" (click)="onSubmit()">Cadastrar</button>
+        <button
+          class="btn"
+          [class]="habilitarBotaoSteps2()"
+          [disabled]="
+            this.formRegister.get('banco')?.invalid ||
+            this.formRegister.get('agencia')?.invalid
+          "
+          (click)="onSubmit()"
+        >
+          Cadastrar Conta(s)
+        </button>
       </div>
     </div>
   </form>
