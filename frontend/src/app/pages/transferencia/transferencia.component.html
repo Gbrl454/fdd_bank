@@ -1,10 +1,12 @@
 <section class="container">
   <h1>Preencha os dados da Transferência</h1>
+  <h1 class="erro">{{ msgErros.transfGeral }}</h1>
   <form class="form" [formGroup]="formTransf">
     <div class="inputContainer">
       <label for="valor">Valor que Será Enviado</label>
       <p-inputNumber
         class="input"
+        [(ngModel)]="transf.valor"
         formControlName="valor"
         inputId="minmaxfraction"
         mode="decimal"
@@ -17,15 +19,35 @@
         [maxlength]="12"
       >
       </p-inputNumber>
-      <div
-        class="mensagem_erro"
-        *ngIf="
-          formTransf.get('valor')?.errors && formTransf.get('valor')?.touched
-        "
-      >
-        <span *ngIf="formTransf.get('valor')!.errors!['required']"
-          >Esse campo é obrigatório!</span
+      <div class="erro">
+        <p
+          *ngIf="
+            formTransf.get('valor')?.errors &&
+            formTransf.get('valor')?.touched &&
+            (formTransf.get('valor')?.errors)!['required']
+          "
         >
+          Esse campo é obrigatório!
+        </p>
+        <p
+          *ngIf="
+            formTransf.get('valor')?.errors &&
+            formTransf.get('valor')?.touched &&
+            (formTransf.get('valor')?.errors)!['min']
+          "
+        >
+          O Valor da Transferência deve ser Maior que Zero (0)!
+        </p>
+        <p
+          *ngIf="
+            formTransf.get('valor')?.errors &&
+            formTransf.get('valor')?.touched &&
+            (formTransf.get('valor')?.errors)!['max']
+          "
+        >
+          O Valor da Transferência deve ser Menor que Um Trilhão
+          (1.000.000.000,00)!
+        </p>
       </div>
     </div>
 
@@ -33,6 +55,7 @@
       <label for="idConta">ID da Conta de Destino</label>
       <p-inputNumber
         class="input"
+        [(ngModel)]="transf.idDConta"
         formControlName="idDestino"
         name="idConta"
         id="idConta"
@@ -44,18 +67,47 @@
         [maxlength]="9"
       >
       </p-inputNumber>
-      <div
-        class="mensagem_erro"
-        *ngIf="
-          formTransf.get('idDestino')?.errors &&
-          formTransf.get('idDestino')?.touched
-        "
-      >
-        <span *ngIf="formTransf.get('idDestino')!.errors!['required']"
-          >Esse campo é obrigatório!</span
+      <div class="erro">
+        <p
+          *ngIf="
+            formTransf.get('conta')?.errors &&
+            formTransf.get('conta')?.touched &&
+            (formTransf.get('conta')?.errors)!['required']
+          "
         >
+          Esse campo é obrigatório!
+        </p>
       </div>
     </div>
+
+    <div class="btnsSec">
+      <button
+        *ngIf="user.contaNormal != null"
+        class="btnSec {{ isSec(1) }}"
+        (click)="goSec(1)"
+        type="button"
+      >
+        N
+      </button>
+      <button
+        *ngIf="user.contaEspecial != null"
+        class="btnSec {{ isSec(2) }}"
+        (click)="goSec(2)"
+        type="button"
+      >
+        E
+      </button>
+      <button
+        *ngIf="user.contaPremium != null"
+        class="btnSec {{ isSec(3) }}"
+        (click)="goSec(3)"
+        type="button"
+      >
+        P
+      </button>
+    </div>
+
+    <p *ngIf="sucesso">Transferido com Sucesso</p>
 
     <button
       [class]="habilitarBotao()"

@@ -155,3 +155,8 @@ $size-mobile: 800px;
 .gray {
   background-color: $cor-cinza-clarissimo;
 }
+
+.erro {
+  color: $cor-vermelho !important;
+  font-style: italic;
+}

@@ -137,6 +137,8 @@ export class ContaComponent implements OnInit {
       let data: DetailTransf[] = [];
       for (let i = 0; i < dataAux.length; i++) {
         data.push(dataAux[i]);
+        console.log(data.length);
+        console.log(data[data.length - 1].horarioTranferencia);
       }
       this.transferencias = data;
     });

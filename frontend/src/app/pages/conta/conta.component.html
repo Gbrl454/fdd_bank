@@ -1,5 +1,6 @@
 <section>
   <div class="btnsSec">
+    <h1>Tipos de Conta:</h1>
     <button
       *ngIf="user.contaNormal != null"
       class="btnSec {{ isSec(1) }}"
@@ -30,8 +31,7 @@
     <div *ngIf="sec != 1" class="card saldo">
       <p>Saldo Total:</p>
       <p>
-        {{ moeda.simbolo
-        }}<span>{{ getSaldoTotal(conta) }}</span>
+        {{ moeda.simbolo }}<span>{{ getSaldoTotal(conta) }}</span>
       </p>
     </div>
 
@@ -60,15 +60,7 @@
   </div>
 
   <div class="card extrato">
-    <h1>
-      <label for="pesquisa">Extrado:</label>
-      <input
-        id="pesquisa"
-        class="pesquisa"
-        placeholder="Pesquise uma Transferência"
-        type="text"
-      />
-    </h1>
+    <h1>Extrato</h1>
     <div class="line"></div>
     <div
       class="transferencias"
@@ -82,13 +74,13 @@
         >
 
         <div class="individuos">
-          <span>De: {{ transferencia.nomeUserContaOrigem }}</span>
-          <span>Para: {{ transferencia.nomeUserContaDestino }}</span>
+          <span>De: {{ transferencia.ContaOrigem.usuario?.nome }}</span>
+          <span>Para: {{ transferencia.ContaDestino.usuario?.nome }}</span>
         </div>
 
-        <span class="horario">
-          {{ transferencia.horarioTranferencia | date : "dd/MM/yyyy HH:mm" }}
-        </span>
+        <!-- <span class="horario">
+          {{ transferencia.horarioTranferencia | date : "dd/MM/yyyy HH:mm z" }}
+        </span> -->
 
         <div class="realizado" [ngClass]="sucessoClass(transferencia)">
           {{ sucessoMsg(transferencia) }}

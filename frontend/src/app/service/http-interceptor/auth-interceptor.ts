@@ -18,11 +18,13 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = this.authService.getAuthorizationToken();
     let request: HttpRequest<any> = req;
 
+    const date = new Date();
     if (token && !this.authService.isTokenExpired(token)) {
       request = req.clone({
         headers: req.headers
           .set('Access-Control-Allow-Origin', '*')
-          .set('Authorization', `Bearer ${token}`),
+          .set('Authorization', `Bearer ${token}`)
+          .set('Zn', `${date.getTimezoneOffset() / 60}`),
       });
     }
 

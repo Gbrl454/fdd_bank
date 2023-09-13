@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -47,17 +49,23 @@ public class TransferenciaService {
     }
 
     public DadosDetalhamentoTransferencia register(DadosCadastroTransferencia dados, Usuario logado) {
-        Long idOConta;
+        Long idOConta = 0L;
+        TipoConta tipoConta = dados.tipoConta();
+
         if (dados.idOConta() == null) {
             List<DadosDetalhamentoConta> listConta = contaRepository.findAllByIdUsuario(logado.getId());
 
             if (listConta.isEmpty()) throw new ValidacaoException(get("conta.list.empty.byidusuario"));
-            if (listConta.size() > 1) throw new ValidacaoException(get("conta.list.several"));
+            if (listConta.size() > 1) {
+                if (tipoConta == null) throw new ValidacaoException(get("conta.list.several"));
 
-            idOConta = listConta.get(0).id();
+                for (DadosDetalhamentoConta dadosDetalhamentoConta : listConta) {
+                    if (dadosDetalhamentoConta.tipo() == tipoConta) idOConta = dadosDetalhamentoConta.id();
+                }
+            } else idOConta = listConta.get(0).id();
         } else idOConta = dados.idOConta();
 
-        if ((idOConta != null && !contaRepository.existsById(idOConta)))
+        if ((idOConta == null || idOConta == 0 || !contaRepository.existsById(idOConta)))
             throw new ValidacaoException(get("conta.origem.notexist"));
 
         if (!contaRepository.existsById(dados.idDConta()))
@@ -68,6 +76,9 @@ public class TransferenciaService {
 
         Conta oConta = contaRepository.getReferenceById(idOConta);
         Conta dConta = contaRepository.getReferenceById(dados.idDConta());
+
+        if (oConta.getTipo() != tipoConta) throw new ValidacaoException(get("conta.tipo.notequals"));
+
         long valor = (long) (dados.valor() * oConta.getBanco().getPais().getMoeda().getMultiplicador());
 
         Transferencia transferencia;
@@ -119,7 +130,9 @@ public class TransferenciaService {
     }
 
     public List<DadosDetalhamentoTransferencia> listAll(Usuario logado) {
-        List<DadosDetalhamentoTransferencia> list = transferenciaRepository.findAll().stream().map(DadosDetalhamentoTransferencia::new).toList();
+        List<DadosDetalhamentoTransferencia> list =  transferenciaRepository.findAllByIdUsuario(logado.getId());
+
+
 
         if (list.isEmpty()) throw new ValidacaoException(get("transferencia.list.empty.all"));
 
@@ -129,7 +142,6 @@ public class TransferenciaService {
     public DadosDetalhamentoTransferencia transferenciaById(Long idTransferencia) {
         if (!transferenciaRepository.existsById(idTransferencia))
             throw new ValidacaoException(get("transferencia.id.notexist"));
-
         return new DadosDetalhamentoTransferencia(transferenciaRepository.getReferenceById(idTransferencia));
     }
 }

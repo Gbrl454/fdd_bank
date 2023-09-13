@@ -26,4 +26,17 @@ public record DadosDetalhamentoTransferencia(
                 transferencia.getHorario_tranferencia()
         );
     }
+
+    public DadosDetalhamentoTransferencia(DadosDetalhamentoTransferencia dados,LocalDateTime date) {
+        this(
+                dados.id(),
+                dados.sucesso(),
+               dados.motivo(),
+                dados.valor(),
+                dados.ContaOrigem(),
+                dados.ContaDestino(),
+                dados.moeda(),
+                date
+        );
+    }
 }

@@ -1,3 +1,4 @@
+import { DetailConta } from './detailConta.model';
 import { DetailMoeda } from './detailMoeda.model';
 
 export interface DetailTransf {
@@ -5,8 +6,8 @@ export interface DetailTransf {
   sucesso: boolean;
   motivo?: string;
   valor: number;
-  nomeUserContaOrigem: string;
-  nomeUserContaDestino: string;
+  ContaOrigem: DetailConta;
+  ContaDestino: DetailConta;
   moeda: DetailMoeda;
   horarioTranferencia: Date;
 }

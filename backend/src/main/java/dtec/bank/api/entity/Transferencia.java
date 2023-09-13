@@ -54,4 +54,9 @@ public class Transferencia {
     public void setHorario_tranferencia() {
         this.horario_tranferencia = LocalDateTime.now(ZoneId.of("UTC-0"));
     }
+
+
+    public void setHorario_tranferencia(LocalDateTime localDateTime) {
+        this.horario_tranferencia = localDateTime;
+    }
 }
