@@ -13,13 +13,12 @@ export class AuthService {
   constructor(private router: Router, private http: HttpClient) {}
 
   async login(user: Auth) {
-    console.log(user);
-
     const result = await this.http
       .post<any>(`${environment.api}/login`, user)
       .toPromise();
     if (result && result.token) {
       window.localStorage.setItem('token', result.token);
+      window.localStorage.setItem('idUser', result.id);
       return true;
     }
 

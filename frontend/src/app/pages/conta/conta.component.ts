@@ -86,9 +86,10 @@ export class ContaComponent implements OnInit {
           if (this.user.contaPremium !== undefined) this.goSec(3);
           if (this.user.contaEspecial !== undefined) this.goSec(2);
           if (this.user.contaNormal !== undefined) this.goSec(1);
+
+          window.localStorage.removeItem('idUser');
           return;
         } catch (error) {
-          window.localStorage.setItem('idUser', `${this.user.id}`);
           this.router.navigate(['/register']);
         }
         if (data.message != undefined) return;

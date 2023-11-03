@@ -32,8 +32,8 @@ public class TransferenciaController {
     }
 
     @GetMapping("/{idTransferencia}")
-    public ResponseEntity<DadosDetalhamentoTransferencia> detailtransferencia(@PathVariable Long idTransferencia) {
-        DadosDetalhamentoTransferencia dto = transferenciaService.transferenciaById(idTransferencia);
+    public ResponseEntity<DadosDetalhamentoTransferencia> detailtransferencia(@AuthenticationPrincipal Usuario logado,@PathVariable Long idTransferencia) {
+        DadosDetalhamentoTransferencia dto = transferenciaService.transferenciaById(idTransferencia,logado);
         return ResponseEntity.ok(dto);
     }
 }

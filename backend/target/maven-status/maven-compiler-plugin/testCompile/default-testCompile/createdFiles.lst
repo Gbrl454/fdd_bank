@@ -1,3 +1,7 @@
-dtec\bank\api\ApiApplicationTests.class
-dtec\bank\api\service\AgenciaServiceTest.class
-dtec\bank\api\service\BancoServiceTest.class
+dtec/bank/api/service/TransferenciaServiceTest.class
+dtec/bank/api/service/BancoServiceTest.class
+dtec/bank/api/ConfigTests.class
+dtec/bank/api/MessageTests.class
+dtec/bank/api/service/UsuarioServiceTest.class
+dtec/bank/api/service/AgenciaServiceTest.class
+dtec/bank/api/service/ContaServiceTest.class

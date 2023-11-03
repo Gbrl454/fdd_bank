@@ -47,13 +47,7 @@ public class ContaService {
     }
 
     public DadosDetalhamentoConta register(DadosCadastroConta dados) {
-        return register(dados, null);
-    }
-
-    public DadosDetalhamentoConta register(DadosCadastroConta dados, Usuario logado) {
-        Long idUser = (dados.idUsuario() == null) ? logado.getId() : dados.idUsuario();
-
-        List<DadosDetalhamentoConta> contas = contaRepository.findAllByIdUsuario(idUser);
+        List<DadosDetalhamentoConta> contas = contaRepository.findAllByIdUsuario(dados.idUsuario());
 
         if (contas.size() >= 3) throw new ValidacaoException(get("conta.register.max"));
 
@@ -66,9 +60,9 @@ public class ContaService {
 
         Banco banco = bancoRepository.getReferenceById(agencia.getBanco().getId());
 
-        if (!usuarioRepository.existsById(idUser)) throw new ValidacaoException(get("usuario.id.notexist"));
+        if (!usuarioRepository.existsById(dados.idUsuario())) throw new ValidacaoException(get("usuario.id.notexist"));
 
-        Usuario usuario = usuarioRepository.getReferenceById(idUser);
+        Usuario usuario = usuarioRepository.getReferenceById(dados.idUsuario());
 
         Moeda moeda = banco.getPais().getMoeda();
 

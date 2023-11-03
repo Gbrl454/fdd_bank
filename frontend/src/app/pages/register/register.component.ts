@@ -72,7 +72,8 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.goSec(this.sec);
     this.onListBancos();
-    if (window.localStorage.getItem('idUser')) this.goSec(3);
+
+    if (window.localStorage.getItem('token')) this.goSec(3);
 
     this.formRegister = this.formBuilder.group({
       nome: [null, Validators.compose([Validators.required])],
@@ -117,7 +118,6 @@ export class RegisterComponent implements OnInit {
 
   async onSubmit() {
     this.msgErros = {};
-    let idUser = window.localStorage.getItem('idUser');
 
     if (this.sec != 3) {
       this.userService.register(this.user).then((data: any) => {
@@ -152,18 +152,18 @@ export class RegisterComponent implements OnInit {
       });
     }
 
-    this.contaNormal.idUsuario =
-      idUser == undefined ? undefined : parseInt(idUser!);
-    this.contaEspecial.idUsuario =
-      idUser == undefined ? undefined : parseInt(idUser!);
-    this.contaPremium.idUsuario =
-      idUser == undefined ? undefined : parseInt(idUser!);
-
     this.contaNormal.idAgencia = this.formRegister.get('agencia')?.value;
     this.contaEspecial.idAgencia = this.formRegister.get('agencia')?.value;
     this.contaPremium.idAgencia = this.formRegister.get('agencia')?.value;
 
     if (this.sec == 3) {
+      const idUserLocal = Number.parseInt(
+        window.localStorage.getItem('idUser')!
+      );
+      this.contaNormal.idUsuario = idUserLocal;
+      this.contaEspecial.idUsuario = idUserLocal;
+      this.contaPremium.idUsuario = idUserLocal;
+
       if (this.possuirContaNormal) {
         this.contaService.register(this.contaNormal).then((data: any) => {
           if (data) {
@@ -235,16 +235,19 @@ export class RegisterComponent implements OnInit {
         });
       }
 
+      console.log("LOGAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
       try {
-        window.localStorage.clear();
         const result = await this.authService.login({
           login: this.user.login,
           senha: this.user.senha,
         });
         this.router.navigate(['']);
-      } catch (error) {
-        this.router.navigate(['/login']);
+      } catch (e) {
+        console.log(e);
       }
+
+      this.router.navigate(['']);
     }
   }
 

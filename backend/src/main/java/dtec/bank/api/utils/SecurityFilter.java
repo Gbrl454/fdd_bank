@@ -14,7 +14,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-// Componente generico
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 

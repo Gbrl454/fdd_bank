@@ -16,9 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TransferenciaService {
@@ -130,18 +129,22 @@ public class TransferenciaService {
     }
 
     public List<DadosDetalhamentoTransferencia> listAll(Usuario logado) {
-        List<DadosDetalhamentoTransferencia> list =  transferenciaRepository.findAllByIdUsuario(logado.getId());
-
-
+        List<DadosDetalhamentoTransferencia> list = transferenciaRepository.findAllByIdUsuario(logado.getId());
 
         if (list.isEmpty()) throw new ValidacaoException(get("transferencia.list.empty.all"));
 
         return list;
     }
 
-    public DadosDetalhamentoTransferencia transferenciaById(Long idTransferencia) {
+    public DadosDetalhamentoTransferencia transferenciaById(Long idTransferencia, Usuario logado) {
         if (!transferenciaRepository.existsById(idTransferencia))
             throw new ValidacaoException(get("transferencia.id.notexist"));
-        return new DadosDetalhamentoTransferencia(transferenciaRepository.getReferenceById(idTransferencia));
+        Transferencia transferencia = transferenciaRepository.getReferenceById(idTransferencia);
+        
+        if (!Objects.equals(transferencia.getOConta().getUsuario().getId(), logado.getId()) &&
+                !Objects.equals(transferencia.getDConta().getUsuario().getId(), logado.getId()))
+            throw new ValidacaoException(get("transferencia.not.user"));
+
+        return new DadosDetalhamentoTransferencia(transferencia);
     }
 }

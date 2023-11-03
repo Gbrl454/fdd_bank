@@ -14,8 +14,6 @@ export class ContaService {
     return new Promise((resolve) => {
       this.http.post(`${environment.api}/contas`, conta).subscribe(
         async (res: any) => {
-          console.log(res);
-
           resolve({ result: res });
         },
         (error) => {

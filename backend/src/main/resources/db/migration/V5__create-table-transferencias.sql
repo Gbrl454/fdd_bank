@@ -1,4 +1,4 @@
-CREATE TABLE transferencias
+CREATE TABLE IF NOT EXISTS transferencias
 (
     id                   BIGINT    NOT NULL AUTO_INCREMENT,
     o_conta_id           BIGINT    NOT NULL,

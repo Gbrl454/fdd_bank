@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: gbrl
+      MYSQL_DATABASE: sbancario
+      MYSQL_USER: gbrl
+      MYSQL_PASSWORD: gbrl
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+
+  app:
+    depends_on:
+      - mysql
+    restart: on-failure
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/sbancario
+      SPRING_DATASOURCE_USERNAME: gbrl
+      SPRING_DATASOURCE_PASSWORD: gbrl
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8081:80"
+
+volumes:
+  db:

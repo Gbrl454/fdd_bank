@@ -1,4 +1,4 @@
-CREATE TABLE contas
+CREATE TABLE IF NOT EXISTS contas
 (
     id                      BIGINT      NOT NULL AUTO_INCREMENT,
     tipo                    VARCHAR(15) NOT NULL,

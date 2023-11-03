@@ -1,50 +1,52 @@
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosCadastroBanco.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosDetalhamentoUsuario.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\utils\Pais.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\service\AutenticacaoService.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosDetalhamentoPais.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\service\TransferenciaService.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\service\UsuarioService.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\utils\SecurityFilter.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\ApiApplication.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosDetalhamentoMoeda.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\service\TokenService.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosDetalhamentoTransferencia.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\Banco.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\controller\BancoController.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\controller\UsuarioController.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\service\BancoService.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\repository\AgenciaRepository.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\controller\AutenticacaoController.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosDetalhamentoBanco.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\service\ContaService.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\config\CorsConfiguration.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\controller\TransferenciaController.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\controller\ContaController.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\exception\ValidacaoException.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\utils\Moeda.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosTokenJWT.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\utils\BankLocateResolver.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\Conta.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\config\MessageConfiguration.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosCadastroUsuario.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\exception\TransferenciaException.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\Usuario.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\utils\TipoConta.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\controller\AgenciaController.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\service\AgenciaService.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\config\SecurityConfigurations.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosDetalhamentoAgencia.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosCadastroAgencia.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\exception\TratadorErros.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\utils\Idioma.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\Transferencia.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\repository\TransferenciaRepository.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\repository\ContaRepository.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosAutenticacao.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosCadastroConta.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\repository\BancoRepository.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosDetalhamentoConta.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\repository\UsuarioRepository.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\Agencia.java
-D:\Arquivos\DTEC\FormaÁ„o\fdd_spring_bank\src\main\java\dtec\bank\api\entity\dto\DadosCadastroTransferencia.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosDetalhamentoMoeda.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/exception/ValidacaoException.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosDetalhamentoUsuario.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/utils/Idioma.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/service/UsuarioService.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/config/CorsConfiguration.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/controller/AutenticacaoController.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/Agencia.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/config/SecurityConfigurations.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosCadastroUsuario.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosDetalhamentoBanco.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/Transferencia.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosDetalhamentoCompletoUsuario.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/service/AutenticacaoService.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/ApiApplication.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/Banco.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosAutenticacao.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/service/TokenService.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/controller/AgenciaController.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/utils/BankLocateResolver.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/utils/SecurityFilter.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosDetalhamentoPais.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/repository/AgenciaRepository.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosCadastroBanco.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosDetalhamentoConta.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosDetalhamentoTransferencia.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/exception/TratadorErros.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/repository/TransferenciaRepository.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/service/BancoService.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/controller/BancoController.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosCadastroAgencia.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/Usuario.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/utils/Moeda.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/config/MessageConfiguration.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/service/AgenciaService.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/exception/TransferenciaException.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/service/ContaService.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/controller/TransferenciaController.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosCadastroTransferencia.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/controller/ContaController.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/repository/UsuarioRepository.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/service/TransferenciaService.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/controller/UsuarioController.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/utils/TipoConta.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/repository/BancoRepository.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosCadastroConta.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosTokenJWT.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosListTransferencia.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/repository/ContaRepository.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/dto/DadosDetalhamentoAgencia.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/entity/Conta.java
+/home/951549700@adm.unifor.br/√Årea de trabalho/Cursos Formativos/fdd_bank/backend/src/main/java/dtec/bank/api/utils/Pais.java
